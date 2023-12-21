@@ -1,0 +1,49 @@
+.tableView {
+	height: calc(100% - 53px);
+	flex-shrink: 1;
+	flex-grow: 1;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.tableView header {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	padding-inline: 20px;
+	align-items: center;
+	height: 50px;
+	border-bottom: 2px solid rgb(236, 236, 236);
+}
+
+.control button {
+	margin-inline: 5px;
+	border: none;
+	padding: 4px 10px;
+	background-color: rgb(196, 3, 3);
+	border-radius: 5px;
+	color: white;
+	font-weight: 600;
+}
+
+.tableList {
+	height: calc(100% - 50px);
+	width: 100%;
+	padding: 20px 0px;
+	display: flex;
+    flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: flex-start;
+    overflow-y: scroll;
+}
+
+.tableList::-webkit-scrollbar {
+    width: 5px;
+  }
+ 
+  .tableList::-webkit-scrollbar-thumb {
+    background: rgba(51, 51, 51, 0.767) ; 
+    border-radius: 10px;
+  }

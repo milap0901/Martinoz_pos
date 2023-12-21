@@ -1,0 +1,18 @@
+.reportContainer{
+    border-top: 1px solid rgb(201, 201, 201);
+    padding: 0px 15px;
+    flex-grow: 1;
+    margin: 10px 0px;
+    overflow-y: auto;
+}
+
+.reportContainer::-webkit-scrollbar {
+    width: 5px;
+    background-color: transparent;
+  }
+ 
+  .reportContainer::-webkit-scrollbar-thumb {
+    background: rgba(151, 151, 151, 0.767) ; 
+    border-radius: 10px;
+  }
+

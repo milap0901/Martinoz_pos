@@ -1,0 +1,12 @@
+.periodContainer{
+    margin: 5px 15px;
+    background: rgb(238, 238, 238);
+    padding: 3px 15px;
+    font-size: 14px;
+    color: rgb(34, 34, 34);
+    border-radius: 6px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap:15px
+}

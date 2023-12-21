@@ -1,0 +1,16 @@
+.main{
+   display: flex;
+   flex-direction: column;
+   scroll-behavior: smooth;
+   height: 100vh;
+   min-width: 960px;
+   overflow: hidden ;
+}
+
+.loadingContainer{
+   width: 100vw;
+   height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}

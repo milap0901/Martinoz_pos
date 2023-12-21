@@ -1,0 +1,98 @@
+.liveViewNav {
+	height: 60px;
+	margin-top: 25px;
+	width: 98vw;
+	align-self: center;
+	border: 1px solid rgb(212, 212, 212);
+	border-radius: 5px;
+	display: flex;
+	flex-flow: nowrap;
+	align-items: center;
+	justify-content: flex-start;
+	box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+}
+
+.navLink {
+	text-decoration: none;
+	height: 95%;
+	display: grid;
+	place-items: center;
+	position: relative;
+	border-right: 1px solid rgb(212, 212, 212);
+	padding-inline: 30px;
+	font-size: 14px;
+	color: black;
+	font-weight: 500;
+	margin: 5px;
+	transition: all 0.2ms ease-in-out;
+}
+
+.overline {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 95%;
+	height: 4px;
+	background-color: rgb(182, 0, 0);
+}
+
+.navLink.active {
+	transform: scale(1.05);
+	border-bottom: 4px solid rgb(196, 3, 3);
+}
+
+.OrderStatusFilter {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex: 1;
+	padding-inline: 5px;
+}
+
+.filter {
+	padding: 5px 10px;
+	border: 1px solid rgb(212, 212, 212);
+	font-weight: 500;
+	font-size: 15px;
+	color: rgb(66, 66, 66);
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.badge {
+	margin-left: 10px;
+	width: 25px;
+	line-height: 25px;
+	height: 25px;
+	border-radius: 20%;
+	color: white;
+	background-color: rgb(196, 3, 3);
+	text-align: center;
+}
+
+.backBtn {
+	margin-inline: 20px;
+	padding: 5px 15px;
+	color: rgb(196, 3, 3);
+	border: 1px solid rgb(196, 3, 3);
+	border-radius: 5px;
+	text-decoration: none;
+	transition: all 100ms ease-in-out;
+}
+
+.backBtn:hover {
+	background-color: rgb(196, 3, 3);
+	color: white;
+}
+
+.filter.active {
+	background-color: rgb(196, 3, 3);
+	color: white;
+}
+
+.filter.active .badge {
+	background-color: white;
+	color: black;
+}

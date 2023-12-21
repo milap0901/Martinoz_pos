@@ -1,0 +1,34 @@
+.modal{
+   width:95vw !important;
+}
+
+   
+.modalHeader{
+   padding: 8px 15px !important;
+   font-size: 10px;
+}
+
+.modalTitle{
+   font-size: 18px !important;
+   padding-left: 10px;
+   font-weight: bold;
+}
+
+.modalBody{
+   padding: 0px;
+}
+
+.modalFooter{
+   padding: 5px 15px !important;
+}
+
+.total {
+  font-size: medium;
+  color: rgb(169, 141, 0);
+  padding-right: 20px;
+  font-weight: bold;
+}
+
+/* .modal90{
+   width: 90% !important;
+} */

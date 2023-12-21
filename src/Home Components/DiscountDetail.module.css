@@ -1,0 +1,55 @@
+.discountContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.discountContainer input {
+    padding: 5px 10px;
+    border: 1px solid rgb(194, 194, 194);
+    border-radius: 5px;
+    vertical-align: middle;
+}
+
+.discountContainer header{
+    font-weight: 500;
+    font-size: 15px;
+    color: rgb(26, 26, 26);
+}
+
+.discountDetailContainer{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap:15px
+}
+
+.discountType{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.discountType input[type="radio"] {
+	height: 17px;
+	width: 17px;
+	accent-color: red;
+}
+
+
+.discountDetailContainer label{
+    margin-left: 5px;
+    font-weight: 500;
+    font-size: 15px;
+    text-align: center;
+}
+
+.discount{
+    margin-left: auto;
+    font-weight: 500;
+   
+    color: rgb(26, 26, 26);
+    width: 80px;
+}
+
+

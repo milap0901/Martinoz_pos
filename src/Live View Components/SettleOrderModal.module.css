@@ -1,0 +1,89 @@
+.settleModalHeader {
+      padding: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      background-color: rgb(231, 231, 231);
+}
+
+.settleModalBody {
+      padding: 10px 20px !important;
+      font-size: 15px;
+      font-weight: 500;
+      min-height: 310px;
+      color: rgb(0, 0, 0);
+}
+
+.paymentOptions {
+      display: flex;
+      flex-wrap: nowrap;
+      padding: 5px 10px;
+      justify-content: space-between;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.option input,
+.option label {
+      padding: 5px 10px;
+      color: rgb(31, 31, 31);
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.option input[type="radio"] {
+    height: 17px;
+    width: 17px;
+    accent-color: red;
+}
+
+.field{
+    padding:10px 0px;
+}
+
+.field input {
+    height: 35px;
+    padding: 0px 10px;
+    font-weight: 500;
+    color: black;
+    border: 2px solid rgb(218, 218, 218);
+    width: 95%;
+    border-radius: 5px;
+}
+
+.footer button{
+    font-size: 14px;
+    padding: 7px 15px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 500;
+}
+
+.footer .saveBtn {
+    background-color: rgb(36, 36, 36);
+    color: white;
+}
+
+.footer .saveBtn:disabled{
+    background-color: grey;
+}
+
+.footer .cancelBtn{
+    background-color: white;
+    border: 1px solid rgb(90, 90, 90);
+}
+
+.field .returnAmount {
+    color: rgba(202, 0, 0, 0.932);
+}
+
+

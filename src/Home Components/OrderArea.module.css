@@ -1,0 +1,76 @@
+.orderArea{
+   background-color: white;
+   height: calc(100% - 295px);
+   flex-shrink: 1;
+   overflow-y: scroll;
+   font-size: 13px;
+   position: relative;
+}
+
+.orderArea::-webkit-scrollbar {
+   width: 5px;
+ }
+
+ .orderArea::-webkit-scrollbar-thumb {
+   background: rgba(167, 53, 53, 0.307) ; 
+   border-radius: 10px;
+ }
+
+.orderInfo{
+   background-color: rgba(191, 191, 191, 0.527);
+    padding: 5px 5px;
+    color: rgb(67, 67, 67);
+    font-size: 14px;
+    font-weight: 400;
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(9px);
+
+}
+
+.finalOrder{
+   display: flex;
+   flex-direction: column
+}
+
+.name{
+   padding-left: 5px;
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+   flex-grow: 10;
+   font-size: 14px;
+
+  
+}
+
+.qty{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   /* margin-right: 100px; */
+   min-width: 130px;
+   
+
+}
+
+.total{
+   padding-right: 10px;
+	text-align: right;
+	font-size: 14px;
+	min-width: 80px
+   
+}
+
+.emptyCart{
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.noItemsImg{
+   min-height: 200px;
+   opacity: 0.3;
+}

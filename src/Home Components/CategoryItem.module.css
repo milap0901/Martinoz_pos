@@ -1,0 +1,27 @@
+.catagoryItem {
+	border-bottom: 1px solid rgba(230, 230, 230, 0.5);
+	width: 100%;
+	font-size: 12.5px;
+	font-weight: 500;
+	white-space: nowrap;
+	padding-left: 10px;
+	padding-block: 16px;
+	color: white;
+	position: relative;
+   z-index:  1;
+}
+
+.activeCatBackdrop {
+	width: 100%;
+	height: 100%;
+	background-color: brown;
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: -1;
+}
+
+
+/* .catagoryItem.selected{
+   background-color: brown;
+} */

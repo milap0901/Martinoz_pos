@@ -1,0 +1,32 @@
+
+
+body {
+  margin: 0;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.modal-backdrop {
+  opacity: 1 !important;
+  background-color: rgba(0, 0, 0, 0.445) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+.offcanvas-backdrop.show{
+  opacity: 1 !important;
+}
+
+
+.offcanvas-backdrop {
+  background-color: rgba(0, 0, 0, 0.445) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

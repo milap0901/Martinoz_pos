@@ -1,0 +1,44 @@
+.selectPrinterMain {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 20px auto;
+	justify-content: center;
+	align-items: center;
+	width: min(75%, 1500px);
+	border: 1px solid rgb(221, 221, 221);
+	border-radius: 5px;
+	padding: 20px 25px;
+}
+
+.printerInfoField {
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	font-weight: 500;
+	padding: 8px;
+}
+
+.inputLabel {
+	flex-grow: 5;
+}
+
+.inputFied {
+	flex-grow: 7;
+	padding-inline-start: 20px;
+}
+
+.inputLabel label {
+	width: 200px;
+}
+
+.inputFied input,
+.selectField {
+	width: 300px;
+	border: 1px solid rgb(206, 206, 206);
+	height: 35px;
+	border-radius: 3px;
+	font-weight: 500;
+	padding-inline: 10px;
+	color: rgb(56, 56, 56);
+}

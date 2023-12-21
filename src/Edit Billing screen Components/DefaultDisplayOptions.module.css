@@ -1,0 +1,59 @@
+.defaultDisplayOptionBody {
+	width: 100%;
+    font-size: 16px;
+}
+
+.displayOptionsheader {
+	width: 100%;
+	padding: 20px 20px;
+	border-bottom: 2px solid rgb(231, 231, 231);
+	font-weight: 600;
+}
+
+.displayOptionsMain {
+	width: min(75%, 1200px);
+
+	margin: 25px auto;
+	border-radius: 5px;
+	border: 1px solid rgb(218, 218, 218);
+}
+
+.optionCard {
+	width: 100%;
+	display: flex;
+	flex-wrap: nowrap;
+    align-items: center;
+	margin: 30px 30px;
+	font-weight: 500;
+	color: rgb(39, 39, 39);
+}
+
+.optionNameContainer {
+    flex : 200px 3;
+    font-weight: 600;
+}
+
+.options {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
+    font-weight: 500;
+	gap: 25px;
+	flex:500px  5;
+    color: rgb(61, 61, 61);
+}
+
+.option{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    
+}
+
+.option input[type="radio"] {
+    height: 17px;
+    width: 17px;
+    accent-color: rgb(107, 107, 107);
+    margin: 0px 8px ;
+}

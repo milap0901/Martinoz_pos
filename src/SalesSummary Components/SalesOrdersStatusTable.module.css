@@ -1,0 +1,43 @@
+.tableWraper {
+	display: flex;
+	flex-direction: column;
+	padding: 5px 0px;
+}
+
+.tableWraper header{
+    padding: 5px 5px;
+	font-size: 14px;
+	font-weight: 500;
+	color: rgb(63, 63, 63);
+
+}
+
+.tableWraper table {
+	border: 1px solid rgb(201, 201, 201);
+	z-index: 100;
+	border-radius: 5px;
+	box-shadow: 0 0 0 1px #d1d1d1;
+	overflow: hidden;
+}
+
+.tableWraper table thead,
+.tableWraper table tfoot {
+	background-color: rgb(226, 226, 226);
+    padding: 5px 5px;
+	font-size: 14px;
+	font-weight: 500;
+	color: rgb(31, 31, 31);
+}
+
+.tableWraper table thead tr th,
+.tableWraper table tfoot tr th {
+	border-left: 1px solid white;
+	padding: 10px 10px;
+}
+
+.tableWraper table tbody tr td {
+	border: 1px solid rgb(211, 211, 211);
+	font-size: 14px;
+	color: rgb(49, 49, 49);
+	font-weight: 500;
+}

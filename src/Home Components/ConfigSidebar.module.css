@@ -1,0 +1,62 @@
+.ConfigSideBarMain {
+	background-color: rgba(44, 44, 44, 0.733) !important;
+	backdrop-filter: blur(6px);
+	color: white;
+	width: 300px !important;
+	padding: 20px 0px !important;
+}
+
+.ConfigSideBarHeader {
+	color: white;
+	padding-left: 32px;
+	font-size: 22px;
+	font-weight: 500;
+}
+
+.ConfigSideBarBody {
+	padding: 20px 0px !important;
+}
+
+.items {
+	display: flex;
+	width: 100%;
+	padding: 12px 25px;
+	text-decoration: none;
+	transition: all 0.2ms ease-in;
+}
+
+.items:hover {
+	background-color: rgb(80, 80, 80);
+	backdrop-filter: blur(14px);
+}
+
+.itemIcon {
+	color: white;
+	width: 28px;
+	filter: invert(100) brightness(1.6);
+}
+
+.itemName {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-left: 35px;
+	font-size: 15px;
+	font-weight: 400;
+	color: rgb(230, 230, 230);
+	text-align: center;
+	vertical-align: middle;
+}
+
+.arrow {
+	margin-left: auto;
+	color: white;
+	filter: invert(100) brightness(2.5);
+	transition: all 0.3s ease;
+}
+
+.arrow.arrowLeft {
+	filter: invert(100) brightness(2.5);
+	transform: rotateZ(-180deg);
+
+}

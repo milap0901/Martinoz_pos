@@ -1,0 +1,70 @@
+.orderPayment {
+	height: 190px;
+	background-color: rgb(67, 67, 67);
+	flex-shrink: 0;
+	position: relative;
+	z-index: 10 !important;
+}
+
+.total {
+	background-color: rgb(67, 67, 67);
+}
+
+.paymentModes {
+	background-color: rgb(111, 111, 111);
+	color: #ffffff;
+}
+
+.paymentModes input[type="radio"] {
+	height: 17px;
+	width: 17px;
+	accent-color: red;
+}
+
+button svg {
+	pointer-events: none;
+}
+
+.paymentModesCheck {
+	background-color: rgb(67, 67, 67);
+}
+
+.paymentModesCheck input[type="checkbox"] {
+	height: 17px;
+	width: 17px;
+	accent-color: red;
+}
+
+.ProcessOrderBtns button:hover {
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.paymentBreakdownToggle {
+	position: absolute;
+	left: 50%;
+	top: -15px;
+	transform: translateX(-50%);
+	width: 60px;
+	background-color: rgb(67, 67, 67);
+	border: none;
+	border-radius: 6px;
+	color: white;
+	font-weight: bolder;
+	padding-top: 5px;
+	font-size: 14px;
+	z-index: 10;
+	pointer-events: all;
+	transition: transform 0.1s ease-in-out;
+}
+
+.paymentBreakdownToggle:hover {
+	transform: translateX(-50%) scale(1.05);
+	/* transform: translateX(-50%) rotate(0.5turn); */
+}
+
+.paymentModes label {
+	display: flex;
+	align-content: flex-end;
+	align-items: center;
+	justify-content: center;
+}

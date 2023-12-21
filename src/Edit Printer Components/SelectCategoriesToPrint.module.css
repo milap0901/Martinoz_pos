@@ -1,0 +1,77 @@
+.categoryBody {
+	width: min(75%, 1500px);
+	display: flex;
+	flex-direction: column;
+	margin: 20px auto;
+	border-radius: 5px;
+	border: 1px solid rgb(211, 211, 211);
+	color: rgb(45, 45, 45);
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: rgb(236, 236, 236);
+	gap: 5px;
+	font-size: 15px;
+	font-weight: 500;
+	padding: 10px 25px;
+	border-bottom: 1px solid rgb(211, 211, 211);
+}
+
+.allCategoryCheckLebal {
+	display: flex;
+	align-items: center;
+	font-weight: 500;
+	gap: 10px;
+}
+
+.categorySelectNote {
+	color: rgb(94, 94, 94);
+	font-weight: 400;
+}
+
+.selectCategory {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 25px;
+    padding: 0px 40px;
+    font-weight: 500;
+    height: 0;
+    overflow-y: scroll;
+    transition: 0.2s all ease-in-out;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.selectCategory::-webkit-scrollbar {
+	width: 5px;
+}
+.selectCategory::-webkit-scrollbar-thumb {
+	background: rgba(100, 100, 100, 0.307);
+	border-radius: 10px;
+}
+.selectCategory.show {
+    padding: 20px 40px;
+	height: 300px;
+}
+
+.categoryBox {
+	min-width: 200px;
+}
+
+.categoryCheckLebal {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+    color: rgb(100, 100, 100);
+	gap: 10px;
+}
+
+.categoryCheckLebal.active{
+    color: rgb(53, 53, 53);
+}
+
+

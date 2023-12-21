@@ -1,0 +1,42 @@
+.tableCard{
+   
+    height: 90px;
+    width: 90px;
+    border: 2px dashed rgb(175, 175, 175);
+    margin: 15px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 5px 10px 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(49, 49, 49);
+    cursor: pointer;
+    justify-content: space-evenly;
+    transition: all 90ms ease-in-out;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.tableCard:hover{
+    /* background-color: rgb(231, 231, 231); */
+    border-color: black;
+    color: rgb(0, 0, 0);
+    transform: scale(1.05,1.05);
+}
+
+
+.tableCard:active{
+    transform: scale(1,1);
+}
+
+.message{
+    text-align: center;
+}
+
+.tableNo{
+    font-weight: 700;
+    
+
+}

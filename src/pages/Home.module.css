@@ -1,0 +1,5 @@
+.home{
+   height: calc(100% - 53px);
+   flex-shrink: 1;
+   flex-grow: 1;
+}

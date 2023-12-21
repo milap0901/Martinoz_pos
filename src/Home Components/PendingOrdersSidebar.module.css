@@ -1,0 +1,28 @@
+.holdOrderSidebar{
+    background-color: rgba(255, 255, 255, 0.123) !important;
+    backdrop-filter: blur(18px) !important;
+    border: none !important;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px !important;
+
+
+}
+
+.holdOrderHeader {
+    padding: 20px 20px;
+    font-size: 17px;
+    font-weight: 500;
+    color: rgb(39, 39, 39);
+}
+.holdOrdersBody {
+    padding: 0px 0px !important;
+    height: 100%;
+}
+
+.holdOrdersBody::-webkit-scrollbar {
+    width: 5px;
+}
+
+.holdOrdersBody::-webkit-scrollbar-thumb {
+    background: rgba(39, 39, 39, 0.753);
+    border-radius: 10px;    
+}

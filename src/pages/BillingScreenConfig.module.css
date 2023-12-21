@@ -1,0 +1,26 @@
+.ConfigurationBody {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: calc(100% - 53px);
+}
+
+.configHeader {
+	display: flex;
+	padding: 10px 20px;
+	justify-content: space-between;
+	font-weight: 500;
+	color: rgb(83, 83, 83);
+	border-bottom: 2px solid rgb(238, 238, 238);
+	align-items: center;
+	flex-grow: 0;
+}
+
+.billingScreenConfigMain {
+	display: flex;
+	width: 100%;
+	flex-grow: 1;
+	flex-wrap: wrap;
+	gap: 15px;
+	padding: 25px;
+}

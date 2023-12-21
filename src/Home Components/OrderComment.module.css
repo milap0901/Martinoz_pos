@@ -1,0 +1,35 @@
+.orderComment{
+   font-size: 13px;
+   display: flex;
+   flex-direction: column;
+   
+}
+
+/* .orderComment.show{
+   transform: scaleY(1);
+   height: 120px;
+   padding-top: 8px;
+   padding-bottom: 12px ; 
+} */
+
+.orderComment label {
+   font-size: 14px;
+   font-weight: 500;
+   color: rgb(61, 61, 61)
+}
+
+.orderComment textarea{
+   
+   font-size: 14px;
+   font-weight: 500;
+   color: rgb(61, 61, 61);
+   padding: 10px 10px;
+   margin-left:10px;
+   margin-top: 5px;
+   height: 70px;
+   width: 400px;
+   resize: horizontal;
+   border: 1px solid rgb(197, 197, 197);
+   border-radius: 5px;
+  
+}

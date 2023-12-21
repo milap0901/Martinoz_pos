@@ -1,0 +1,33 @@
+.message {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.modalControl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-top: 15px;
+}
+
+.modalControl button {
+    font-size: 13px;
+    font-weight: 500px;
+}
+
+.okBtn {
+    padding: 5px 20px;
+    background-color: rgba(43, 43, 43, 0.856);
+    color: white;
+    border: 1px solid rgba(29, 29, 29, 0.856);
+    border-radius: 5px;
+}
+
+.cancelBtn {
+    padding: 5px 15px;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+}

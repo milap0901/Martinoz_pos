@@ -1,0 +1,65 @@
+.printerConfigBody {
+	height: calc(100% - 53px);
+}
+
+.printerConfigBody header {
+	display: flex;
+	padding: 10px 20px;
+	justify-content: space-between;
+	font-weight: 500;
+	color: rgb(83, 83, 83);
+	border-bottom: 2px solid rgb(238, 238, 238);
+	align-items: center;
+}
+
+.backButton {
+	background-color: white;
+	border: 1px solid rgba(192, 0, 0, 0.932);
+	padding: 5px 15px;
+	border-radius: 5px;
+	font-size: 13;
+	font-weight: 500;
+	text-align: center;
+	vertical-align: middle;
+	transition: all 0.1s ease-in-out;
+}
+
+.backButton:hover {
+	background-color: rgba(192, 0, 0, 0.932);
+	color: white;
+}
+
+.backButton span {
+	font-size: 15px;
+}
+
+.printerConfigMain {
+	display: flex;
+	justify-content: flex-start;
+	gap: 15px;
+	padding: 25px;
+}
+
+.printerConfigOptions {
+	text-decoration: none;
+	width: 120px;
+	height: 120px;
+	display: flex;
+	justify-content: center;
+	font-size: 13px;
+	padding: 10px;
+	font-weight: 700;
+	align-items: center;
+	border-radius: 10px;
+	text-align: center;
+	background-color: rgb(233, 233, 233);
+	color: rgb(82, 82, 82);
+	transition: all 0.1s ease-in-out;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.printerConfigOptions:hover {
+	color: rgb(189, 12, 12);
+	background-color: white;
+	transform: scale(1.02);
+}

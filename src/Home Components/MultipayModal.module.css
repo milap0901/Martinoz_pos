@@ -1,0 +1,112 @@
+.modelHeader {
+	font-weight: 500;
+	color: rgb(48, 48, 48);
+	display: flex;
+	gap: 7px;
+}
+
+.prevOrderTotalContainer,
+.currentOrderTotalContainer,
+.kotTotalContainer,
+.totalContainer {
+	color: white;
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 5px 10px;
+	width: 110px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.prevOrderTotalContainer {
+	background-color: rgb(51, 51, 51);
+}
+
+.currentOrderTotalContainer {
+	background-color: rgb(51, 51, 51);
+}
+
+.kotTotalContainer {
+	background-color: rgb(51, 51, 51);
+}
+
+.totalContainer {
+	background-color: rgb(204, 13, 13);
+}
+
+.currentOrderTotalContainer,
+.kotTotalContainer,
+.prevOrderTotalContainer {
+	display: none;
+}
+
+.totalTitle {
+	color: rgb(223, 223, 223);
+	font-size: 12;
+}
+
+.totalAmount {
+	color: white;
+	font-size: 14px;
+}
+
+.multipayListCotainer {
+	display: flex;
+	flex-direction: column;
+	margin-left: 20px;
+	gap: 10px;
+	font-weight: 500;
+	font-size: 15px;
+	color: rgb(59, 59, 59);
+}
+
+.multipayLabel {
+	min-width: 80px;
+}
+
+.multipayInput {
+	padding: 5px 10px;
+	border: 1px solid rgb(194, 194, 194);
+	width: 120px;
+	border-radius: 5px;
+	vertical-align: middle;
+	font-weight: 500;
+	font-size: 15px;
+}
+
+.saveBtn,
+.closeBtn,
+.kotBtn {
+	border: none;
+	padding: 5px 20px;
+	border-radius: 5px;
+	font-weight: 500;
+	font-size: 15px;
+	color: white;
+}
+
+.error {
+	font-size: 14px;
+	font-weight: 500;
+	display: none;
+	margin-right: auto !important;
+	color: rgb(204, 13, 13);
+}
+
+.saveBtn {
+	background-color: rgb(199, 12, 12);
+}
+
+.closeBtn {
+	background-color: white;
+	color: rgb(27, 27, 27);
+	border: 1px solid rgb(129, 129, 129);
+}
+
+.kotBtn {
+	background-color: gray;
+}
+
+.operator{
+	font-size: 15px;
+	font-weight: 700;
+}

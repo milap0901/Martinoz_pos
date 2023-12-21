@@ -1,0 +1,17 @@
+.tableNumber{
+   font-size: 13px;  
+}
+
+.tableNumber input{
+   height: 35px;
+   width: 45px;
+   border: 1px solid rgb(196, 196, 196);
+   border-radius: 5px;
+   
+}
+
+.tableNumber span {
+   font-size: 14px;
+   font-weight: 500;
+   color: rgb(46, 46, 46);
+}

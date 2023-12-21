@@ -1,0 +1,20 @@
+.items{
+   flex-shrink: 5;
+   display: inline-flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   align-content: flex-start;
+   justify-content: flex-start;
+   margin-left: 15px;
+   overflow-y: scroll;
+   height: 100%;
+}
+   
+.items::-webkit-scrollbar {
+   width: 5px;
+ }
+
+ .items::-webkit-scrollbar-thumb {
+   background: rgb(128, 128, 128) ; 
+   border-radius: 10px;
+ }

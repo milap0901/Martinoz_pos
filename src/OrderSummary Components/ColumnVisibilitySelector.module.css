@@ -1,0 +1,49 @@
+.visibilityContainer {
+	margin: 5px 15px;
+	padding: 10px 10px;
+	border: 1px solid rgb(233, 233, 233);
+	border-radius: 5px;
+	z-index: 100;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 20px;
+}
+
+.columnSelectorToggleBtn {
+	display: flex;
+	background: rgba(196, 10, 10, 0.904);
+	color: rgb(255, 255, 255);
+	border: none;
+	padding: 6px 15px;
+	border-radius: 5px;
+	align-items: center;
+	gap: 10px;
+}
+
+.searchContainer input {
+	border: 1px solid rgb(150, 150, 150);
+	border-radius: 5px;
+	padding: 5px 10px;
+	font-size: 15px;
+	color: rgb(63, 63, 63);
+	font-weight: 500;
+}
+
+.searchContainer input:focus {
+	outline: 1px solid rgb(161, 161, 161);
+}
+
+.arrow {
+	margin-left: auto;
+	color: white;
+	filter: invert(100) brightness(5);
+	pointer-events: none;
+	transition: all 0.3s ease;
+}
+
+.arrow.arrowLeft {
+	filter: invert(100) brightness(5);
+	transform: rotateZ(-180deg);
+	pointer-events: none;
+}

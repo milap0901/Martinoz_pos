@@ -1,0 +1,16 @@
+.backButton {
+    background-color: white;
+    border: 1px solid rgba(192, 0, 0, 0.932);
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+    transition: all 0.1s ease-in-out;
+}
+
+.backButton:hover {
+    background-color: rgba(192, 0, 0, 0.932);
+    color: white;
+}

@@ -1,0 +1,60 @@
+.addonTital {
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 5px;
+}
+
+.modalTital {
+      font-weight: 700;
+      color: rgb(63, 63, 63);
+}
+
+.addonsName,
+.addonsTaxes {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgb(75, 75, 75);
+}
+
+.itemNote {
+      width: 100%;
+      height: 6vh;
+      font-size: 13px;
+      padding: 10px;
+      margin: 5px 5px 5px 0px;
+      resize: none;
+      border : 1px solid rgb(172, 172, 172);
+      border-radius: 5px;
+}
+
+.itemNote:focus {
+      border: none;
+}
+
+.modalBody {
+      padding: 10px 15px;
+      color: rgb(63, 63, 63);
+}
+
+.modelHeader {
+      padding: 10px 15px;
+}
+
+.closeBtn {
+      padding: 5px 20px;
+      border-radius: 5px;
+      border: 1px solid gray;
+      font-weight: 500;
+      background-color: white;
+      box-sizing: border-box;
+}
+
+.saveBtn {
+      padding: 5px 20px;
+      border-radius: 5px;
+      color: white;
+      box-sizing: border-box;
+      border: none;
+      font-weight: 500;
+      background-color: rgba(212, 0, 0, 0.842);
+}

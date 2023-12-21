@@ -1,0 +1,41 @@
+.field input {
+      height: 35px;
+      padding: 0px 10px;
+      font-weight: 500;
+      color: black;
+      border: 2px solid rgb(218, 218, 218);
+      width: 95%;
+      border-radius: 5px;
+}
+
+.field input:disabled{
+      background-color: rgb(218, 218, 218);
+}
+
+
+.field {
+      padding: 5px 0px;
+}
+
+.field button {
+      background-color: white;
+      padding: 5px 15px;
+      border: 1px solid gray;
+      border-radius: 5px;
+      font-weight: 500;
+}
+
+.field button:active{
+    transform: scale(0.98);
+    background-color: rgb(219, 0, 0);
+    color: white;
+}
+
+
+button:hover{
+transform: scale(1.02);
+}
+
+button:active{
+      transform: scale(0.99);
+}

@@ -1,0 +1,70 @@
+.paymentBreakdown {
+	/* background-color: rgb(111, 111, 111); */
+	background-color: rgb(27 27 27 / 69%);
+	backdrop-filter: blur(8px);
+	height: 0px;
+	position: absolute;
+	opacity: 0;
+	top: 0px;
+	width: 100%;
+	z-index: -10;
+	border-top-right-radius: 9px;
+	border-top-left-radius: 9px;
+	transition: all 0.2s ease-in-out;
+}
+
+.paymentBreakdown.showBreakdown {
+	height: 400px;
+	top: -400px;
+	opacity: 1;
+}
+
+.breakDownHideBtn {
+	position: absolute;
+	left: 50%;
+	top: -15px;
+	transform: translateX(-50%);
+	width: 60px;
+	background-color: rgb(97 97 97);
+	backdrop-filter: blur(8px);
+	border: none;
+	border-radius: 6px;
+	color: white;
+	font-weight: bolder;
+	font-size: 15px;
+	z-index: 10;
+	transition: transform 0.1s ease-in-out;
+	padding-bottom: 5px;
+}
+
+.breakDownHideBtn:hover {
+	transform: translateX(-50%) scale(1.05);
+}
+
+.breakDownItem {
+	color: white;
+	font-size: 13px;
+	border-bottom: 1px solid rgb(115 115 115);
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+
+.breakDownItem input {
+	width: 80px;
+	height: 35px;
+	text-align: end;
+	border-radius: 3px;
+	border: none;
+	padding-right: 10px;
+}
+
+.discountBtn {
+	margin-right: auto;
+	margin-left: 15px;
+	color: rgb(255 38 38);
+	font-weight: 500;
+	cursor: pointer;
+
+}
+
+

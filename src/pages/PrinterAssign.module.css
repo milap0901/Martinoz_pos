@@ -1,0 +1,21 @@
+.printerAssingnBody {
+    height: calc(100% - 53px);
+}
+
+.printerAssingnBody header {
+    display: flex;
+    padding: 10px 20px;
+    justify-content: space-between;
+    font-weight: 500;
+    color: rgb(83, 83, 83);
+    border-bottom: 2px solid rgb(238, 238, 238);
+    align-items: center;
+}
+
+
+.printerAssignMain {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    padding: 25px;
+}

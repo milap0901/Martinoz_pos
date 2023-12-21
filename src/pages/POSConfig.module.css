@@ -1,0 +1,102 @@
+.congfigBody{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.configHeader{
+    width: 100%;
+    flex : 65px 0 ;
+    background-color: rgba(209, 0, 0, 0.945);
+    font-size: 25px;
+    font-weight: 700;
+    display: flex;
+    color: white;
+    align-items: center;
+    padding-left: 30px;    
+}
+
+
+.configContainer{
+    flex: 1;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.configImage{
+    flex: 2 ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(250, 250, 250);
+}
+
+.configImage img {
+    width: 60%
+}
+
+.configControlsContainer{
+    flex: 7;
+    display: flex;
+    flex-direction: column;
+}
+
+.configControlsContainer header{
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(53, 53, 53);
+    padding: 10px 20px;
+    border-bottom:1px solid rgb(223, 223, 223) ;
+}
+
+.configControlsContainer section{
+    padding: 10px 20px; 
+}
+
+.syncCodeControl{
+    padding: 10px 0px; 
+    gap:20px;
+    width: 100%;
+    display: flex;
+}
+
+.syncCodeControl input {
+    flex-grow: 1;
+    max-width: 300px;
+    padding: 0px 10px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid rgb(170, 170, 170);
+    font-size: 14px;
+}
+
+.syncCodeControl button{
+    height: 35px;
+    padding-inline: 20px ;
+    border: none;
+    background-color: rgb(223, 14, 14);
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    
+}
+
+.loadingContainer{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.534);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.errorText{
+    color: red;
+    padding: 0px 20px;
+}
+
+

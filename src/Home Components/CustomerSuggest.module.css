@@ -1,0 +1,60 @@
+/* .mainSuggest{
+    position: absolute;
+    bottom: -132px;
+    left: 81px;
+    width: 38vw;
+    z-index: 1;
+    height: 250px;
+    padding-top: 5px;
+    background-color: white;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 5px;
+    border: 1px solid rgb(219, 219, 219);
+} */
+
+.mainSuggest{
+    position: absolute;
+    width: min(36vw,450px) ;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgb(219, 219, 219);
+    border-radius: 5px;
+    overflow-y: auto;
+    top:36px;
+    left:70px;
+    max-height: 230px;
+    z-index:1000;
+    
+}
+
+.mainSuggest::-webkit-scrollbar {
+    width: 5px;
+  }
+   
+ .mainSuggest::-webkit-scrollbar-thumb {
+    background: rgba(34, 34, 34, 0.307) ; 
+    border-radius: 10px;
+  }
+
+.suggestionOption{
+    width: 100%;
+    border-bottom: 1px solid rgb(201, 201, 201);
+    padding: 8px 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: rgb(68, 68, 68);
+    transition: all 0.1s ease-in-out;
+
+}
+
+.suggestionOption:hover{
+    background-color: rgba(102, 102, 102, 0.829);
+    color: white;
+    backdrop-filter: blur(4px);
+}

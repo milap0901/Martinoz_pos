@@ -1,0 +1,62 @@
+.editPrinterBody {
+	height: calc(100% - 53px);
+	display: flex;
+	flex-direction: column;
+}
+
+.editPrinterHeading {
+	display: flex;
+	padding: 10px 20px;
+	justify-content: space-between;
+	font-weight: 500;
+	color: rgb(83, 83, 83);
+	border-bottom: 2px solid rgb(238, 238, 238);
+	align-items: center;
+	flex-grow: 0;
+}
+
+.editPrinterOptions {
+	flex-grow: 1;
+	overflow-y: scroll;
+}
+
+.editPrinterOptions::-webkit-scrollbar {
+	width: 5px;
+}
+.editPrinterOptions::-webkit-scrollbar-thumb {
+	background: rgba(100, 100, 100, 0.307);
+	border-radius: 10px;
+}
+.editPrinterControl {
+	display: flex;
+	width: 100%;
+	padding: 20px 20vw;
+	justify-content: flex-end;
+	box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+	background-color: rgba(240, 240, 240, 0.493);
+	
+
+}
+
+.editPrinterControl .saveBtn {
+	padding: 5px 20px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	background-color: rgba(199, 0, 0, 0.863);
+}
+
+.editPrinterControl .cancelBtn {
+	padding: 5px 20px;
+	background-color: white;
+	margin: 0px 0px 0px 15px;
+	color: rgb(54, 54, 54);
+	border: 1px solid rgb(104, 104, 104);
+	border-radius: 5px;
+}
+
+.editPrinterControl .cancelBtn:hover,
+.editPrinterControl .saveBtn:hover {
+	transform: scale(1.03);
+	box-shadow: rgba(85, 85, 85, 0.25) 0px 6px 12px -2px, rgba(43, 43, 43, 0.3) 0px 3px 7px -3px;
+}

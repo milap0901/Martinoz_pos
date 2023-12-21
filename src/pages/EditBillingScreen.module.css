@@ -1,0 +1,64 @@
+.ConfigurationBody {
+	height: calc(100% - 53px);
+	display: flex;
+	flex-direction: column;
+}
+
+.configHeader {
+	width: 100%;
+	display: flex;
+	padding: 10px 20px;
+	justify-content: space-between;
+	font-weight: 500;
+	color: rgb(83, 83, 83);
+	border-bottom: 2px solid rgb(238, 238, 238);
+	align-items: center;
+	flex-grow: 0;
+}
+
+.billingScreenOptions {
+	flex-grow: 1;
+	scroll-behavior: smooth;
+	overflow-y: auto;
+	width: 100%;
+}
+
+.billingScreenControl {
+	display: flex;
+	width: 100%;
+	padding: 20px 20vw;
+	justify-content: flex-end;
+	box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+	background-color: rgba(240, 240, 240, 0.493);
+}
+
+.billingScreenControl .saveBtn {
+	padding: 5px 20px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	background-color: rgba(199, 0, 0, 0.863);
+}
+
+.billingScreenControl .cancelBtn {
+	padding: 5px 20px;
+	background-color: white;
+	margin: 0px 0px 0px 15px;
+	color: rgb(54, 54, 54);
+	border: 1px solid rgb(104, 104, 104);
+	border-radius: 5px;
+}
+
+.billingScreenControl .cancelBtn:hover,
+.billingScreenControl .saveBtn:hover {
+	transform: scale(1.03);
+	box-shadow: rgba(85, 85, 85, 0.25) 0px 6px 12px -2px, rgba(43, 43, 43, 0.3) 0px 3px 7px -3px;
+}
+
+.loadingContainer{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-grow: 1;
+	width: 100%;
+}

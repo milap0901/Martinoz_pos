@@ -1,0 +1,18 @@
+.otherPaymentField {
+      padding: 10px 10px;
+}
+
+.otherPaymentSelect {
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 2px solid rgb(187, 187, 187);
+      font-size: 15px;
+      font-weight: 500;
+}
+
+.otherOption {
+      padding: 10px 10px;
+      font-size: 15px;
+      font-weight: 500;
+      /* color: aquamarine; */
+}

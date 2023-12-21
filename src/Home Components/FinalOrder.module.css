@@ -1,0 +1,111 @@
+.finalOrderItem {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 3px;
+	border-bottom: 1px solid rgb(196, 196, 196);
+	padding: 7px 5px;
+	font-size: 15px;
+}
+
+.removeBtn {
+	min-width: 25px;
+	min-height: 25px;
+	background-color: #db3434;
+	border-radius: 50%;
+	vertical-align: middle;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 16px;
+	color: white;
+	line-height: 22px;
+	padding-bottom: 2px;
+	transition: all 0.1s ease-in;
+	cursor: pointer;
+}
+
+.removeBtn:hover {
+	background-color: #cc0000;
+}
+
+.itemNameContainer {
+	padding-left: 5px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-grow: 10;
+	gap: 10px;
+	font-size: 14px;
+}
+
+.quantityControls {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* margin-right: 100px; */
+	gap: 5px;
+	min-width: 130px;
+}
+
+.minusBtn,
+.plusbtn {
+	border: 1px solid rgb(197, 197, 197);
+	border-radius: 8px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	line-height: 30px;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	font-weight: 600;
+	font-size: 27px;
+	padding-bottom: 5px;
+	transition: all 0.05s ease-in;
+	cursor: pointer;
+}
+
+.minusBtn:hover {
+	background-color: #c92525;
+	color: white;
+	border: none;
+}
+
+.plusbtn:hover {
+	background-color: #005007e3;
+	color: white;
+	border: none;
+}
+
+.itemQuantity {
+	border: 1px solid rgb(197, 197, 197);
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	line-height: 30px;
+	min-width: 40px;
+	height: 30px;
+	text-align: center;
+	font-weight: 600;
+	font-size: 15px;
+    text-overflow: ellipsis;
+
+}
+
+.itemName {
+	cursor: pointer;
+	color: rgb(49, 49, 49);
+	font-weight: 500;
+}
+
+.itemPrice {
+	padding-right: 10px;
+	text-align: right;
+	font-size: 14px;
+	min-width: 80px;
+	color: rgb(0, 0, 0);
+	font-weight: 500;
+}

@@ -1,0 +1,165 @@
+.cardBody {
+	width: 100%;
+	flex-grow: 1;
+	color: white;
+	height: 260px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+	overflow: hidden;
+	margin-inline: 10px;
+	/* min-height: 260px; */
+}
+
+
+
+.cardHeader {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: 5px 10px;
+	background-color: #12061d;
+	height: 42px;
+	align-items: center;
+	color: rgb(223, 223, 223);
+	font-size: 14px;
+	font-weight: 500;
+	gap: 5px;
+	position: relative;
+}
+
+.logo {
+	width: 24px;
+	height: 24px;
+	/* margin-right:5px ; */
+}
+
+.orderType {
+	font-size: 13px;
+	padding: 3px 10px;
+	border-radius: 20px;
+	background-color: rgba(128, 128, 128, 0.322);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+}
+
+.tableNumber {
+	font-size: 13px;
+	padding: 3px 10px;
+	border-radius: 20px;
+	background-color: rgba(128, 128, 128, 0.322);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.orderDetail {
+	width: 100%;
+	line-height: 1px;
+	display: flex;
+	justify-content: space-between;
+	background-color: rgba(255, 255, 255, 0.527);
+	padding: 3px 8px;
+	align-items: center;
+	color: rgb(58, 58, 58);
+	font-size: 14px;
+	font-weight: 500;
+	font-size: 12px;
+	border-bottom: 1px solid rgb(199, 199, 199);
+	line-height: 17px;
+	letter-spacing: -0.25px;
+}
+
+.title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.orderNumber {
+	font-size: 14px;
+	font-weight: 700;
+	color: rgb(66, 66, 66);
+	letter-spacing: 0px;
+}
+
+.orderItems {
+	flex-grow: 1;
+	overflow-y: auto;
+	background-color: rgba(255, 255, 255, 0.247);
+	display: flex;
+	padding: 10px 10px;
+	font-size: 13px;
+	font-weight: 500;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	justify-content: flex-start;
+	align-items: flex-start;
+	/* background-color: rgba(231, 231, 231, 0.377); */
+	background-color: (231 231 231 / 43%);
+	color: rgb(19, 19, 19);
+}
+
+.itemContainer {
+	display: flex;
+	width: 50%;
+	padding: 5px 2px;
+}
+
+.orderItems::-webkit-scrollbar {
+	width: 4px;
+}
+
+.orderItems::-webkit-scrollbar-thumb {
+	background: rgb(63, 63, 63);
+	border-radius: 5px;
+}
+
+.itemQty {
+	white-space: nowrap;
+	padding-right: 5px;
+}
+
+.addon {
+	color: rgb(95, 95, 95);
+	font-size: 12px;
+}
+
+.orderFooter {
+	padding: 5px 10px;
+	border-top: 1px solid rgb(206, 206, 206);
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+}
+
+.total {
+	font-size: 15px;
+	font-weight: 700;
+	color: rgb(39, 39, 39);
+	letter-spacing: 0px;
+	margin-right: auto;
+	margin-left: 5px;
+}
+
+.orderFooter button {
+	border: none;
+	border-radius: 5px;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 5px 17px;
+	color: white;
+}
+
+.acceptBtn {
+	background-color: rgb(0, 92, 12);
+}
+
+.rejectBtn {
+	background-color: rgb(197 0 0 / 85%);
+}

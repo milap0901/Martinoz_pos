@@ -1,0 +1,65 @@
+.tableCard{
+    height: 90px;
+    width: 90px;
+    border: 2px dashed rgb(175, 175, 175) ;
+    margin: 15px;
+    border-radius: 5px;
+    background-color: rgba(160, 77, 0, 0.329);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 3px 5px 15px 5px;  
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(49, 49, 49);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.total {
+    font-weight: 700;
+}
+
+.printIcon{
+    position: absolute;
+    bottom: -11%;
+    left: 65%;
+    transform: translate(-50%,-50%);
+    width: 27px;
+    height: 27px;   
+    cursor: pointer;
+    background-color: white;
+    border: 0.5px solid rgb(0, 0, 0);
+    padding: 4px;
+    border-radius: 2px;
+
+}
+
+.eyeIcon{
+    position: absolute;
+    bottom: -11%;
+    left: 36%;
+    transform: translate(-50%,-50%);
+    width: 27px;
+    height: 27px;
+    cursor: pointer;
+    background-color: white;
+    border: 0.5px solid rgb(0, 0, 0);
+    padding: 4px;
+    border-radius: 2px;
+    box-sizing: border-box !important; 
+    color: rgb(77, 77, 77);
+
+}
+
+
+
+.container {
+    position: relative  ;
+    height: fit-content;
+}
+
+.tableNo{
+    font-weight: 700;
+}

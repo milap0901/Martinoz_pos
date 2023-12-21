@@ -1,0 +1,27 @@
+/* .container{
+  display: none;
+} */
+
+.container{
+    display:flex ;
+    flex-direction: column;
+    color: white;
+    background: rgb(45, 45, 45);
+    overflow: hidden;
+}
+
+.report{
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 10px 10px 100px;
+    text-decoration: none;
+    color: white;
+}
+
+
+
+.report:hover{
+   background: rgb(82, 82, 82);
+   text-decoration: none;
+   color: white;
+}

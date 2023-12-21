@@ -1,0 +1,8 @@
+.salesTotalContainer{
+    display: flex;
+    margin: 10px 15px;
+    gap:25px;
+    flex-wrap: nowrap;
+    border-radius: 5px;
+    
+}

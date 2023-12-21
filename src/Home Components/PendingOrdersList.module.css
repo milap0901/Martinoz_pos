@@ -1,0 +1,23 @@
+.pendingOrderContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    padding: 10px 10px 35px 10px;
+    gap: 20px;
+    align-items: center;
+    scroll-behavior: smooth;
+    overflow: hidden;
+    /* height: 100%; */
+
+}
+
+.noPendingOrders{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+
+}

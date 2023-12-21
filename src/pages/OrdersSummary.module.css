@@ -1,0 +1,14 @@
+.orderSummaryPage{
+    display: flex;
+    flex-flow: column nowrap;
+    height: calc(100% - 53px);
+  
+}
+
+.pageHeader{
+    min-width: 100%;
+    padding: 10px 15px;
+    font-weight: 500;
+    font-size: 14px;
+    color: rgb(59, 59, 59);
+}

@@ -1,0 +1,6 @@
+.liveView{
+   display: flex;
+   flex-flow: column nowrap;
+   height: calc(100% - 53px);
+   align-items: center;
+}
