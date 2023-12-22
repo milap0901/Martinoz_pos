@@ -1,0 +1,71 @@
+.mianDiv {
+  float: left;
+  /* width: 80%; */
+  display: block;
+  /* background: linear-gradient(180deg, #e2e7ed 0%, rgba(226, 230, 234, 0) 100%); */
+  border-radius: 8px;
+  margin-bottom: 90px;
+  flex-grow: 1;
+  max-width: 35%;
+}
+
+.header {
+  padding: 20px;
+  padding-bottom: 0px;
+}
+
+.crown {
+  position: relative;
+}
+
+.Plan_Section {
+  width: 100%;
+  display: inline-flex;
+  position: relative;
+  margin-top: 12px;
+  font-family: robotoBold;
+}
+
+.TimePeriod {
+  color: #71748e;
+  width: 100%;
+  display: inline-flex;
+  position: relative;
+  margin-top: 10px;
+}
+
+.year {
+  border: 1px solid #ccd5de;
+  padding: 4px 8px;
+  font-size: 10px;
+  margin-right: 8px;
+  border-radius: 25px;
+}
+
+.oldPrice {
+  right: 0;
+  position: absolute;
+  font-size: 17px;
+  text-decoration: line-through;
+}
+
+.body {
+  margin: 4px;
+  padding: 5px 20px 25px;
+  background: #ffffff;
+  margin-top: 28px;
+  border-radius: 8px;
+}
+
+.Line {
+  display: flex;
+  font-size: 14px;
+  margin-top: 21px;
+}
+
+.SubLineText {
+  display: inline;
+  margin-left: 15px;
+  margin-right: 6px;
+  color: rgb(83, 86, 107);
+}

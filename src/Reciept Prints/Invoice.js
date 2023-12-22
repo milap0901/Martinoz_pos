@@ -88,7 +88,11 @@ function Invoice({ order, defaultSettings }) {
 
   return (
     <div style={styles.mainDiv}>
-      {order.bill_paid ? <div style={{ ...styles.footer }}>Paid</div> : ""}
+      {order.bill_paid ? (
+        <div style={{ ...styles.footer, marginBottom: "10px" }}>Paid</div>
+      ) : (
+        ""
+      )}
 
       <div style={styles.header}>
         <div style={styles.shop}>

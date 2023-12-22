@@ -29,6 +29,7 @@ import OrdersSummary from "./pages/OrdersSummary.js";
 import SalesSummary from "./pages/SalesSummary.js";
 import BillerLogin from "./pages/BillerLogin.js";
 import { ToastContainer } from "react-toastify";
+import Subscription from "./pages/Subscription.js";
 
 function Main() {
   const dispatch = useDispatch();
@@ -168,7 +169,9 @@ function Main() {
             <Route path="ordersSummary" element={<OrdersSummary />} />
             <Route path="salesSummary" element={<SalesSummary />} />
           </Route>
+          <Route path="subscription" element={<Subscription />} />
         </Route>
+
         {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Routes>
       <ToastContainer />

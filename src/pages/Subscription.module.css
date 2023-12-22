@@ -1,0 +1,24 @@
+.mainDiv {
+  height: calc(100% - 53px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading {
+  font-size: x-large;
+  font-weight: bold;
+  color: rgb(44, 42, 42);
+}
+
+.sub_heading {
+  font-weight: 600;
+  color: rgb(102, 96, 96);
+}
