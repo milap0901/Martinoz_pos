@@ -9,10 +9,10 @@ const setMenuData = async (token, syncCode, db2) => {
   );
 
   let i = 1;
-  let hasData = true;
+  // let hasData = true;
   let allCustomers = [];
 
-  while (hasData) {
+  while (true) {
     // let start = Date.now();
     let options = {
       method: "POST",
@@ -35,24 +35,7 @@ const setMenuData = async (token, syncCode, db2) => {
     allCustomers = [...allCustomers, ...customers];
 
     if (is_it_last_page) {
-      db2.transaction(() => {
-        for (const customer of allCustomers) {
-          customerstmt.run(
-            customer.id,
-            customer.id,
-            customer.name,
-            customer.number,
-            customer.due_total,
-            customer.status,
-            customer.created_at,
-            customer.updated_at,
-            1
-          );
-          // userGroupstmt.run(customer.id, customer.group_id);
-        }
-      })();
-      hasData = false;
-      // let timeTaken = Date.now() - start;
+      break;
     }
 
     i++;
@@ -325,6 +308,21 @@ const setMenuData = async (token, syncCode, db2) => {
     );
 
     db2.transaction(() => {
+      for (const customer of allCustomers) {
+        customerstmt.run(
+          customer.id,
+          customer.id,
+          customer.name,
+          customer.number,
+          customer.due_total,
+          customer.status,
+          customer.created_at,
+          customer.updated_at,
+          1
+        );
+        // userGroupstmt.run(customer.id, customer.group_id);
+      }
+
       restaurantstmt.run(
         restaurant.id,
         restaurant.user_id,
