@@ -112,9 +112,11 @@ function Invoice({ order, defaultSettings }) {
         <div style={styles.customerDetails}>
           Mobile : {order.phone_number || ""}
         </div>
-        <div style={styles.customerDetails}>
-          Add : {order.complete_address || ""}
-        </div>
+        {order.complete_address && (
+          <div style={styles.customerDetails}>
+            Add : {order.complete_address || ""}
+          </div>
+        )}
       </div>
 
       <hr style={styles.hr} />

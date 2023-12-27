@@ -88,7 +88,7 @@ export const executeBillPrint = async (order, printers, defaultSettings) => {
               // 	defaultSettings,
               // });
 
-              window.apiKey.request("testprint", {
+              window.apiKey.request("InvoicePrint", {
                 data: invoiceHtml,
                 printerName: printer.printerName,
               });

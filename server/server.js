@@ -547,10 +547,10 @@ const pendingOrderRefreshIterval = setInterval(async () => {
 }, 5000);
 
 const syncCustomersInterval = setInterval(async () => {
-  // await syncCustomers();
-  // await syncCustomerAddresses();
-  // await syncOrders();
-  // await syncKots();
+  await syncCustomers();
+  await syncCustomerAddresses();
+  await syncOrders();
+  await syncKots();
 }, 12000);
 
 process.on("message", (message) => {

@@ -276,7 +276,7 @@ function OrderCard({ order, idx }) {
               <div className={styles.orederItemDetail}>
                 {item.item_name}{" "}
                 {item.variation_name ? `- ${item.variation_name} ` : null}{" "}
-                {item.itemAddons.length
+                {item?.itemAddons?.length
                   ? item.itemAddons.map((addon) => {
                       return (
                         <div key={v4()} className={styles.addon}>

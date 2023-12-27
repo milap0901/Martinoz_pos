@@ -14,7 +14,11 @@ import SideBarReportsList from "./SideBarReportsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown } from "@fortawesome/free-solid-svg-icons";
 
-function ConfigSideBar({ showConfigSideBar, setShowConfigSideBar }) {
+function ConfigSideBar({
+  showConfigSideBar,
+  setShowConfigSideBar,
+  handleLogout,
+}) {
   const [toggleReport, setToggleReport] = useState(false);
 
   const handleClose = () => {
@@ -69,7 +73,11 @@ function ConfigSideBar({ showConfigSideBar, setShowConfigSideBar }) {
           <img src={updateIcon} className={styles.itemIcon} />
           <div className={styles.itemName}>Check update</div>
         </Link>
-        <Link to="subscription" className={styles.items} onClick={handleClose}>
+        <Link
+          to="../subscription"
+          className={styles.items}
+          onClick={handleClose}
+        >
           {/* <img src={logoutIcon} className={styles.itemIcon} /> */}
           <FontAwesomeIcon
             icon={faCrown}
@@ -77,7 +85,7 @@ function ConfigSideBar({ showConfigSideBar, setShowConfigSideBar }) {
           />
           <div className={styles.itemName}>Subscription</div>
         </Link>
-        <Link className={styles.items} onClick={handleClose}>
+        <Link className={styles.items} onClick={handleLogout}>
           <img src={logoutIcon} className={styles.itemIcon} />
           <div className={styles.itemName}>Log Out</div>
         </Link>

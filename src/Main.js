@@ -40,7 +40,10 @@ function Main() {
   );
 
   const getServerData = async () => {
-    let data = await window.apiKey.request("getServerData", {});
+    let data = await window.apiKey.request("getServerData", {
+      JWT_SECRET:
+        "29b927a793a5b4b9dbab2029984c8222ece99a3b1a5300ae988dc726071867c0",
+    });
     return data;
   };
 
@@ -71,11 +74,24 @@ function Main() {
         return;
       }
 
+      if (
+        !data.subscriptionStatus
+        // ||
+        // data.subscriptionStatus.is_free_trial === 0 ||
+        // data.subscriptionStatus.is_licence === 0
+      ) {
+        navigate("./subscription");
+        return;
+      }
+
       // if all both IPAddress and system type is there dispatch these value in redux server_config slice for future api calls
       if (data?.ip) {
         dispatch(setSystem({ name: "IPAddress", value: data.ip }));
         dispatch(setSystem({ name: "systemType", value: data.system_type }));
         dispatch(setSystem({ name: "biller", value: data["last_login_user"] }));
+        dispatch(
+          setSystem({ name: "subscription", value: data.subscriptionStatus })
+        );
       }
 
       // if biller is logged out before closing app and last_login_user is null redirect to login page
@@ -115,6 +131,12 @@ function Main() {
           name: +data.default_restaurant_price || null,
         })
       );
+
+      if (!biller) {
+        navigate("./login");
+        return;
+      }
+
       data.default_view === "table_view"
         ? navigate("./Home/tableView")
         : navigate("./Home");
@@ -139,6 +161,7 @@ function Main() {
         <Route path="serverConfig" element={<ServerConfig />} />
         <Route path="POSConfig" element={<POSConfig />} />
         <Route path="login" element={<BillerLogin />} />
+        <Route path="subscription" element={<Subscription />} />
         <Route path="Home" element={<MainNav />}>
           <Route index element={<Home />} />
           <Route path="LiveView" element={<LiveView />}>
@@ -169,7 +192,6 @@ function Main() {
             <Route path="ordersSummary" element={<OrdersSummary />} />
             <Route path="salesSummary" element={<SalesSummary />} />
           </Route>
-          <Route path="subscription" element={<Subscription />} />
         </Route>
 
         {/* <Route path="*" element={<Navigate to="/" />} /> */}

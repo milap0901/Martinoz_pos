@@ -1,7 +1,7 @@
 const { PosPrinter } = require("electron-pos-printer");
 
-const testPrint = (data) => {
-  console.log(data);
+const InvoicePrint = (data) => {
+  // console.log(data);
 
   const kotPrint = [
     {
@@ -29,4 +29,4 @@ const testPrint = (data) => {
   });
 };
 
-module.exports = { testPrint };
+module.exports = { InvoicePrint };

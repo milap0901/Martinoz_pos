@@ -26,7 +26,7 @@ const {
   getLandingPage,
   initiateServer,
 } = require("./electronUtils/initiateApp");
-const { testPrint } = require("./electronUtils/testprint");
+const { InvoicePrint } = require("./electronUtils/InvoicePrint");
 
 const destinationFolder = app.isPackaged
   ? path.join(app.getAppPath(), "..", "..", "..", "..", "pos_db")
@@ -272,14 +272,19 @@ ipcMain.handle("storeServerData", async (event, payload) => {
 ipcMain.handle("getServerData", async (event, payload) => {
   // const networkInterfaces = os.networkInterfaces();
   // const ipAddress = networkInterfaces["Ethernet"][1].address;
-  const serverData = getServerData(db2);
+  const serverData = getServerData(db2, payload.JWT_SECRET);
   return serverData;
 });
 
 ipcMain.handle("syncDatabase", async (event, payload) => {
   await setupMainDatabase(destinationFolder, sourceFile, destinationFile);
   db2 = getLocalDb(destinationFile);
-  const responce = await setMenuData(payload.token, payload.syncCode, db2);
+  const responce = await setMenuData(
+    payload.token,
+    payload.syncCode,
+    payload.JWT_SECRET,
+    db2
+  );
   return responce;
 });
 
@@ -292,20 +297,20 @@ ipcMain.handle("kotPrint", async (event, payload) => {
   }
 });
 
-ipcMain.handle("testprint", async (event, payload) => {
+ipcMain.handle("InvoicePrint", async (event, payload) => {
   try {
-    await testPrint(payload);
+    await InvoicePrint(payload);
   } catch (error) {
     console.log(err);
     return err;
   }
 });
 
-ipcMain.handle("printInvoice", async (event, payload) => {
-  try {
-    printInvoice(payload);
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-});
+// ipcMain.handle("printInvoice", async (event, payload) => {
+//   try {
+//     printInvoice(payload);
+//   } catch (error) {
+//     console.log(error);
+//     return error;
+//   }
+// });

@@ -162,6 +162,7 @@ function MainNav() {
         setShowHoldOrders={setShowHoldOrders}
       />
       <ConfigSideBar
+        handleLogout={handleLogout}
         showConfigSideBar={showConfigSideBar}
         setShowConfigSideBar={setShowConfigSideBar}
       />

@@ -2,91 +2,99 @@ const { getDb } = require("../common/getDb");
 const db2 = getDb();
 
 const getOrderToSync = () => {
-	const ordersStmt = db2.prepare(
-		"SELECT O.id, O.bill_no, O.restaurant_id,O.web_id, O.customer_name, O.complete_address, O.biller_name, O.biller_id, O.phone_number, O.city_id, O.order_type, O.dine_in_table_id, O.dine_in_table_no, O.description, O.item_total, O.total_discount, O.total_tax, O.tax_details,O.delivery_charges,O.total, O.promo_id, O.promo_code,O.promo_discount,O.platform,O.payment_type,O.order_status, O.created_at, O.updated_at, O.extra_data, O.print_count, O.settle_amount,O.tip, O.bill_paid, O.discount_percent, O.delivery_distance, C.web_id AS customer_id FROM pos_orders AS O JOIN customers AS C ON O.customer_id = C.id WHERE O.sync = 0 AND O.customer_id IS NOT NULL AND C.web_id IS NOT NULL LIMIT 10"
-	);
+  const ordersStmt = db2.prepare(
+    "SELECT O.id, O.bill_no, O.restaurant_id,O.web_id, O.customer_name, O.complete_address, O.biller_name, O.biller_id, O.phone_number, O.city_id, O.order_type, O.dine_in_table_id, O.dine_in_table_no, O.description, O.item_total, O.total_discount, O.total_tax, O.tax_details,O.delivery_charges,O.total, O.promo_id, O.promo_code,O.promo_discount,O.platform,O.payment_type,O.order_status, O.created_at, O.updated_at, O.extra_data, O.print_count, O.settle_amount,O.tip, O.bill_paid, O.discount_percent, O.delivery_distance, C.web_id AS customer_id FROM pos_orders AS O JOIN customers AS C ON O.customer_id = C.id WHERE O.sync = 0 AND O.customer_id IS NOT NULL AND C.web_id IS NOT NULL LIMIT 10"
+  );
 
-	const itemsStmt = db2.prepare("SELECT * from pos_order_items WHERE pos_order_id = ? AND sync = 0");
+  const itemsStmt = db2.prepare(
+    "SELECT * from pos_order_items WHERE pos_order_id = ? AND sync = 0"
+  );
 
-	const orders = ordersStmt.all([]);
+  const orders = ordersStmt.all([]);
 
-	let ordersTosync = [];
+  let ordersTosync = [];
 
-	orders.forEach(order => {
-		let orderTosync = {
-			bill_no: order.bill_no,
-			biller: {
-				biller_id: order.biller_id,
-				biller_name: order.biller_name,
-			},
-			customer: {
-				customer_id: order.customer_id,
-				customer_name: order.customer_name,
-				complete_address: order.complete_address,
-				phone_number: order.phone_number,
-			},
-			order: {
-				id: order.id,
-				items: [],
-				order_type: order.order_type,
-				web_id: order.web_id,
-				dine_in_table_id: order.dine_in_table_id,
-				dine_in_table_no: order.dine_in_table_no,
-				description: order.description,
-				item_total: order.item_total,
-				total_discount: order.total_discount,
-				total_tax: order.total_tax,
-				delivery_charges: order.delivery_charges,
-				total: order.total,
-				platform: order.platform,
-				payment_type: order.payment_type,
-				order_status: order.order_status,
-				extra_data: { ...JSON.parse(order.extra_data), tax_details: JSON.parse(order.tax_details) },
-				settle_amount: order.settle_amount,
-				print_count: order.print_count,
-				tip: order.tip,
-				discount_percent: order.discount_percent,
-				bill_paid: order.bill_paid,
-				delivery_distance: order.delivery_distance,
-				created_at: order.created_at,
-				updated_at: order.updated_at,
-			},
-		};
+  orders.forEach((order) => {
+    let orderTosync = {
+      bill_no: order.bill_no,
+      biller: {
+        biller_id: order.biller_id,
+        biller_name: order.biller_name,
+      },
+      customer: {
+        customer_id: order.customer_id,
+        customer_name: order.customer_name,
+        complete_address: order.complete_address,
+        phone_number: order.phone_number,
+      },
+      order: {
+        id: order.id,
+        items: [],
+        promo_id: order.promo_id,
+        promo_discount: order.promo_discount,
+        promo_code: order.promo_code,
+        order_type: order.order_type,
+        web_id: order.web_id,
+        dine_in_table_id: order.dine_in_table_id,
+        dine_in_table_no: order.dine_in_table_no,
+        description: order.description,
+        item_total: order.item_total,
+        total_discount: order.total_discount,
+        total_tax: order.total_tax,
+        delivery_charges: order.delivery_charges,
+        total: order.total,
+        platform: order.platform,
+        payment_type: order.payment_type,
+        order_status: order.order_status,
+        extra_data: {
+          ...JSON.parse(order.extra_data),
+          tax_details: JSON.parse(order.tax_details),
+        },
+        settle_amount: order.settle_amount,
+        print_count: order.print_count,
+        tip: order.tip,
+        discount_percent: order.discount_percent,
+        bill_paid: order.bill_paid,
+        delivery_distance: order.delivery_distance,
+        created_at: order.created_at,
+        updated_at: order.updated_at,
+      },
+    };
 
-		const items = itemsStmt.all([order.id]);
+    const items = itemsStmt.all([order.id]);
 
-		items.forEach(item => {
-			const itemTosync = {
-				id: item.id,
-				web_id: item.web_id,
-				item_addonitems: JSON.parse(item.item_addon_items),
-				contains_free_item: item.contains_free_item,
-				discount_details: JSON.parse(item.discount_detail),
-				description: item.description,
-				final_price: item.final_price,
-				item_id: item.item_id,
-				item_discount: item.item_discount,
-				tax: item.tax,
-				tax_id: item.tax_id,
-				variation_id: item.variation_id,
-				variation_name: item.variation_name,
-				price: item.price,
-				item_name: item.item_name,
-				quantity: item.quantity,
-				created_at: item.created_at,
-				updated_at: item.updated_at,
-				main_order_item_id: item.main_order_item_id,
-				status: item.status,
-			};
+    items.forEach((item) => {
+      const itemTosync = {
+        id: item.id,
+        web_id: item.web_id,
+        item_addonitems: JSON.parse(item.item_addon_items),
+        contains_free_item: item.contains_free_item,
+        discount_details: JSON.parse(item.discount_detail),
+        description: item.description,
+        final_price: item.final_price,
+        item_id: item.item_id,
+        item_discount: item.item_discount,
+        tax: item.tax,
+        tax_id: item.tax_id,
+        variation_id: item.variation_id,
+        variation_name: item.variation_name,
+        price: item.price,
+        item_name: item.item_name,
+        quantity: item.quantity,
+        created_at: item.created_at,
+        updated_at: item.updated_at,
+        main_order_item_id: item.main_order_item_id,
+        status: item.status,
+      };
 
-			orderTosync.order.items.push(itemTosync);
-		});
+      orderTosync.order.items.push(itemTosync);
+    });
 
-		ordersTosync.push(orderTosync);
-	});
+    ordersTosync.push(orderTosync);
+  });
 
-	// console.log(JSON.stringify(ordersTosync[5]));
-	return ordersTosync;
+  // console.log(JSON.stringify(ordersTosync[5]));
+  return ordersTosync;
 };
 
 module.exports = { getOrderToSync };

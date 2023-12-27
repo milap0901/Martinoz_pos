@@ -105,7 +105,7 @@ export const usePrintOrderMutation = (
       //   <Invoice order={data.order} defaultSettings={defaultSettings} />
       // );
 
-      // await window.apiKey.request("testprint", { data: invoiceHtml });
+      // await window.apiKey.request("InvoicePrint", { data: invoiceHtml });
 
       executeBillPrint(orderToPrint, printers, defaultSettings);
 
@@ -386,7 +386,7 @@ export const usePendingOrderToOrderMutation = (printers, defaultSettings) => {
       //   <Invoice order={data.order} defaultSettings={defaultSettings} />
       // );
 
-      // window.apiKey.request("testprint", { data: invoiceHtml });
+      // window.apiKey.request("InvoicePrint", { data: invoiceHtml });
 
       executeBillPrint(data.order, printers, defaultSettings);
       executeKotPrint({ ...finalOrder, isModified: false }, printers);
@@ -405,6 +405,7 @@ export const usePendingOrderToOrderMutation = (printers, defaultSettings) => {
 export const useAuthenticateMutation = () => {
   const { IPAddress } = useSelector((state) => state.serverConfig);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const authenticateBillerRequest = async (billerDetail) => {
     let { data } = await axios.post(
@@ -421,6 +422,7 @@ export const useAuthenticateMutation = () => {
     onSuccess: async (data) => {
       notify("success", `Welcome ${data.billerDetail.name}`);
       await window.apiKey.request("updateLoginUser", data.billerDetail);
+      queryClient.invalidateQueries(["serverData"]);
       navigate("../Home");
     },
     onError: (data) => {
