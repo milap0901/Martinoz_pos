@@ -55,6 +55,10 @@ const { syncOrders } = require("./sync/syncOrders");
 const { syncKots } = require("./sync/syncKots");
 const cookieParser = require("cookie-parser");
 
+const menuRoute = require("./routes/menu.route");
+const areaRoute = require("./routes/area.route");
+const customerRoute = require("./routes/customer.route");
+
 // const appPath = process.argv
 // console.log(appPath)
 
@@ -80,10 +84,15 @@ io.on("connection", (socket) => {
 });
 
 app.use(cors("*"));
+// app.use(cors({origin: '*'}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(compression());
+
+app.use("/api/v2", menuRoute);
+app.use("/api/v2", areaRoute);
+app.use("/api/v2", customerRoute);
 
 app.get("/menuData", (req, res) => {
   const menuData = getMenuData();
@@ -538,19 +547,19 @@ httpServer.listen(3001, async (err) => {
   }
 });
 
-const pendingOrderRefreshIterval = setInterval(async () => {
-  const { isUpdated, customerNames } = await setPendingOrders();
-  if (isUpdated) {
-    const pendingOrders = getPendingOrders();
-    io.emit("pendingOrders", pendingOrders, isUpdated, customerNames);
-  }
-}, 5000);
+// const pendingOrderRefreshIterval = setInterval(async () => {
+//   const { isUpdated, customerNames } = await setPendingOrders();
+//   if (isUpdated) {
+//     const pendingOrders = getPendingOrders();
+//     io.emit("pendingOrders", pendingOrders, isUpdated, customerNames);
+//   }
+// }, 5000);
 
 const syncCustomersInterval = setInterval(async () => {
-  await syncCustomers();
-  await syncCustomerAddresses();
-  await syncOrders();
-  await syncKots();
+  // await syncCustomers();
+  // await syncCustomerAddresses();
+  // await syncOrders();
+  // await syncKots();
 }, 12000);
 
 process.on("message", (message) => {
