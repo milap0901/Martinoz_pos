@@ -8,11 +8,13 @@ import updateIcon from "../icons/update.png";
 import logoutIcon from "../icons/left_nav_logout.svg";
 import reportIcon from "../icons/left_nav_reports.svg";
 import arrowDown from "../icons/arrow-down.png";
+import crown from "../icons/crown copy.svg";
 
 import { Link } from "react-router-dom";
 import SideBarReportsList from "./SideBarReportsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCrown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightLong, faCrown } from "@fortawesome/free-solid-svg-icons";
+import SubscriptionCard from "./SubscriptionCard";
 
 function ConfigSideBar({
   showConfigSideBar,
@@ -73,22 +75,13 @@ function ConfigSideBar({
           <img src={updateIcon} className={styles.itemIcon} />
           <div className={styles.itemName}>Check update</div>
         </Link>
-        <Link
-          to="../subscription"
-          className={styles.items}
-          onClick={handleClose}
-        >
-          {/* <img src={logoutIcon} className={styles.itemIcon} /> */}
-          <FontAwesomeIcon
-            icon={faCrown}
-            style={{ color: "white", fontSize: "28px" }}
-          />
-          <div className={styles.itemName}>Subscription</div>
-        </Link>
+
         <Link className={styles.items} onClick={handleLogout}>
           <img src={logoutIcon} className={styles.itemIcon} />
           <div className={styles.itemName}>Log Out</div>
         </Link>
+
+        <SubscriptionCard />
       </Offcanvas.Body>
     </Offcanvas>
   );

@@ -87,9 +87,15 @@ const setMenuData = async (token, syncCode, JWT_SECRET, db2) => {
       kots,
     } = menu.data;
 
+    const pos_config = JSON.parse(restaurant.pos_config);
+
     const jwtToken = {
       is_free_trial: restaurant.is_free_trial,
       is_licence: restaurant.is_licence,
+      trial_start_date: pos_config.trial_start_date,
+      trial_end_date: pos_config.trial_end_date,
+      license_start_date: pos_config.license_start_date,
+      license_end_date: pos_config.license_end_date,
     };
 
     var token = jwt.sign(jwtToken, JWT_SECRET, { expiresIn: 2592000 });

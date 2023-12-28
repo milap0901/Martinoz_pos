@@ -10,6 +10,7 @@ const getServerData = (db2, SECRET) => {
     }
     try {
       const subscriptionStatus = jwt.verify(resultObject.JWT, SECRET);
+      // console.log(subscriptionStatus);
       resultObject = { ...resultObject, subscriptionStatus };
     } catch {
       resultObject = { ...resultObject, subscriptionStatus: false };
