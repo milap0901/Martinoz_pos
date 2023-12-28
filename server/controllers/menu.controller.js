@@ -135,10 +135,10 @@ const getMenu = (req, res) => {
 
     res
       .status(200)
-      .send({ status: true, message: "Menu Data Success", data, error: false });
+      .json({ status: true, message: "Menu Data Success", data, error: false });
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    res.status(500).json({
       status: false,
       message: "Menu Data Failed",
       data: undefined,

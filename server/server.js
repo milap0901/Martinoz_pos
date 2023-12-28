@@ -8,15 +8,15 @@ const { getUserSuggest } = require("./users/usersSuggest");
 const { createKot } = require("./KOT/createKot");
 const { getLiveKOT } = require("./KOT/getLiveKOT");
 const { getLiveOrders } = require("./orders/getLiveOrders");
-const { updateKOT } = require("./KOT/updateKot");
+// const { updateKOT } = require("./KOT/updateKot");
 const { updateLiveOrders } = require("./orders/updateLiveOrders");
 const { createHoldOrder } = require("./holdOrder/createHoldOrder");
 const { getHoldOrders } = require("./holdOrder/getHoldOrders");
 const { deletHoldOrder } = require("./holdOrder/deletHoldOrder");
 const { checkAndUpdateOrder } = require("./orders/checkAndUpdateOrder");
-const { checkExistingOrder } = require("./orders/checkExistingOrder");
+// const { checkExistingOrder } = require("./orders/checkExistingOrder");
 const { getPrinters } = require("./printers/getPrinters");
-const { checkOldKOTs } = require("./KOT/checkOldKOTs");
+// const { checkOldKOTs } = require("./KOT/checkOldKOTs");
 const { mergeKOTandOrder } = require("./common/mergeKOTandOrder");
 const { updateKOTUserId } = require("./KOT/updateKOTUserId");
 const { updatePrinter } = require("./printers/updatePrinter");
@@ -49,15 +49,17 @@ const { authenticateBiller } = require("./biller/authenticateBiller");
 const { getDueOrders } = require("./orders/getDueOrders");
 const { getMergedOrder } = require("./orders/getExistingOrder");
 const { getMergedOrderAndKotData } = require("./KOT/getMergedOrderAndKotData");
-const { syncCustomers } = require("./sync/syncCustomers");
-const { syncCustomerAddresses } = require("./sync/syncCustomerAddresses");
-const { syncOrders } = require("./sync/syncOrders");
-const { syncKots } = require("./sync/syncKots");
+// const { syncCustomers } = require("./sync/syncCustomers");
+// const { syncCustomerAddresses } = require("./sync/syncCustomerAddresses");
+// const { syncOrders } = require("./sync/syncOrders");
+// const { syncKots } = require("./sync/syncKots");
 const cookieParser = require("cookie-parser");
 
 const menuRoute = require("./routes/menu.route");
 const areaRoute = require("./routes/area.route");
 const customerRoute = require("./routes/customer.route");
+const kotRoute = require("./routes/kot.route");
+const orderRoute = require("./routes/order.route");
 
 // const appPath = process.argv
 // console.log(appPath)
@@ -83,8 +85,12 @@ io.on("connection", (socket) => {
   });
 });
 
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
 app.use(cors("*"));
-// app.use(cors({origin: '*'}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -93,6 +99,8 @@ app.use(compression());
 app.use("/api/v2", menuRoute);
 app.use("/api/v2", areaRoute);
 app.use("/api/v2", customerRoute);
+app.use("/api/v2", kotRoute);
+app.use("/api/v2", orderRoute);
 
 app.get("/menuData", (req, res) => {
   const menuData = getMenuData();
@@ -103,133 +111,133 @@ app.get("/ping", async (req, res) => {
   res.status(200).json({ status: "success" });
 });
 
-app.get("/liveOrders", (req, res) => {
-  const start = Date.now();
-  const orders = getLiveOrders();
-  res.status(200).json(orders);
-});
+// app.get("/liveOrders", (req, res) => {
+//   const start = Date.now();
+//   const orders = getLiveOrders();
+//   res.status(200).json(orders);
+// });
 
-app.get("/liveKOT", (req, res) => {
-  const liveKOTs = getLiveKOT();
-  res.status(200).json(liveKOTs);
-});
+// app.get("/liveKOT", (req, res) => {
+//   const liveKOTs = getLiveKOT();
+//   res.status(200).json(liveKOTs);
+// });
 
-app.put("/liveKot", async (req, res, next) => {
-  const { kot_status, online_order_id, order_type } = req.body;
+// app.put("/liveKot", async (req, res, next) => {
+//   const { kot_status, online_order_id, order_type } = req.body;
 
-  if (online_order_id !== null && order_type !== "dine_in") {
-    console.log(online_order_id);
-    const onlineOrderDetail = {
-      pendingOrderId: null,
-      status: kot_status,
-      onlineOrderId: online_order_id,
-    };
-    const { success, error } = await updateOnlineOrderOnMainServer(
-      onlineOrderDetail
-    );
-    if (success) {
-      next();
-    } else {
-      res.status(404).json({ error });
-    }
-  } else {
-    next();
-  }
-});
+//   if (online_order_id !== null && order_type !== "dine_in") {
+//     console.log(online_order_id);
+//     const onlineOrderDetail = {
+//       pendingOrderId: null,
+//       status: kot_status,
+//       onlineOrderId: online_order_id,
+//     };
+//     const { success, error } = await updateOnlineOrderOnMainServer(
+//       onlineOrderDetail
+//     );
+//     if (success) {
+//       next();
+//     } else {
+//       res.status(404).json({ error });
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
-app.put("/liveKot", (req, res) => {
-  const { order_id, order_type, kot_status } = req.body;
-  updateKOT(req.body);
-  res.sendStatus(200);
-  const liveKOTs = getLiveKOT();
-  io.emit("KOTs", liveKOTs);
+// app.put("/liveKot", (req, res) => {
+//   const { order_id, order_type, kot_status } = req.body;
+//   updateKOT(req.body);
+//   res.sendStatus(200);
+//   const liveKOTs = getLiveKOT();
+//   io.emit("KOTs", liveKOTs);
 
-  if (
-    order_id !== null &&
-    order_type !== "dine_in" &&
-    kot_status !== "cancelled"
-  ) {
-    const data = {
-      orderStatus: "accepted",
-      updatedStatus: "food_is_ready",
-      orderId: order_id,
-      orderType: order_type,
-    };
-    updateLiveOrders(data);
-    const orders = getLiveOrders();
-    io.emit("orders", orders);
-  }
-});
+//   if (
+//     order_id !== null &&
+//     order_type !== "dine_in" &&
+//     kot_status !== "cancelled"
+//   ) {
+//     const data = {
+//       orderStatus: "accepted",
+//       updatedStatus: "food_is_ready",
+//       orderId: order_id,
+//       orderType: order_type,
+//     };
+//     updateLiveOrders(data);
+//     const orders = getLiveOrders();
+//     io.emit("orders", orders);
+//   }
+// });
 
-app.post("/order", (req, res, next) => {
-  // middleware
+// app.post("/order", (req, res, next) => {
+//   // middleware
 
-  //  for order type Dine In only check if same table number exist and is not setteled, if axist add items to that order only no need to create new KOT
-  const { orderId, customerId } = checkAndUpdateOrder(req.body.finalOrder);
+//   //  for order type Dine In only check if same table number exist and is not setteled, if axist add items to that order only no need to create new KOT
+//   const { orderId, customerId } = checkAndUpdateOrder(req.body.finalOrder);
 
-  if (orderId !== "") {
-    const order = getOrder(orderId);
+//   if (orderId !== "") {
+//     const order = getOrder(orderId);
 
-    res
-      .status(200)
-      .json({ isOldKOTsExist: false, order, isOldOrderExist: true });
-    const orders = getLiveOrders();
-    io.emit("orders", orders);
-  } else {
-    // for isUpdate = false move on to create new order kot
-    next();
-  }
-});
+//     res
+//       .status(200)
+//       .json({ isOldKOTsExist: false, order, isOldOrderExist: true });
+//     const orders = getLiveOrders();
+//     io.emit("orders", orders);
+//   } else {
+//     // for isUpdate = false move on to create new order kot
+//     next();
+//   }
+// });
 
-app.post("/order", (req, res, next) => {
-  if (req.body.finalOrder.orderType === "dine_in") {
-    const isOldKOTsExist = checkOldKOTs(req.body.finalOrder.tableNumber);
-    if (isOldKOTsExist) {
-      res
-        .status(200)
-        .json({ isOldKOTsExist, order: {}, isOldOrderExist: false });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
-});
+// app.post("/order", (req, res, next) => {
+//   if (req.body.finalOrder.orderType === "dine_in") {
+//     const isOldKOTsExist = checkOldKOTs(req.body.finalOrder.tableNumber);
+//     if (isOldKOTsExist) {
+//       res
+//         .status(200)
+//         .json({ isOldKOTsExist, order: {}, isOldOrderExist: false });
+//     } else {
+//       next();
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
-app.post("/order", (req, res) => {
-  const { userId, orderId, orderNo } = createOrder(req.body.finalOrder);
-  const kotTokenNo = createKot(req.body.finalOrder, userId, orderId);
-  const order = getOrder(orderId);
-  res.status(200).json({
-    isOldKOTsExist: false,
-    orderNo,
-    kotTokenNo,
-    order,
-    isOldOrderExist: false,
-  });
-  const orders = getLiveOrders();
-  io.emit("orders", orders);
-  const liveKOTs = getLiveKOT();
-  io.emit("KOTs", liveKOTs);
-});
+// app.post("/order", (req, res) => {
+//   const { userId, orderId, orderNo } = createOrder(req.body.finalOrder);
+//   const kotTokenNo = createKot(req.body.finalOrder, userId, orderId);
+//   const order = getOrder(orderId);
+//   res.status(200).json({
+//     isOldKOTsExist: false,
+//     orderNo,
+//     kotTokenNo,
+//     order,
+//     isOldOrderExist: false,
+//   });
+//   const orders = getLiveOrders();
+//   io.emit("orders", orders);
+//   const liveKOTs = getLiveKOT();
+//   io.emit("KOTs", liveKOTs);
+// });
 
-app.post("/KOT", (req, res, next) => {
-  const isOrderExist = checkExistingOrder(req.body);
-  if (!isOrderExist) {
-    next();
-  } else {
-    res.status(200).json({ orderExist: true });
-  }
-});
+// app.post("/KOT", (req, res, next) => {
+//   const isOrderExist = checkExistingOrder(req.body);
+//   if (!isOrderExist) {
+//     next();
+//   } else {
+//     res.status(200).json({ orderExist: true });
+//   }
+// });
 
-app.post("/KOT", (req, res) => {
-  //  create KOT
-  const kotTokenNo = createKot(req.body);
-  res.status(200).json({ orderExist: false, kotTokenNo });
-  // emmit KOT
-  const liveKOTs = getLiveKOT();
-  io.emit("KOTs", liveKOTs);
-});
+// app.post("/KOT", (req, res) => {
+//   //  create KOT
+//   const kotTokenNo = createKot(req.body);
+//   res.status(200).json({ orderExist: false, kotTokenNo });
+//   // emmit KOT
+//   const liveKOTs = getLiveKOT();
+//   io.emit("KOTs", liveKOTs);
+// });
 
 app.put("/liveOrders", async (req, res, next) => {
   const orderDetail = req.body;

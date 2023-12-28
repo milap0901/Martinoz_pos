@@ -10,7 +10,7 @@ const getCategories = (req, res) => {
 
     const categories = categoryPrepare.all([]);
 
-    res.status(200).send({
+    res.status(200).json({
       status: true,
       message: "categories success",
       data: categories,
@@ -18,7 +18,7 @@ const getCategories = (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    res.status(500).json({
       status: false,
       message: "categories Data Failed",
       data: undefined,
@@ -45,7 +45,7 @@ const getCategory = (req, res) => {
 
     category.items = categoryItems;
 
-    res.status(200).send({
+    res.status(200).json({
       status: true,
       message: "category success",
       data: category,
@@ -53,7 +53,7 @@ const getCategory = (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    res.status(500).json({
       status: false,
       message: "category Data Failed",
       data: undefined,

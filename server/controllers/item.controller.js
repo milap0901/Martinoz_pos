@@ -82,7 +82,7 @@ const getItem = (req, res) => {
       item.variations = variations;
     }
 
-    res.status(200).send({
+    res.status(200).json({
       status: false,
       message: "Item Success",
       data: item,
@@ -90,7 +90,7 @@ const getItem = (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    res.status(500).json({
       status: false,
       message: "Item Failed",
       data: undefined,

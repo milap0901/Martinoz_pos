@@ -18,7 +18,10 @@ function KOTCards({ KOT, idx }) {
   const navigate = useNavigate();
 
   const updateKOT = async (kotData) => {
-    let { data } = await axios.put(`http://${IPAddress}:3001/liveKot`, kotData);
+    let { data } = await axios.put(
+      `http://${IPAddress}:3001/api/v2/kots/liveKot`,
+      kotData
+    );
     return data;
   };
 

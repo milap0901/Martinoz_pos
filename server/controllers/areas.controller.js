@@ -19,7 +19,7 @@ const getAreas = (req, res) => {
       area.tables = dineInTables;
     });
 
-    res.status(200).send({
+    res.status(200).json({
       status: false,
       message: "areas successfully ",
       data: areas,
@@ -27,7 +27,7 @@ const getAreas = (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    res.status(500).json({
       status: false,
       message: "areas Failed",
       data: undefined,

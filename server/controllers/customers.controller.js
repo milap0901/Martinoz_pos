@@ -4,7 +4,7 @@ const db2 = getDb();
 
 const getCustomers = (req, res) => {
   const params = req.query;
-  console.log(params);
+  // console.log(params);
 
   try {
     let matches;
@@ -38,7 +38,7 @@ const getCustomers = (req, res) => {
     // return matches;
 
     // console.log(matches);
-    res.status(200).send({
+    res.status(200).json({
       status: true,
       message: "customers successfully ",
       data: matches,
@@ -46,7 +46,7 @@ const getCustomers = (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    res.status(500).json({
       status: false,
       message: "customers Failed",
       data: undefined,

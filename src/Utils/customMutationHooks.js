@@ -22,7 +22,7 @@ export const useOrderMutation = (setShowKOTExistModal) => {
     const isModify = finalOrder.cartAction === "modifyOrder";
     const url = isModify
       ? `http://${IPAddress}:3001/modifyOrder`
-      : `http://${IPAddress}:3001/order`;
+      : `http://${IPAddress}:3001/api/v2/orders`;
     const { data } = await axios.post(url, { finalOrder });
     return { data, isModify }; // Include isModify in the result
   };
@@ -30,7 +30,7 @@ export const useOrderMutation = (setShowKOTExistModal) => {
   return useMutation({
     mutationKey: ["order"],
     mutationFn: orderRequest,
-    onSuccess: ({ data, isModify }) => {
+    onSuccess: ({ data: { data }, isModify }) => {
       // Destructure isModify from the result
       if (!isModify && data.isOldKOTsExist) {
         setShowKOTExistModal(true);
@@ -71,7 +71,7 @@ export const usePrintOrderMutation = (
     const url =
       finalOrder.cartAction === "modifyOrder"
         ? `http://${IPAddress}:3001/modifyOrder`
-        : `http://${IPAddress}:3001/order`;
+        : `http://${IPAddress}:3001/api/v2/orders`;
     const { data } = await axios.post(url, { finalOrder });
     return { data, finalOrder };
   };
@@ -79,7 +79,7 @@ export const usePrintOrderMutation = (
   return useMutation({
     mutationKey: ["printOrder"],
     mutationFn: printOrderRequest,
-    onSuccess: async ({ data, finalOrder }) => {
+    onSuccess: async ({ data: { data }, finalOrder }) => {
       if (data.isOldKOTsExist && finalOrder.cartAction !== "modifyOrder") {
         setShouldPrintOrder(true);
         setShowKOTExistModal(true);
@@ -244,7 +244,8 @@ export const useKotMutation = (
 
   const createKot = async (finalOrder) => {
     const { data } = await axios.post(
-      `http://${IPAddress}:3001/KOT`,
+      // `http://${IPAddress}:3001/KOT`,
+      `http://${IPAddress}:3001/api/v2/kots`,
       finalOrder
     );
     return { data, finalOrder };
@@ -253,8 +254,9 @@ export const useKotMutation = (
   return useMutation({
     mutationKey: ["createKOT"],
     mutationFn: createKot,
-    onSuccess: async ({ data, finalOrder }) => {
-      if (!data.orderExist) {
+    onSuccess: async ({ data: { data }, finalOrder }) => {
+      console.log(data);
+      if (!data.isOrderExist) {
         finalOrder = {
           ...finalOrder,
           kotTokenNo: data.kotTokenNo,
@@ -273,7 +275,7 @@ export const useKotMutation = (
         notify("success", "KOT Success");
         return;
       }
-      if (data.orderExist) {
+      if (data.isOrderExist) {
         if (finalOrder.paymentMethod === "multipay") {
           setMultipayControlType("kot");
           setShowMultipay(true);
