@@ -3,11 +3,15 @@ const { getLiveKOT } = require("../KOT/getLiveKOT");
 const { createOrder } = require("../orders/createOrder");
 const { createKot } = require("../KOT/createKot");
 const { getOrder } = require("../orders/getOrder");
+const { updateLiveOrders } = require("../orders/updateLiveOrders");
+const { getMergedOrder } = require("../orders/getExistingOrder");
+const { getMergedOrderAndKotData } = require("../KOT/getMergedOrderAndKotData");
+const { getPendingOrders } = require("../pendingOrders/getPendingOrders");
 
 const getActiveOrders = (req, res) => {
   try {
     const activeOrders = getLiveOrders();
-    console.log(activeOrders);
+    // console.log(activeOrders);
     res.status(200).json({
       status: true,
       message: "Active Orders Data Success",
@@ -57,4 +61,94 @@ const createActiveOrder = (req, res) => {
   }
 };
 
-module.exports = { getActiveOrders, createActiveOrder };
+const updateActiveOrders = (req, res) => {
+  updateLiveOrders(req.body);
+  res.status(200).json({
+    status: true,
+    message: "Orders updates Success",
+    data: undefined,
+    error: false,
+  });
+
+  // emmit live orders after entry in table
+  const orders = getLiveOrders();
+  req.io.emit("orders", orders);
+
+  // only update and emmit KOT for pick up or delivery and status is "accepted"/ click on "food is redy"
+  if (
+    req.body.orderType !== "dine_in" &&
+    req.body.updatedStatus === "food_is_ready"
+  ) {
+    const liveKOTs = getLiveKOT();
+    req.io.emit("KOTs", liveKOTs);
+  }
+};
+
+const ExistingOrderPaymentDetail = (req, res) => {
+  try {
+    const latestOrder = req.body;
+    const mergedOrderData = getMergedOrder(latestOrder);
+    if (mergedOrderData) {
+      res.status(200).json({
+        status: true,
+        message: "Multi Pay Success",
+        data: { mergedOrderData, type: "order" },
+        error: false,
+      });
+      return;
+    }
+
+    const MergedOrderAndKotData = getMergedOrderAndKotData(latestOrder);
+    if (MergedOrderAndKotData) {
+      res.status(200).json({
+        status: true,
+        message: "Multi Pay Success",
+        data: { mergedOrderData: MergedOrderAndKotData, type: "kot" },
+        error: false,
+      });
+    }
+
+    res.status(200).json({
+      status: true,
+      message: "Multi Pay Success",
+      data: { mergedOrderData: null, type: null },
+      error: false,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: false,
+      message: "Multi Pay Failed",
+      data: undefined,
+      error,
+    });
+  }
+};
+
+const FetchPendingOrders = (req, res) => {
+  try {
+    const pendingOrders = getPendingOrders();
+    res.status(200).json({
+      status: true,
+      message: "Fetch Pending orders Success",
+      data: pendingOrders,
+      error: false,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: false,
+      message: "Fetch Pending orders Failed",
+      data: undefined,
+      error,
+    });
+  }
+};
+
+module.exports = {
+  getActiveOrders,
+  createActiveOrder,
+  updateActiveOrders,
+  ExistingOrderPaymentDetail,
+  FetchPendingOrders,
+};

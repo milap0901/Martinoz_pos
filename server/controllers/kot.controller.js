@@ -58,7 +58,7 @@ const updateLiveKot = async (req, res) => {
     const { kot_status, online_order_id, order_type, order_id } = req.body;
 
     if (online_order_id !== null && order_type !== "dine_in") {
-      console.log(online_order_id);
+      // console.log(online_order_id);
       const onlineOrderDetail = {
         pendingOrderId: null,
         status: kot_status,

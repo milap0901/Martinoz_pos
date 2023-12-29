@@ -60,6 +60,7 @@ const areaRoute = require("./routes/area.route");
 const customerRoute = require("./routes/customer.route");
 const kotRoute = require("./routes/kot.route");
 const orderRoute = require("./routes/order.route");
+const holdOrdersRoute = require("./routes/holdOrder.route");
 
 // const appPath = process.argv
 // console.log(appPath)
@@ -101,6 +102,7 @@ app.use("/api/v2", areaRoute);
 app.use("/api/v2", customerRoute);
 app.use("/api/v2", kotRoute);
 app.use("/api/v2", orderRoute);
+app.use("/api/v2", holdOrdersRoute);
 
 app.get("/menuData", (req, res) => {
   const menuData = getMenuData();
@@ -239,98 +241,98 @@ app.get("/ping", async (req, res) => {
 //   io.emit("KOTs", liveKOTs);
 // });
 
-app.put("/liveOrders", async (req, res, next) => {
-  const orderDetail = req.body;
+// app.put("/liveOrders", async (req, res, next) => {
+//   const orderDetail = req.body;
 
-  if (
-    orderDetail.online_order_id !== null &&
-    orderDetail.orderType !== "dine_in"
-  ) {
-    const onlineOrderDetail = {
-      pendingOrderId: null,
-      status: orderDetail.updatedStatus,
-      onlineOrderId: orderDetail.online_order_id,
-    };
-    const { success, error } = await updateOnlineOrderOnMainServer(
-      onlineOrderDetail
-    );
+//   if (
+//     orderDetail.online_order_id !== null &&
+//     orderDetail.orderType !== "dine_in"
+//   ) {
+//     const onlineOrderDetail = {
+//       pendingOrderId: null,
+//       status: orderDetail.updatedStatus,
+//       onlineOrderId: orderDetail.online_order_id,
+//     };
+//     const { success, error } = await updateOnlineOrderOnMainServer(
+//       onlineOrderDetail
+//     );
 
-    if (success) {
-      next();
-    } else {
-      res.status(404).json({ error });
-    }
-  } else {
-    next();
-  }
-});
+//     if (success) {
+//       next();
+//     } else {
+//       res.status(404).json({ error });
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
-app.put("/liveOrders", (req, res) => {
-  // update live order status
+// app.put("/liveOrders", (req, res) => {
+//   // update live order status
 
-  updateLiveOrders(req.body);
-  res.status(200).json("updated");
+//   updateLiveOrders(req.body);
+//   res.status(200).json("updated");
 
-  // emmit live orders after entry in table
-  const orders = getLiveOrders();
-  io.emit("orders", orders);
+//   // emmit live orders after entry in table
+//   const orders = getLiveOrders();
+//   io.emit("orders", orders);
 
-  // only update and emmit KOT for pick up or delivery and status is "accepted"/ click on "food is redy"
-  if (
-    req.body.orderType !== "dine_in" &&
-    req.body.updatedStatus === "food_is_ready"
-  ) {
-    const liveKOTs = getLiveKOT();
-    io.emit("KOTs", liveKOTs);
-  }
-});
+//   // only update and emmit KOT for pick up or delivery and status is "accepted"/ click on "food is redy"
+//   if (
+//     req.body.orderType !== "dine_in" &&
+//     req.body.updatedStatus === "food_is_ready"
+//   ) {
+//     const liveKOTs = getLiveKOT();
+//     io.emit("KOTs", liveKOTs);
+//   }
+// });
 
-app.get("/users", async (req, res) => {
-  const userSuggest = getUserSuggest(req.query);
-  res.status(200).json(userSuggest);
-});
+// app.get("/users", async (req, res) => {
+//   const userSuggest = getUserSuggest(req.query);
+//   res.status(200).json(userSuggest);
+// });
 
-app.post("/existingOrder", (req, res) => {
-  const latestOrder = req.body;
-  const mergedOrderData = getMergedOrder(latestOrder);
-  if (mergedOrderData) {
-    res.status(200).json({ mergedOrderData, type: "order" });
-    return;
-  }
+// app.post("/existingOrder", (req, res) => {
+//   const latestOrder = req.body;
+//   const mergedOrderData = getMergedOrder(latestOrder);
+//   if (mergedOrderData) {
+//     res.status(200).json({ mergedOrderData, type: "order" });
+//     return;
+//   }
 
-  const MergedOrderAndKotData = getMergedOrderAndKotData(latestOrder);
-  if (MergedOrderAndKotData) {
-    res
-      .status(200)
-      .json({ mergedOrderData: MergedOrderAndKotData, type: "kot" });
-  }
+//   const MergedOrderAndKotData = getMergedOrderAndKotData(latestOrder);
+//   if (MergedOrderAndKotData) {
+//     res
+//       .status(200)
+//       .json({ mergedOrderData: MergedOrderAndKotData, type: "kot" });
+//   }
 
-  res.status(200).json({ mergedOrderData: null, type: null });
-});
+//   res.status(200).json({ mergedOrderData: null, type: null });
+// });
 
-app.post("/holdOrder", async (req, res) => {
-  createHoldOrder(req.body);
-  res.sendStatus(200);
-  const holdOrders = getHoldOrders();
-  io.emit("holdOrders", holdOrders);
-});
+// app.post("/holdOrder", async (req, res) => {
+//   createHoldOrder(req.body);
+//   res.sendStatus(200);
+//   const holdOrders = getHoldOrders();
+//   io.emit("holdOrders", holdOrders);
+// });
 
-app.get("/holdOrder", async (req, res) => {
-  const holdOrders = getHoldOrders();
-  res.status(200).json(holdOrders);
-});
+// app.get("/holdOrder", async (req, res) => {
+//   const holdOrders = getHoldOrders();
+//   res.status(200).json(holdOrders);
+// });
 
-app.delete("/holdOrder", async (req, res) => {
-  deletHoldOrder(req.query.id);
-  res.sendStatus(200);
-  const holdOrders = getHoldOrders();
-  io.emit("holdOrders", holdOrders);
-});
+// app.delete("/holdOrder", async (req, res) => {
+//   deletHoldOrder(req.query.id);
+//   res.sendStatus(200);
+//   const holdOrders = getHoldOrders();
+//   io.emit("holdOrders", holdOrders);
+// });
 
-app.get("/pendingOrder", async (req, res) => {
-  const pendingOrders = getPendingOrders();
-  res.status(200).json(pendingOrders);
-});
+// app.get("/pendingOrder", async (req, res) => {
+//   const pendingOrders = getPendingOrders();
+//   res.status(200).json(pendingOrders);
+// });
 
 app.get("/getPrinters", (req, res) => {
   const printers = getPrinters();

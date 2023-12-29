@@ -40,7 +40,8 @@ function OrderCard({ order, idx }) {
 
   const updateLiveOrders = async (updateData) => {
     let { data } = await axios.put(
-      `http://${IPAddress}:3001/liveorders`,
+      // `http://${IPAddress}:3001/liveorders`,
+      `http://${IPAddress}:3001/api/v2/orders/liveOrder`,
       updateData
     );
     return data;

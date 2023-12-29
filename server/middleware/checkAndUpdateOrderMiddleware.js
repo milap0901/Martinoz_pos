@@ -23,7 +23,7 @@ const checkAndUpdateOrderMiddleware = (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    res.status(500).json({
       status: false,
       message: "order update Failed",
       data: undefined,

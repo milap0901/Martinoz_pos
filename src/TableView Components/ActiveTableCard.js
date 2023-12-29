@@ -36,19 +36,23 @@ function ActiveTableCard({ order, printers, defaultSettings }) {
     settleAmount,
     multipay,
   }) => {
-    let { data } = await axios.put(`http://${IPAddress}:3001/liveorders`, {
-      orderStatus,
-      orderId,
-      orderType,
-      KOTId,
-      print_count,
-      tip,
-      paymentType,
-      customerPaid,
-      settleAmount,
-      multipay,
-      online_order_id,
-    });
+    // let { data } = await axios.put(`http://${IPAddress}:3001/liveorders`, {
+    let { data } = await axios.put(
+      `http://${IPAddress}:3001/api/v2/orders/liveOrder`,
+      {
+        orderStatus,
+        orderId,
+        orderType,
+        KOTId,
+        print_count,
+        tip,
+        paymentType,
+        customerPaid,
+        settleAmount,
+        multipay,
+        online_order_id,
+      }
+    );
     return data;
   };
 

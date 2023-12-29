@@ -19,7 +19,7 @@ const checkOldKOTsMiddleware = (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    res.status(500).json({
       status: false,
       message: "kot update Failed",
       data: undefined,

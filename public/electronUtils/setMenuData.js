@@ -33,7 +33,7 @@ const setMenuData = async (token, syncCode, JWT_SECRET, db2) => {
         data: { data: customers, is_it_last_page },
       },
     } = await axios(options);
-    console.log("customers", customers);
+    // console.log("customers", customers);
     allCustomers = [...allCustomers, ...customers];
 
     if (is_it_last_page) {

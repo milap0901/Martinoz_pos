@@ -125,7 +125,8 @@ export const useGetHoldOrdersQuery = () => {
   const { IPAddress } = useSelector((state) => state.serverConfig);
 
   const getHoldOrders = async () => {
-    let { data } = await axios.get(`http://${IPAddress}:3001/holdOrder`);
+    // let { data } = await axios.get(`http://${IPAddress}:3001/holdOrder`);
+    let { data } = await axios.get(`http://${IPAddress}:3001/api/v2/holdOrder`);
     return data;
   };
 
@@ -164,7 +165,9 @@ export const useGetOrderSummaryQuery = (filters) => {
 export const useGetPendingOrdersQuery = () => {
   const { IPAddress } = useSelector((state) => state.serverConfig);
   const getPendingOrders = async () => {
-    let { data } = await axios.get(`http://${IPAddress}:3001/pendingOrder`);
+    let { data } = await axios.get(
+      `http://${IPAddress}:3001/api/v2/orders/pendingOrder`
+    );
     return data;
   };
 
@@ -184,7 +187,8 @@ export const useGetExistingOrdersQuery = (
   const { IPAddress } = useSelector((state) => state.serverConfig);
   const getExistingOrder = async (finalOrder) => {
     let { data } = await axios.post(
-      `http://${IPAddress}:3001/existingOrder`,
+      // `http://${IPAddress}:3001/existingOrder`,
+      `http://${IPAddress}:3001/api/v2/orders/ExistingOrderPaymentDetail`,
       finalOrder
     );
     return data;
