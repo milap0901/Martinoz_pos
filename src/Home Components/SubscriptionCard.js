@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import crown from "../icons/crown copy.svg";
+import bomb from "../icons/bomb.gif";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 import styles from "./SubscriptionCard.module.css";
@@ -53,6 +54,14 @@ const getTheme = (subscription) => {
       license_end_date: subscription.license_end_date,
       daysRemaining,
     };
+  } else {
+    return {
+      color: "rgb(141 0 0 / 51%)",
+      upperText: `Plan expired...`,
+      lowerText: "Buy plan immediately",
+      license_end_date: subscription.license_end_date,
+      daysRemaining: 0,
+    };
   }
 };
 
@@ -67,7 +76,11 @@ const SubscriptionCard = () => {
       className={styles.footer}
       style={{ backgroundColor: subscriptionData.color }}
     >
-      <img src={crown} className={styles.crown} />
+      {subscriptionData.daysRemaining <= 0 ? (
+        <img src={bomb} className={styles.bomb} />
+      ) : (
+        <img src={crown} className={styles.crown} />
+      )}
       <div className={styles.subscription}>
         <div className={styles.upper}>{subscriptionData?.upperText}</div>
         <div className={styles.lower}>

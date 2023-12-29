@@ -92,6 +92,12 @@
   transition: transform ease-in-out 100ms; /* Added transition for a smoother effect */
 }
 
-.footer:hover .crown {
+.bomb {
+  width: 60px;
+  transition: transform ease-in-out 100ms; /* Added transition for a smoother effect */
+}
+
+.footer:hover .crown,
+.footer:hover .bomb {
   animation: vibrate 0.4s ease infinite; /* Adjust duration and easing as needed */
 }

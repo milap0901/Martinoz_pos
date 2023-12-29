@@ -7,6 +7,8 @@ const { updateLiveOrders } = require("../orders/updateLiveOrders");
 const { getMergedOrder } = require("../orders/getExistingOrder");
 const { getMergedOrderAndKotData } = require("../KOT/getMergedOrderAndKotData");
 const { getPendingOrders } = require("../pendingOrders/getPendingOrders");
+const { modifyExistingOrder } = require("../orders/modifyExistingOrder");
+const { modifyKot } = require("../KOT/modifyKot");
 
 const getActiveOrders = (req, res) => {
   try {
@@ -145,10 +147,77 @@ const FetchPendingOrders = (req, res) => {
   }
 };
 
+const updateExistingOrders = (req, res) => {
+  try {
+    const data = req.body;
+    let orderData = modifyExistingOrder(data.finalOrder);
+    if (orderData.success === false) {
+      res.status(400).json({
+        status: true,
+        message: "update orders success",
+        data: { orderData, order: {} },
+        error: false,
+      });
+    } else {
+      const order = getOrder(orderData.orderId);
+      res.status(200).json({
+        status: false,
+        message: "update orders Failed",
+        data: {
+          orderData,
+          order,
+          isOldKOTsExist: false,
+          isOldOrderExist: true,
+        },
+        error: true,
+      });
+    }
+    const orders = getLiveOrders();
+    req.io.emit("orders", orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: false,
+      message: "update orders Failed",
+      data: undefined,
+      error,
+    });
+  }
+};
+
+const kotToOrder = (req, res) => {
+  try {
+    const finalOrder = req.body.finalOrder;
+    const orderData = createOrder(finalOrder);
+    const kotdata = modifyKot(finalOrder, orderData);
+    const order = getOrder(orderData.orderId);
+    res.status(200).json({
+      status: true,
+      message: "kot to order success",
+      data: { order, ...kotdata },
+      error: false,
+    });
+    const orders = getLiveOrders();
+    req.io.emit("orders", orders);
+    const liveKOTs = getLiveKOT();
+    req.io.emit("KOTs", liveKOTs);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: false,
+      message: "kot to order Failed",
+      data: undefined,
+      error,
+    });
+  }
+};
+
 module.exports = {
   getActiveOrders,
   createActiveOrder,
   updateActiveOrders,
   ExistingOrderPaymentDetail,
   FetchPendingOrders,
+  updateExistingOrders,
+  kotToOrder,
 };

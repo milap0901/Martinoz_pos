@@ -21,7 +21,8 @@ export const useOrderMutation = (setShowKOTExistModal) => {
   const orderRequest = async (finalOrder) => {
     const isModify = finalOrder.cartAction === "modifyOrder";
     const url = isModify
-      ? `http://${IPAddress}:3001/modifyOrder`
+      ? // ? `http://${IPAddress}:3001/modifyOrder`
+        `http://${IPAddress}:3001/api/v2/orders/modifyOrder`
       : `http://${IPAddress}:3001/api/v2/orders`;
     const { data } = await axios.post(url, { finalOrder });
     return { data, isModify }; // Include isModify in the result
@@ -70,7 +71,7 @@ export const usePrintOrderMutation = (
   const printOrderRequest = async (finalOrder) => {
     const url =
       finalOrder.cartAction === "modifyOrder"
-        ? `http://${IPAddress}:3001/modifyOrder`
+        ? `http://${IPAddress}:3001/api/v2/orders/modifyOrder`
         : `http://${IPAddress}:3001/api/v2/orders`;
     const { data } = await axios.post(url, { finalOrder });
     return { data, finalOrder };
@@ -135,9 +136,12 @@ export const useCancelOrderMutation = (hide, setErrorMessage) => {
   const queryClient = useQueryClient();
 
   const cancelOrderRequest = async (finalOrder) => {
-    const { data } = await axios.post(`http://${IPAddress}:3001/modifyOrder`, {
-      finalOrder,
-    });
+    const { data } = await axios.post(
+      `http://${IPAddress}:3001/api/v2/orders/modifyOrder`,
+      {
+        finalOrder,
+      }
+    );
     return data;
   };
 
@@ -169,9 +173,12 @@ export const useKotToOrderMutation = () => {
   const queryClient = useQueryClient();
 
   const kotToOrderRequest = async (finalOrder) => {
-    const { data } = await axios.post(`http://${IPAddress}:3001/kotToOrder`, {
-      finalOrder,
-    });
+    const { data } = await axios.post(
+      `http://${IPAddress}:3001/api/v2/orders/kotToOrder`,
+      {
+        finalOrder,
+      }
+    );
     return data;
   };
 
@@ -199,16 +206,19 @@ export const useKotToPrintOrderMutation = (printers, defaultSettings) => {
   const queryClient = useQueryClient();
 
   const kotToPrintOrderRequest = async (finalOrder) => {
-    const { data } = await axios.post(`http://${IPAddress}:3001/kotToOrder`, {
-      finalOrder,
-    });
+    const { data } = await axios.post(
+      `http://${IPAddress}:3001/api/v2/orders/kotToOrder`,
+      {
+        finalOrder,
+      }
+    );
     return { data, finalOrder };
   };
 
   return useMutation({
     mutationKey: ["kotToPrintOrder"],
     mutationFn: kotToPrintOrderRequest,
-    onSuccess: async ({ data, finalOrder }) => {
+    onSuccess: async ({ data: { data }, finalOrder }) => {
       printModifiedKots(
         finalOrder,
         data.kotTokenNo,
@@ -301,7 +311,7 @@ export const useModifyKotMutation = (printers) => {
   const queryClient = useQueryClient();
 
   const modifyKot = async (finalOrder) => {
-    const { data } = await axios.post(`http://${IPAddress}:3001/modifyKot`, {
+    const { data } = await axios.put(`http://${IPAddress}:3001/api/v2/kots`, {
       finalOrder,
     });
     return { data, finalOrder };
@@ -310,7 +320,7 @@ export const useModifyKotMutation = (printers) => {
   return useMutation({
     mutationKey: ["modifyKOT"],
     mutationFn: modifyKot,
-    onSuccess: async ({ data, finalOrder }) => {
+    onSuccess: async ({ data: { data }, finalOrder }) => {
       printModifiedKots(
         finalOrder,
         data.kotTokenNo,

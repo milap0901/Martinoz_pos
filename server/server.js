@@ -416,34 +416,34 @@ app.get("/ordersSummary", (req, res) => {
   });
 });
 
-app.post("/modifyOrder", async (req, res, next) => {
-  if (req.body.finalOrder.order_status === "cancelled") {
-    const billerCred = req.body.finalOrder.billerCred;
-    const isValid = await authenticateBiller(billerCred);
-    if (isValid) {
-      next();
-    } else {
-      res.status(401).json({ message: "invalid password" });
-    }
-  } else {
-    next();
-  }
-});
+// app.post("/modifyOrder", async (req, res, next) => {
+//   if (req.body.finalOrder.order_status === "cancelled") {
+//     const billerCred = req.body.finalOrder.billerCred;
+//     const isValid = await authenticateBiller(billerCred);
+//     if (isValid) {
+//       next();
+//     } else {
+//       res.status(401).json({ message: "invalid password" });
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
-app.post("/modifyOrder", (req, res) => {
-  const data = req.body;
-  let orderData = modifyExistingOrder(data.finalOrder);
-  if (orderData.success === false) {
-    res.status(400).json({ orderData, order: {} });
-  } else {
-    const order = getOrder(orderData.orderId);
-    res
-      .status(200)
-      .json({ orderData, order, isOldKOTsExist: false, isOldOrderExist: true });
-  }
-  const orders = getLiveOrders();
-  io.emit("orders", orders);
-});
+// app.post("/modifyOrder", (req, res) => {
+//   const data = req.body;
+//   let orderData = modifyExistingOrder(data.finalOrder);
+//   if (orderData.success === false) {
+//     res.status(400).json({ orderData, order: {} });
+//   } else {
+//     const order = getOrder(orderData.orderId);
+//     res
+//       .status(200)
+//       .json({ orderData, order, isOldKOTsExist: false, isOldOrderExist: true });
+//   }
+//   const orders = getLiveOrders();
+//   io.emit("orders", orders);
+// });
 
 app.post("/kotToOrder", (req, res) => {
   const finalOrder = req.body.finalOrder;
@@ -457,14 +457,14 @@ app.post("/kotToOrder", (req, res) => {
   io.emit("KOTs", liveKOTs);
 });
 
-app.post("/modifyKot", (req, res) => {
-  const order = req.body.finalOrder;
-  const orderData = { orderId: null, userId: null, orderNo: null };
-  const { kotTokenNo, newKotTokenNo } = modifyKot(order, orderData);
-  res.status(200).json({ kotTokenNo, newKotTokenNo });
-  const liveKOTs = getLiveKOT();
-  io.emit("KOTs", liveKOTs);
-});
+// app.post("/modifyKot", (req, res) => {
+//   const order = req.body.finalOrder;
+//   const orderData = { orderId: null, userId: null, orderNo: null };
+//   const { kotTokenNo, newKotTokenNo } = modifyKot(order, orderData);
+//   res.status(200).json({ kotTokenNo, newKotTokenNo });
+//   const liveKOTs = getLiveKOT();
+//   io.emit("KOTs", liveKOTs);
+// });
 
 app.put("/orderPrintCount", (req, res) => {
   const orderId = req.body.orderId;

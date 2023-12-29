@@ -8,6 +8,7 @@ const {
 const { updateKOT } = require("../KOT/updateKot");
 const { getLiveOrders } = require("../orders/getLiveOrders");
 const { updateLiveOrders } = require("../orders/updateLiveOrders");
+const { modifyKot } = require("../KOT/modifyKot");
 
 const db2 = getDb();
 
@@ -114,4 +115,30 @@ const updateLiveKot = async (req, res) => {
   }
 };
 
-module.exports = { createNewKot, getLiveKots, updateLiveKot };
+const updateActiveKot = (req, res) => {
+  try {
+    const order = req.body.finalOrder;
+    const orderData = { orderId: null, userId: null, orderNo: null };
+    const { kotTokenNo, newKotTokenNo } = modifyKot(order, orderData);
+    res
+      .status(200)
+      .json({
+        status: true,
+        message: "kot Data update Success",
+        data: { kotTokenNo, newKotTokenNo },
+        error: false,
+      });
+    const liveKOTs = getLiveKOT();
+    req.io.emit("KOTs", liveKOTs);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: false,
+      message: "kot Data update Failed",
+      data: undefined,
+      error,
+    });
+  }
+};
+
+module.exports = { createNewKot, getLiveKots, updateLiveKot, updateActiveKot };

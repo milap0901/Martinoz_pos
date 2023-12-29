@@ -5,6 +5,8 @@ const {
   updateActiveOrders,
   ExistingOrderPaymentDetail,
   FetchPendingOrders,
+  updateExistingOrders,
+  kotToOrder,
 } = require("../controllers/orders.controller");
 const {
   checkAndUpdateOrderMiddleware,
@@ -15,6 +17,9 @@ const {
 const {
   updateOnlineOrderOnMainServerMiddleware,
 } = require("../middleware/updateOnlineOrderOnMainServerMiddleware");
+const {
+  authenticateBillerMiddleware,
+} = require("../middleware/authenticateBillerMiddleware");
 
 const router = express.Router();
 
@@ -36,5 +41,13 @@ router.put(
 router.get("/orders/pendingOrder", FetchPendingOrders);
 
 router.post("/orders/ExistingOrderPaymentDetail", ExistingOrderPaymentDetail);
+
+router.post(
+  "/orders/modifyOrder",
+  authenticateBillerMiddleware,
+  updateExistingOrders
+);
+
+router.post("/orders/kotToOrder", kotToOrder);
 
 module.exports = router;
