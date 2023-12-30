@@ -41,7 +41,7 @@ const serverFilePath = path.join(app.getAppPath(), "server", "server");
 let db2 = getLocalDb(destinationFile);
 let mainWindow;
 let serverProcess;
-const latestDbVersion = 4;
+const latestDbVersion = 5;
 
 // Create the native browser window.
 

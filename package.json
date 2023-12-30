@@ -1,6 +1,6 @@
 {
   "name": "pos-app",
-  "version": "0.3.27",
+  "version": "0.3.31",
   "private": true,
   "homepage": "./",
   "main": "./public/electron.js",
@@ -8,7 +8,7 @@
   "description": "POS",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pratiks1994/pos-update.git"
+    "url": "https://github.com/milap0901/pos_update.git"
   },
   "electronmon": {
     "patterns": [

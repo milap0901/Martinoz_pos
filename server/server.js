@@ -445,17 +445,17 @@ app.get("/ordersSummary", (req, res) => {
 //   io.emit("orders", orders);
 // });
 
-app.post("/kotToOrder", (req, res) => {
-  const finalOrder = req.body.finalOrder;
-  const orderData = createOrder(finalOrder);
-  const kotdata = modifyKot(finalOrder, orderData);
-  const order = getOrder(orderData.orderId);
-  res.status(200).json({ order, ...kotdata });
-  const orders = getLiveOrders();
-  io.emit("orders", orders);
-  const liveKOTs = getLiveKOT();
-  io.emit("KOTs", liveKOTs);
-});
+// app.post("/kotToOrder", (req, res) => {
+//   const finalOrder = req.body.finalOrder;
+//   const orderData = createOrder(finalOrder);
+//   const kotdata = modifyKot(finalOrder, orderData);
+//   const order = getOrder(orderData.orderId);
+//   res.status(200).json({ order, ...kotdata });
+//   const orders = getLiveOrders();
+//   io.emit("orders", orders);
+//   const liveKOTs = getLiveKOT();
+//   io.emit("KOTs", liveKOTs);
+// });
 
 // app.post("/modifyKot", (req, res) => {
 //   const order = req.body.finalOrder;

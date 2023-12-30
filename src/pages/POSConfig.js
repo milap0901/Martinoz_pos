@@ -52,7 +52,7 @@ function POSConfig() {
           <header> Data Sync</header>
           <section>
             <div>Lets start. sync your data. </div>
-            <div className={styles.syncCodeControl}>
+            <form className={styles.syncCodeControl}>
               <input
                 type="text"
                 placeholder="please enter sync code"
@@ -63,7 +63,7 @@ function POSConfig() {
                 {" "}
                 sync
               </button>
-            </div>
+            </form>
           </section>
           {isError ? (
             <div className={styles.errorText}>something went wrong</div>

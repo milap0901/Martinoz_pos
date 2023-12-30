@@ -75,10 +75,9 @@ function Main() {
       }
 
       if (
-        !data.subscriptionStatus
-        // ||
-        // (data.subscriptionStatus.is_free_trial === 0 &&
-        //   data.subscriptionStatus.is_licence === 0)
+        !data.subscriptionStatus ||
+        (data.subscriptionStatus.is_free_trial === 0 &&
+          data.subscriptionStatus.is_licence === 0)
       ) {
         navigate("./subscription");
         return;
