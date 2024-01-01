@@ -220,8 +220,7 @@ function OrderPayment() {
       <div className={`${styles.total} d-flex justify-content-end`}>
         <div className="m-2 my-3 text-light fs-6">Total</div>
         <div className="mx-3 my-3 text-warning fw-bold">
-          {" "}
-          ₹ {finalOrder.cartTotal.toFixed(2)}{" "}
+          ₹ {finalOrder.cartTotal.toFixed(2)}
         </div>
       </div>
 
@@ -307,8 +306,7 @@ function OrderPayment() {
                 className="mx-1 py-1 px-4 fw-bold text-nowrap rounded-1"
                 onClick={() => saveOrder(finalOrder)}
               >
-                {" "}
-                Save{" "}
+                Save
               </Button>
               <Button
                 variant="danger"
@@ -316,7 +314,6 @@ function OrderPayment() {
                 className="mx-1 py-1 px-2 fw-bold text-nowrap rounded-1"
                 onClick={() => saveAndPrintOrder(finalOrder, printers)}
               >
-                {" "}
                 Save & Print
               </Button>
             </>
@@ -332,8 +329,7 @@ function OrderPayment() {
                 className="mx-1 py-1 px-2 fw-bold text-nowrap rounded-1"
                 onClick={() => createKOT(finalOrder, printers)}
               >
-                {" "}
-                KOT & Print{" "}
+                KOT & Print
               </Button>
               <Button
                 variant="secondary"
@@ -341,8 +337,7 @@ function OrderPayment() {
                 className="mx-1 py-1 px-2 fw-bold text-nowrap rounded-1"
                 onClick={() => {}}
               >
-                {" "}
-                KOT{" "}
+                KOT
               </Button>
             </>
           ) : null}
@@ -355,8 +350,7 @@ function OrderPayment() {
                 className="mx-1 py-1 px-2 fw-bold border-1 border border-dark text-nowrap rounded-1"
                 onClick={holdOrder}
               >
-                {" "}
-                HOLD{" "}
+                HOLD
               </Button>
             </>
           ) : null}

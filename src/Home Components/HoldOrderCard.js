@@ -60,8 +60,8 @@ function HoldOrderCard({ order, setShowHoldOrders, idx }) {
           </div>
           <div className={styles.total}>₹ {order.total}</div>
           <div className={styles.customerDetail}>
-            {order.customer_name ? order.customer_name : "----"} |{" "}
-            {order.phone_number ? order.phone_number : "----"}{" "}
+            {order.customer_name ? order.customer_name : "----"} |
+            {order.phone_number ? order.phone_number : "----"}
           </div>
         </div>
 

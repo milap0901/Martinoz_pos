@@ -264,8 +264,8 @@ function OrderCard({ order, idx }) {
       <div className={styles.riderStatus}>Not Assign</div>
 
       <div className={styles.customerDetail}>
-        {order.customer_name ? order.customer_name : "----"} |{" "}
-        {order.phone_number ? order.phone_number : "----"} <br />{" "}
+        {order.customer_name ? order.customer_name : "----"} |
+        {order.phone_number ? order.phone_number : "----"} <br />
         {order.complete_address ? order.complete_address : "------"}
       </div>
 
@@ -275,8 +275,8 @@ function OrderCard({ order, idx }) {
             <div className={styles.orderItem} key={v4()}>
               <div className={styles.orederItemQty}>{item.quantity} x</div>
               <div className={styles.orederItemDetail}>
-                {item.item_name}{" "}
-                {item.variation_name ? `- ${item.variation_name} ` : null}{" "}
+                {item.item_name}
+                {item.variation_name ? `- ${item.variation_name} ` : null}
                 {item?.itemAddons?.length
                   ? item.itemAddons.map((addon) => {
                       return (
@@ -285,7 +285,7 @@ function OrderCard({ order, idx }) {
                         </div>
                       );
                     })
-                  : null}{" "}
+                  : null}
               </div>
             </div>
           );
@@ -310,7 +310,6 @@ function OrderCard({ order, idx }) {
           onClick={handleClick}
           disabled={updateLiveOrderLoading}
         >
-          {" "}
           {updateLiveOrderLoading
             ? "Loading..."
             : getBtnTheme(

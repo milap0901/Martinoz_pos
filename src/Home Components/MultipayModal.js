@@ -285,8 +285,7 @@ function MultipayModal({
           >
             <div className={styles.totalTitle}>Previous Order</div>
             <div className={styles.totalAmount}>
-              ₹{" "}
-              {data?.mergedOrderData?.updatedExistionOrderCartTotal.toFixed(2)}
+              ₹{data?.mergedOrderData?.updatedExistionOrderCartTotal.toFixed(2)}
             </div>
           </div>
         }
@@ -294,8 +293,7 @@ function MultipayModal({
           <div className={styles.kotTotalContainer} ref={prevKotTotalRef}>
             <div className={styles.totalTitle}>Previous Kots</div>
             <div className={styles.totalAmount}>
-              ₹{" "}
-              {data?.mergedOrderData?.updatedExistionOrderCartTotal.toFixed(2)}
+              ₹{data?.mergedOrderData?.updatedExistionOrderCartTotal.toFixed(2)}
             </div>
           </div>
         }
@@ -332,7 +330,6 @@ function MultipayModal({
         {multipayControlType === "order" && (
           <>
             <button className={styles.saveBtn} onClick={handleSave}>
-              {" "}
               Save
             </button>
             <button className={styles.saveBtn} onClick={handleSaveAndPrint}>
@@ -343,7 +340,6 @@ function MultipayModal({
         {multipayControlType === "kot" && (
           <>
             <button className={styles.kotBtn} onClick={handleKotAndPrint}>
-              {" "}
               Kot
             </button>
             <button className={styles.kotBtn} onClick={handleKotAndPrint}>

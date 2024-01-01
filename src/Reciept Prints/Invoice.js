@@ -232,11 +232,9 @@ function Invoice({ order, defaultSettings }) {
               Item Qty : {itemTotalQty}
             </td>
             <td style={{ paddingBottom: "0px", textAlign: "right" }}>
-              {" "}
               Total :
             </td>
             <td style={{ paddingBottom: "0px", textAlign: "right" }}>
-              {" "}
               {(order.item_total - itemDiscount).toFixed(2)}
             </td>
           </tr>
@@ -298,7 +296,6 @@ function Invoice({ order, defaultSettings }) {
                 whiteSpace: "nowrap",
               }}
             >
-              {" "}
               ₹ {order.total.toFixed(2)}
             </td>
           </tr>
@@ -442,7 +439,7 @@ export default Invoice;
 //         <tbody style={{ borderCollapse: "unset" }}>
 //           {order.items.map((item) => (
 //             <>
-//               {" "}
+//
 //               <tr key={item.id} style={{ border: "none" }}>
 //                 <td
 //                   style={{

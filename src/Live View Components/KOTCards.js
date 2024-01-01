@@ -103,8 +103,8 @@ function KOTCards({ KOT, idx }) {
                 item.status === 0 ? styles.strikeThrough : null
               }`}
             >
-              {item.item_name}{" "}
-              {item.variation_name ? `- ${item.variation_name}` : null}{" "}
+              {item.item_name}
+              {item.variation_name ? `- ${item.variation_name}` : null}
               {item?.item_addons?.length
                 ? item.item_addons.map((addon) => (
                     <span key={uuidv4()}>

@@ -1,13 +1,12 @@
-import React from 'react'
-import styles from "./BackButton.module.css"
+import React from "react";
+import styles from "./BackButton.module.css";
 
-function BackButton({onClick}) {
+function BackButton({ onClick }) {
   return (
     <button className={styles.backButton} onClick={() => onClick()}>
-    {" "}
-    <span> &larr; </span> Back
-</button>
-  )
+      <span> &larr; </span> Back
+    </button>
+  );
 }
 
-export default BackButton
+export default BackButton;

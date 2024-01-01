@@ -60,7 +60,6 @@ function POSConfig() {
                 onChange={(e) => setSyncCode(e.target.value)}
               ></input>
               <button onClick={() => handleSync(syncCode)} disabled={isLoading}>
-                {" "}
                 sync
               </button>
             </form>

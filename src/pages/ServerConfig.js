@@ -103,7 +103,7 @@ function ServerConfig() {
               value="server"
               checked={systemType === "server"}
               onChange={handleChange}
-            />{" "}
+            />
             <label htmlFor="server">setup as server </label>
           </div>
 
@@ -116,7 +116,7 @@ function ServerConfig() {
               value="client"
               checked={systemType === "client"}
               onChange={handleChange}
-            />{" "}
+            />
             <label htmlFor="client"> setup as client </label>
           </div>
           <div>
