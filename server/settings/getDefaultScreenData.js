@@ -15,7 +15,10 @@ const getDefaultScreenData = () => {
       .prepare("SELECT name FROM brands where id=?")
       .get(1);
 
-    const price_type = options.default_price_type === "without_tax" ? 2 : 1;
+    const price_type =
+      JSON.parse(options?.configuration).default_price_type === "without_tax"
+        ? 2
+        : 1;
 
     return {
       ...JSON.parse(options.configuration),
