@@ -19,7 +19,8 @@ import {
 import Loading from "../Feature Components/Loading";
 
 function EditPrinter() {
-  const { IPAddress } = useSelector((state) => state.serverConfig);
+  // const { IPAddress } = useSelector((state) => state.serverConfig);
+
   const { data: bigMenu } = useGetMenuQuery2();
   const categories = bigMenu?.categories || [];
   const { printerId } = useParams();
@@ -58,16 +59,21 @@ function EditPrinter() {
   });
 
   const getPrinters = async () => {
-    const { data } = await axios.get(`http://${IPAddress}:3001/getPrinters`);
+    // const { data } = await axios.get(`http://${IPAddress}:3001/getPrinters`);
+    // return data;
+
+    const data = await window.apiKey.request("getPosPrinters");
     return data;
   };
 
   const updatePrinter = async (printer) => {
-    // console.log("ran");
-    const { data } = await axios.put(
-      `http://${IPAddress}:3001/updatePrinter`,
-      printer
-    );
+    // const { data } = await axios.put(
+    //   `http://${IPAddress}:3001/updatePrinter`,
+    //   printer
+    // );
+    // return data;
+
+    const data = await window.apiKey.request("updatePrinter", printer);
     return data;
   };
 
@@ -155,7 +161,7 @@ function EditPrinter() {
       queryClient.invalidateQueries("printers");
 
       notify("success", "Printer Assigned success");
-      setTimeout(() => navigate(".."), 500);
+      navigate("..");
     },
     onError: () => {
       notify("error", "something went wrong");

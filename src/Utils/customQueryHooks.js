@@ -44,14 +44,19 @@ export const useGetMenuQuery2 = () => {
 
 export const useGetPrintersQuery = () => {
   const { IPAddress } = useSelector((state) => state.serverConfig);
-  const getPrinters = async () => {
-    const { data } = await axios.get(`http://${IPAddress}:3001/getPrinters`);
+  // const getPrinters = async () => {
+  //   const { data } = await axios.get(`http://${IPAddress}:3001/getPrinters`);
+  //   return data;
+  // };
+
+  const getPosPrinter = async () => {
+    const data = await window.apiKey.request("getPosPrinters");
     return data;
   };
 
   return useQuery({
     queryKey: ["printers"],
-    queryFn: getPrinters,
+    queryFn: getPosPrinter,
     refetchIntervalInBackground: false,
     refetchOnWindowFocus: false,
     staleTime: 1200000,

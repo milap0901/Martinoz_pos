@@ -1,30 +1,41 @@
 const { PosPrinter } = require("electron-pos-printer");
 
-const printKot = async payload => {
-	const { data, printerName } = payload;
-	// const win = new BrowserWindow({width:305,height:1000});
+const printKot = async (payload) => {
+  const { data, printerName } = payload;
+  // const win = new BrowserWindow({width:305,height:1000});
 
-	// const options = {
-	// 	silent: false,
-	// 	deviceName: "POS-usb",
-	// 	margins: {
-	// 		marginType: "custom",
-	// 		top: 0,
-	// 		bottom: 0,
-	// 		left: 0,
-	// 		right: 0,
-	// 	},
+  // const options = {
+  // 	silent: false,
+  // 	deviceName: "POS-usb",
+  // 	margins: {
+  // 		marginType: "custom",
+  // 		top: 0,
+  // 		bottom: 0,
+  // 		left: 0,
+  // 		right: 0,
+  // 	},
 
-	//  pageSize:{width:78000,height:10000}
-	// };
+  //  pageSize:{width:78000,height:10000}
+  // };
 
-	const fullDate = new Date();
-	const date = `${fullDate.getDate()}/${fullDate.getMonth() + 1}/${fullDate.getFullYear()}`;
-	const time = `${fullDate.getHours()}:${fullDate.getMinutes()}:${fullDate.getSeconds()}`;
-	const orderTypedisplayNames = { dine_in: "Dine In", pick_up: "Pick Up", delivery: "Delivery" };
-	const itemStatusDisplayName = { removed: "CANCELLED", new: "NEW", updated: "UPDATED", cancelled: "CANCELLED" };
+  const fullDate = new Date();
+  const date = `${fullDate.getDate()}/${
+    fullDate.getMonth() + 1
+  }/${fullDate.getFullYear()}`;
+  const time = `${fullDate.getHours()}:${fullDate.getMinutes()}:${fullDate.getSeconds()}`;
+  const orderTypedisplayNames = {
+    dine_in: "Dine In",
+    pick_up: "Pick Up",
+    delivery: "Delivery",
+  };
+  const itemStatusDisplayName = {
+    removed: "CANCELLED",
+    new: "NEW",
+    updated: "UPDATED",
+    cancelled: "CANCELLED",
+  };
 
-	const htmlContent = `
+  const htmlContent = `
 	<!DOCTYPE html>
 	<html>
 	<head>
@@ -101,7 +112,11 @@ const printKot = async payload => {
 				<div class="dateAndTime">${date} ${time}</div>
 				<div class="kotText bold">KOT - ${data.kotTokenNo}</div>
 				<div class="orderType bold">${orderTypedisplayNames[data.orderType]}</div>
-				${data.orderType === "dine_in" ? `<div class="tableNo bold">Table No: ${data.tableNumber}</div> ` : ""}
+				${
+          data.orderType === "dine_in"
+            ? `<div class="tableNo bold">Table No: ${data.tableNumber}</div> `
+            : ""
+        }
 			</header>		
 			<section class="biller">Biller - biller</section>
 			<section class="itemTitle">
@@ -111,30 +126,36 @@ const printKot = async payload => {
 			<section class="itemContainer">
 
 			${data.orderCart
-				.map(item => {
-					const itemStatus =
-						item.itemStatus !== "default" && data.isModified ? `[${itemStatusDisplayName[item.itemStatus]}]` : "";
+        .map((item) => {
+          const itemStatus =
+            item.itemStatus !== "default" && data.isModified
+              ? `[${itemStatusDisplayName[item.itemStatus]}]`
+              : "";
 
-					const itemCard = `<article class="itemCard">
+          const itemCard = `<article class="itemCard">
 										<div class="itemQty">${item.itemQty}</div>
-										<div class="itemName bold ${["removed", "cancelled"].includes(item.itemStatus) ? "strikeThrough" : ""}"> ${itemStatus} ${item.itemName} ${
-						item.variantName ? " - " + item.variantName : ""
-					}</div>
+										<div class="itemName bold ${
+                      ["removed", "cancelled"].includes(item.itemStatus)
+                        ? "strikeThrough"
+                        : ""
+                    }"> ${itemStatus} ${item.itemName} ${
+            item.variantName ? " - " + item.variantName : ""
+          }</div>
 			    					</article>`;
 
-					const addonCard = item.toppings.length
-						? item.toppings
-								?.map(topping => {
-									return `<article class="addonCard">
+          const addonCard = item.toppings.length
+            ? item.toppings
+                ?.map((topping) => {
+                  return `<article class="addonCard">
 												<div class="addonName">${topping.name} - </div>
 					  							<div class="addonQty">${topping.quantity}</div>
 					  						</article>`;
-								})
-								.join(" ")
-						: "";
-					return itemCard + addonCard;
-				})
-				.join(" ")}
+                })
+                .join(" ")
+            : "";
+          return itemCard + addonCard;
+        })
+        .join(" ")}
 			</section>
 			
 		</div>
@@ -142,44 +163,44 @@ const printKot = async payload => {
 	</html>
   `;
 
-	// win.loadURL(`data:text/html;charset=UTF-8,${encodeURIComponent(htmlContent)}`);
+  // win.loadURL(`data:text/html;charset=UTF-8,${encodeURIComponent(htmlContent)}`);
 
-	// win.once("ready-to-show", () => {
-	// 	win.webContents.print(options, (success, errorType) => {
-	// 		if (!success) {
-	// 			console.log(`Printing failed: ${errorType}`);
-	// 		} else {
-	// 			console.log("Printing successful.");
-	// 		}
+  // win.once("ready-to-show", () => {
+  // 	win.webContents.print(options, (success, errorType) => {
+  // 		if (!success) {
+  // 			console.log(`Printing failed: ${errorType}`);
+  // 		} else {
+  // 			console.log("Printing successful.");
+  // 		}
 
-	// 		win.close();
-	// 	});
-	// });
+  // 		win.close();
+  // 	});
+  // });
 
-	const kotPrint = [
-		{
-			type: "text",
-			value: htmlContent,
-			style: {},
-		},
-	];
+  const kotPrint = [
+    {
+      type: "text",
+      value: htmlContent,
+      style: {},
+    },
+  ];
 
-	const options = {
-		preview: true,
-		margin: "0px 0px 0px 0px",
-		silent: true,
-		copies: 1,
-		printerName: printerName,
-		timeOutPerLine: 600,
-		pageSize: "76mm", // page size,
-		color: false,
-		printBackground: false,
-		dpi: 300,
-	};
+  const options = {
+    preview: false,
+    margin: "0px 0px 0px 0px",
+    silent: true,
+    copies: 1,
+    printerName: printerName,
+    timeOutPerLine: 600,
+    pageSize: "76mm", // page size,
+    color: false,
+    printBackground: false,
+    dpi: 300,
+  };
 
-	PosPrinter.print(kotPrint, options).catch(error => {
-		console.error(error);
-	});
+  PosPrinter.print(kotPrint, options).catch((error) => {
+    console.error(error);
+  });
 };
 
 module.exports = { printKot };

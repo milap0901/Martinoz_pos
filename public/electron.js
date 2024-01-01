@@ -236,6 +236,44 @@ ipcMain.handle("getConnectedPrinters", async (event, payload) => {
   return connectedPrinters;
 });
 
+ipcMain.handle("getPosPrinters", async (event, payload) => {
+  try {
+    const printers = db2.prepare("select * from printers").all([]);
+    return printers;
+  } catch (err) {
+    console.log("error printer", err);
+    return undefined;
+  }
+});
+
+ipcMain.handle("updatePrinter", async (event, data) => {
+  try {
+    const billPrintStatus = data.assignToBillStatus ? 1 : 0;
+    const kotPrintStatus = data.assignToKotStatus ? 1 : 0;
+    db2
+      .prepare(
+        "UPDATE printers SET printer_name=?, printer_display_name=?,bill_print_status=?, bill_print_ordertypes=?, bill_print_copy_count=?, kot_print_status=?, kot_print_ordertypes=?, kot_print_copy_count=?,printer_type=?,kot_print_categories=?,kot_print_items=? where id=?"
+      )
+      .run([
+        data.selectedPrinter,
+        data.printer_display_name,
+        billPrintStatus,
+        data.billPrintOrderTypes,
+        data.billPrintCopyCount,
+        kotPrintStatus,
+        data.kotPrintOrderTypes,
+        data.kotPrintCopyCount,
+        data.printerType,
+        data.printCategories.toString(),
+        data.printItems.toString(),
+        data.id,
+      ]);
+  } catch (err) {
+    console.log("error printer", err);
+    return undefined;
+  }
+});
+
 ipcMain.handle("newOnlineOrder", async (event, payload) => {
   const { customerNames } = payload;
 

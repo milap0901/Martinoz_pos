@@ -81,7 +81,7 @@ function MainNav() {
               onClick={() => setShowConfigSideBar(true)}
             />
             <Navbar.Brand className="fw-bolder text-danger fs-4 ps-1">
-              Martino'z 0.3.31
+              Martino'z 0.3.33
             </Navbar.Brand>
 
             <Button
