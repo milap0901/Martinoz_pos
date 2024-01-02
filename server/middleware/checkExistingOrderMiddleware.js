@@ -3,6 +3,7 @@ const { checkExistingOrder } = require("../orders/checkExistingOrder");
 const checkExistingOrderMiddleware = (req, res, next) => {
   try {
     const isOrderExist = checkExistingOrder(req.body);
+    // console.log(JSON.stringify(req.body));
     // console.log(isOrderExist);
     if (!isOrderExist) {
       next();

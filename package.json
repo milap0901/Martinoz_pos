@@ -1,6 +1,6 @@
 {
   "name": "pos-app",
-  "version": "0.3.33",
+  "version": "0.3.34",
   "private": true,
   "homepage": "./",
   "main": "./public/electron.js",
@@ -50,6 +50,7 @@
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
     "react-hotkeys-hook": "^4.4.1",
+    "react-qr-code": "^2.0.12",
     "react-query": "^3.39.3",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.2.0",

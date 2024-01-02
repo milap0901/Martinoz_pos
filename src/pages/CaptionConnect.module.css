@@ -1,0 +1,22 @@
+.mainDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 295px);
+  gap: 100px;
+}
+
+.landing_title {
+  font-size: 28px;
+  font-weight: 300;
+  line-height: normal;
+  color: #41525d;
+}
+
+.text {
+  font-size: 18px;
+  line-height: 28px;
+  margin-top: 18px;
+  color: var(--gray-700);
+}

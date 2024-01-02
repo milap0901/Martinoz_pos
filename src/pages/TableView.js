@@ -90,6 +90,26 @@ function TableView() {
           <button onClick={() => handleClick("dine_in")}>+ Add Table</button>
         </div>
       </header>
+      <div className={styles.legendClass}>
+        <div className={styles.indicator}>
+          <div
+            className={styles.circle}
+            style={{ backgroundColor: "rgba(3, 148, 3, 0.247)" }}
+          ></div>
+          <div>Runnig Table</div>
+          <div
+            className={styles.circle}
+            style={{ backgroundColor: "rgba(160, 77, 0, 0.329)" }}
+          ></div>
+          <div>Runnig KOT Table</div>
+          <div
+            className={styles.circle}
+            style={{ backgroundColor: " rgba(0, 72, 167, 0.3)" }}
+          ></div>
+          <div>Paid Table</div>
+        </div>
+      </div>
+
       <main className={styles.tableList}>
         {isOrdersLoading && <div>Loading....</div>}
         {isError && <div>{error}</div>}

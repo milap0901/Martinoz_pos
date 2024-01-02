@@ -30,6 +30,7 @@ import SalesSummary from "./pages/SalesSummary.js";
 import BillerLogin from "./pages/BillerLogin.js";
 import { ToastContainer } from "react-toastify";
 import Subscription from "./pages/Subscription.js";
+import CaptionConnect from "./pages/CaptionConnect.js";
 
 function Main() {
   const dispatch = useDispatch();
@@ -170,6 +171,7 @@ function Main() {
           <Route path="tableView" element={<TableView />} />
           <Route path="configuration">
             <Route index element={<Configuration />} />
+            <Route path="captaion" element={<CaptionConnect />} />
             <Route path="billingScreenConfig">
               <Route index element={<BillingScreenConfig />} />
               <Route path="editBillingScreen" element={<EditBillingScreen />} />

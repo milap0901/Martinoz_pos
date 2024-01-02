@@ -4,6 +4,8 @@ const { getOrder } = require("../orders/getOrder");
 const { getLiveOrders } = require("../orders/getLiveOrders");
 
 const checkAndUpdateOrderMiddleware = (req, res, next) => {
+  // console.log(JSON.stringify(req.body));
+
   try {
     const { orderId, customerId } = checkAndUpdateOrder(req.body.finalOrder);
     if (orderId !== "") {

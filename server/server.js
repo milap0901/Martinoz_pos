@@ -61,6 +61,7 @@ const customerRoute = require("./routes/customer.route");
 const kotRoute = require("./routes/kot.route");
 const orderRoute = require("./routes/order.route");
 const holdOrdersRoute = require("./routes/holdOrder.route");
+const tableViewRoute = require("./routes/tableView.route");
 
 // const appPath = process.argv
 // console.log(appPath)
@@ -103,6 +104,7 @@ app.use("/api/v2", customerRoute);
 app.use("/api/v2", kotRoute);
 app.use("/api/v2", orderRoute);
 app.use("/api/v2", holdOrdersRoute);
+app.use("/api/v2", tableViewRoute);
 
 app.get("/menuData", (req, res) => {
   const menuData = getMenuData();
