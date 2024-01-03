@@ -236,6 +236,10 @@ ipcMain.handle("getConnectedPrinters", async (event, payload) => {
   return connectedPrinters;
 });
 
+ipcMain.handle("checkForUpdate", async (event, payload) => {
+  autoUpdater.checkForUpdatesAndNotify();
+});
+
 ipcMain.handle("getPosPrinters", async (event, payload) => {
   try {
     const printers = db2.prepare("select * from printers").all([]);

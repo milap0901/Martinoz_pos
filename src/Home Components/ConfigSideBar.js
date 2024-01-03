@@ -27,6 +27,11 @@ function ConfigSideBar({
     setShowConfigSideBar(false);
   };
 
+  const checkForUpdate = async () => {
+    await window.apiKey.request("checkForUpdate");
+    setShowConfigSideBar(false);
+  };
+
   return (
     <Offcanvas
       className={styles.ConfigSideBarMain}
@@ -71,10 +76,10 @@ function ConfigSideBar({
           <img src={liveIcon} className={styles.itemIcon} />
           <div className={styles.itemName}>Live View</div>
         </Link>
-        <Link className={styles.items} onClick={handleClose}>
+        <div className={styles.items} onClick={checkForUpdate}>
           <img src={updateIcon} className={styles.itemIcon} />
           <div className={styles.itemName}>Check update</div>
-        </Link>
+        </div>
 
         <Link className={styles.items} onClick={handleLogout}>
           <img src={logoutIcon} className={styles.itemIcon} />
