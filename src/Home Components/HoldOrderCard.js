@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
 function HoldOrderCard({ order, setShowHoldOrders, idx }) {
+  const holdOrder = order.holdOrder;
   const dispatch = useDispatch();
   const { IPAddress } = useSelector((state) => state.serverConfig);
   const navigate = useNavigate();
@@ -24,8 +25,8 @@ function HoldOrderCard({ order, setShowHoldOrders, idx }) {
     mutationFn: deletHoldOrders,
   });
 
-  const setAsFinalOrder = async (order) => {
-    dispatch(holdToFinalOrder({ order }));
+  const setAsFinalOrder = async (holdOrder) => {
+    dispatch(holdToFinalOrder({ holdOrder }));
     holdOrderMutation.mutate(order.id);
     await setShowHoldOrders(false);
     navigate("/Home");
@@ -51,23 +52,24 @@ function HoldOrderCard({ order, setShowHoldOrders, idx }) {
         }}
         className={styles.holdOrderCard}
       >
-        <div onClick={() => setAsFinalOrder(order)}>
+        <div onClick={() => setAsFinalOrder(holdOrder)}>
           <div className={styles.cardHeader}>
             <div>
-              HOLD NO : {order.id} | {order.order_type}
+              HOLD NO : {order.id} | {holdOrder.orderType}
             </div>
-            <div>{order.created_at}</div>
+            <div>{order.created_at_Time}</div>
           </div>
-          <div className={styles.total}>₹ {order.total}</div>
+          <div className={styles.total}>₹ {holdOrder.cartTotal}</div>
           <div className={styles.customerDetail}>
-            {order.customer_name ? order.customer_name : "----"} |
-            {order.phone_number ? order.phone_number : "----"}
+            {holdOrder.customerName ? holdOrder.customerName : "----"} |
+            {holdOrder.customerContact ? holdOrder.customerContact : "----"}
           </div>
         </div>
 
         <div className={styles.actions}>
           <div>
-            kept on hold by :<br /> biller
+            kept on hold by :<br />
+            {holdOrder.biller_name}
           </div>
           <button onClick={() => holdOrderMutation.mutate(order.id)}>
             Discard
