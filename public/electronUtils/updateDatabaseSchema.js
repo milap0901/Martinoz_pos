@@ -47,6 +47,22 @@ const updateDatabaseSchema = (latestDbVersion, db2) => {
             console.log("Column 'salary' added.");
           },
         },
+        {
+          targetVersion: 6,
+          action: async () => {
+            // Function to add a new column
+            const deleteHoldOrderTable = `DROP TABLE hold_orders`;
+
+            const createHoldOrderTable = `CREATE TABLE hold_orders (
+              id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+              created_at DATETIME DEFAULT (datetime('now', 'localtime')),
+              updated_at DATETIME DEFAULT (datetime('now', 'localtime')),
+              order_json TEXT
+            )`;
+            await db2.prepare(deleteHoldOrderTable).run();
+            await db2.prepare(createHoldOrderTable).run();
+          },
+        },
         // {
         // 	targetVersion: 6,
         // 	action:  () => {
