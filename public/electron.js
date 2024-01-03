@@ -111,6 +111,7 @@ app.on("ready", function () {
       .then((name) => console.log(`Added Extension:  ${name}`))
       .catch((err) => console.log("An error occurred: ", err));
   }
+
   if (app.isPackaged) {
     // autoUpdater.setFeedURL({
     // 	requestHeaders: {},
@@ -129,11 +130,17 @@ autoUpdater.on("checking-for-update", () => {
 });
 
 autoUpdater.on("update-available", (info) => {
+
+  mainWindow?.webContents.send("updateAwailaible", {message:"update awailable"})
   console.log("Update available.");
+
 });
 
 autoUpdater.on("update-not-available", (info) => {
+
+  mainWindow?.webContents.send("updateNotAwailaible",{message:"update not awailable"})
   console.log("Update not available.");
+
 });
 
 autoUpdater.on("error", (err) => {
@@ -151,6 +158,8 @@ autoUpdater.on("download-progress", (progressObj) => {
     progressObj.total +
     ")";
   console.log(log_message);
+
+  mainWindow?.webContents.send("updateProgress", progressObj)
 });
 
 autoUpdater.on("update-downloaded", (info) => {
@@ -236,9 +245,14 @@ ipcMain.handle("getConnectedPrinters", async (event, payload) => {
   return connectedPrinters;
 });
 
+
 ipcMain.handle("checkForUpdate", async (event, payload) => {
   autoUpdater.checkForUpdatesAndNotify();
 });
+
+// setInterval(()=> mainWindow?.webContents.send("update",{message:"hello world"}), 2000)
+
+
 
 ipcMain.handle("getPosPrinters", async (event, payload) => {
   try {
@@ -317,6 +331,7 @@ ipcMain.handle("getServerData", async (event, payload) => {
   const serverData = getServerData(db2, payload.JWT_SECRET);
   return serverData;
 });
+
 
 ipcMain.handle("syncDatabase", async (event, payload) => {
   await setupMainDatabase(destinationFolder, sourceFile, destinationFile);

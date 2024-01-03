@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, memo, useEffect } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import styles from "./ConfigSidebar.module.css";
 import billingIcon from "../icons/order.png";
@@ -15,6 +15,7 @@ import SideBarReportsList from "./SideBarReportsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong, faCrown } from "@fortawesome/free-solid-svg-icons";
 import SubscriptionCard from "./SubscriptionCard";
+import DownloadProgress from "./DownloadProgress";
 
 function ConfigSideBar({
   showConfigSideBar,
@@ -29,8 +30,10 @@ function ConfigSideBar({
 
   const checkForUpdate = async () => {
     await window.apiKey.request("checkForUpdate");
-    setShowConfigSideBar(false);
+    // setShowConfigSideBar(false);
   };
+
+  
 
   return (
     <Offcanvas
@@ -85,7 +88,7 @@ function ConfigSideBar({
           <img src={logoutIcon} className={styles.itemIcon} />
           <div className={styles.itemName}>Log Out</div>
         </Link>
-
+        <DownloadProgress/>
         <SubscriptionCard />
       </Offcanvas.Body>
     </Offcanvas>
