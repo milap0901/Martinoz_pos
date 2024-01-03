@@ -5,6 +5,8 @@ import { v4 } from "uuid";
 function SelectPrinter({ printer, setPrinter, connectedPrinters }) {
   const printerTypes = ["30 mm", "40 mm"];
 
+  console.log(printer)
+
   return (
     <main className={styles.selectPrinterMain}>
       <div className={styles.printerInfoField}>
@@ -37,8 +39,9 @@ function SelectPrinter({ printer, setPrinter, connectedPrinters }) {
                 selectedPrinter: e.target.value,
               }))
             }
-            value={printer.selectedPrinter}
+            value={connectedPrinters?.some( connectedPrinter => connectedPrinter.name === printer.selectedPrinter) ? printer.selectedPrinter : "none"}
           >
+            <option className={styles.printerSelectOption}  key={v4()} value="none" > NONE </option>
             {connectedPrinters &&
               connectedPrinters?.map((printer) => {
                 return (
