@@ -577,8 +577,8 @@ const syncCustomersInterval = setInterval(async () => {
 process.on("message", (message) => {
   if (message.command === "shutdown") {
     console.log("shutting down");
-    clearInterval(pendingOrderRefreshIterval);
-    clearInterval(syncCustomersInterval);
+    // clearInterval(pendingOrderRefreshIterval);
+    // clearInterval(syncCustomersInterval);
     process.exit(0);
   }
 });

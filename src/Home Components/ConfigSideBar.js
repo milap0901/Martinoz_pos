@@ -15,6 +15,8 @@ import SideBarReportsList from "./SideBarReportsList";
 // import { faArrowRightLong, faCrown } from "@fortawesome/free-solid-svg-icons";
 import SubscriptionCard from "./SubscriptionCard";
 import DownloadProgress from "./DownloadProgress";
+import notify from "../Feature Components/notify";
+
 
 function ConfigSideBar({
   showConfigSideBar,
@@ -28,6 +30,12 @@ function ConfigSideBar({
   };
 
   const checkForUpdate = async () => {
+    const isOnline = navigator.onLine
+    if(!isOnline){
+      notify("err", "please enable internet")
+      return
+    }
+
     await window.apiKey.request("checkForUpdate");
     // setShowConfigSideBar(false);
   };

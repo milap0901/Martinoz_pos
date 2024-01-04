@@ -17,6 +17,9 @@ function ServerConfig() {
   const navigate = useNavigate();
 
   const getServerStatus = async () => {
+
+   
+
     const { data } = await axios.get(
       `http://${IPAddress}:3001/defaultScreenData`,
       { timeout: 5000 }
@@ -27,6 +30,11 @@ function ServerConfig() {
 
   const handleChange = (e) => {
     let { name, value } = e.target;
+
+    if(name === "systemType" && value === "server"){
+      dispatch(setSystem({name:"IPAddress",value:"localhost"}))
+    }
+    
     dispatch(setSystem({ name, value }));
   };
 
@@ -39,6 +47,8 @@ function ServerConfig() {
     mutationFn: getServerStatus,
     cacheTime: 0,
     onSuccess: async (data) => {
+
+      
       // const res = await window.apiKey.request("storeServerData", {
       await window.apiKey.request("storeServerData", {
         IPAddress,
@@ -130,6 +140,8 @@ function ServerConfig() {
               value={IPAddress}
               placeholder="192.168.1.208"
               onChange={handleChange}
+              disabled = {systemType === "server"}
+
             />
           </div>
           {isError && <div className={styles.err}> {errorMsg} </div>}

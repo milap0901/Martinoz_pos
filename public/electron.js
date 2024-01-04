@@ -171,6 +171,11 @@ autoUpdater.on("update-downloaded", (info) => {
   mainWindow?.webContents.send("updateDownloaded",{message:"update download complete"})
 });
 
+autoUpdater.on("error", (info) => {
+
+  mainWindow?.webContents.send("error",{message:"update error"})
+});
+
 function setupLocalFilesNormalizerProxy() {
   protocol.registerHttpProtocol("file", (request) => {
     console.log(request);

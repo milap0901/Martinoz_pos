@@ -59,6 +59,8 @@ function DownloadProgress() {
       setUpdateComplete(true);
     });
 
+    
+
     return () => {
       window.apiKey.rendereOff("updateProgress");
       window.apiKey.rendereOff("Checking");
