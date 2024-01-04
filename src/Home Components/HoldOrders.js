@@ -1,21 +1,18 @@
-import axios from "axios";
-import React, { useState } from "react";
+// import axios from "axios";
+import React from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { useQuery, useQueryClient } from "react-query";
-import { useSelector, useDispatch } from "react-redux";
+import { useQueryClient } from "react-query";
+// import { useSelector } from "react-redux";
 import HoldOrderCard from "./HoldOrderCard";
 import styles from "./HoldOrders.module.css";
-import { v4 } from "uuid";
+// import { v4 } from "uuid";
 // import getSocket from "../Utils/Socket";
-import { setActive } from "../Redux/UIActiveSlice";
+// import { setActive } from "../Redux/UIActiveSlice";
 import useSocket from "../Utils/useSocket";
 import { useGetHoldOrdersQuery } from "../Utils/customQueryHooks";
 import Loading from "../Feature Components/Loading";
 
 function HoldOrders({ showHoldOrders, setShowHoldOrders }) {
-  const { IPAddress, refetchInterval } = useSelector(
-    (state) => state.serverConfig
-  );
   // const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
@@ -35,7 +32,7 @@ function HoldOrders({ showHoldOrders, setShowHoldOrders }) {
 
   const {
     data: { data: holdOrders } = { data: null },
-    status,
+    // status,
     isLoading,
     isError,
   } = useGetHoldOrdersQuery();

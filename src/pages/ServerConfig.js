@@ -39,7 +39,8 @@ function ServerConfig() {
     mutationFn: getServerStatus,
     cacheTime: 0,
     onSuccess: async (data) => {
-      const res = await window.apiKey.request("storeServerData", {
+      // const res = await window.apiKey.request("storeServerData", {
+      await window.apiKey.request("storeServerData", {
         IPAddress,
         systemType,
       });
@@ -70,7 +71,8 @@ function ServerConfig() {
     setClientLoading(true);
     if (system === "server") {
       try {
-        let res = await window.apiKey.request("setup", system);
+        // let res = await window.apiKey.request("setup", system);
+        await window.apiKey.request("setup", system);
       } catch (err) {
         setErrorMsg("Server did not start");
       }

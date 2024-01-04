@@ -120,7 +120,11 @@ function Configuration() {
                   key={v4()}
                   className={styles.configItemLink}
                 >
-                  <img className={styles.itemIcon} src={orderItem.icon} />
+                  <img
+                    className={styles.itemIcon}
+                    src={orderItem.icon}
+                    alt=""
+                  />
                   <div>{orderItem.name}</div>
                 </Link>
               );
@@ -137,7 +141,11 @@ function Configuration() {
                   key={v4()}
                   className={styles.configItemLink}
                 >
-                  <img className={styles.itemIcon} src={orderItem.icon} />
+                  <img
+                    className={styles.itemIcon}
+                    src={orderItem.icon}
+                    alt=""
+                  />
                   <div>{orderItem.name}</div>
                 </Link>
               );

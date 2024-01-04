@@ -6,7 +6,7 @@ import saveAndPrint from "../icons/save-print.png";
 import { useMutation } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { convertOrder } from "../Utils/convertOrder";
+// import { convertOrder } from "../Utils/convertOrder";
 import { executeBillPrint } from "../Utils/executePrint";
 import notify from "../Feature Components/notify";
 import {
@@ -46,11 +46,11 @@ function ActiveKotTableCard({ orders, areaId, printers, defaultSettings }) {
     return data;
   };
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: "includeKOTsAndCreateOrder",
     mutationFn: convertKotsToOrder,
     onSuccess: async (data) => {
-      const { orderNo, kotTokenNo, order } = data;
+      const { order } = data;
       const orderToPrint = order;
 
       try {
@@ -158,6 +158,7 @@ function ActiveKotTableCard({ orders, areaId, printers, defaultSettings }) {
       </div>
       <img
         className={styles.printIcon}
+        alt=""
         src={saveAndPrint}
         onClick={(e) => {
           e.stopPropagation();

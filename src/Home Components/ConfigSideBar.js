@@ -9,7 +9,6 @@ import logoutIcon from "../icons/left_nav_logout.svg";
 import reportIcon from "../icons/left_nav_reports.svg";
 import arrowDown from "../icons/arrow-down.png";
 import crown from "../icons/crown copy.svg";
-
 import { Link } from "react-router-dom";
 import SideBarReportsList from "./SideBarReportsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
