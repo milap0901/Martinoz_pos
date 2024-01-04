@@ -127,6 +127,9 @@ app.on("ready", function () {
 
 autoUpdater.on("checking-for-update", () => {
   console.log("Checking for update...");
+  
+  mainWindow?.webContents.send("checking", {message:"checking"})
+  
 });
 
 autoUpdater.on("update-available", (info) => {

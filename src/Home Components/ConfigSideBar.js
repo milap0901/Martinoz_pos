@@ -33,7 +33,7 @@ function ConfigSideBar({
     // setShowConfigSideBar(false);
   };
 
-  
+
 
   return (
     <Offcanvas
