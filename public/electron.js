@@ -165,8 +165,10 @@ autoUpdater.on("download-progress", (progressObj) => {
   mainWindow?.webContents.send("updateProgress", progressObj)
 });
 
+
+
 autoUpdater.on("update-downloaded", (info) => {
-  console.log("Update downloaded");
+  mainWindow?.webContents.send("updateDownloaded",{message:"update download complete"})
 });
 
 function setupLocalFilesNormalizerProxy() {
@@ -333,6 +335,15 @@ ipcMain.handle("getServerData", async (event, payload) => {
   // const ipAddress = networkInterfaces["Ethernet"][1].address;
   const serverData = getServerData(db2, payload.JWT_SECRET);
   return serverData;
+});
+
+ipcMain.handle("quitAndRestart", async (event, payload) => {
+ try {
+  
+   autoUpdater.quitAndInstall()
+ } catch (error) {
+  console.log(error)
+ }
 });
 
 

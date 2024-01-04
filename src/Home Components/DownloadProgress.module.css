@@ -1,5 +1,5 @@
-.progressBar{
 
+.progressBar{
     margin-inline: 20px;
     margin-block: 10px;
     height: 14px !important;
@@ -14,3 +14,16 @@
     display: flex;
     justify-content: space-between;
 }   
+
+.restart{
+    margin-inline: 20px;
+    margin-block: 5px;
+    padding: 5px 20px;
+    color: rgb(233, 233, 233);
+    font-weight: 600;
+    background-color: rgb(212, 22, 22);
+    border-radius: 5px;
+    border: none;
+    width: 90%
+
+}

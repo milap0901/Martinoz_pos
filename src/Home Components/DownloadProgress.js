@@ -7,17 +7,24 @@ function DownloadProgress() {
 	const [progressBar, setProgressbar] = useState({ show: false, progress: 0 });
 	const [checking, setChecking] = useState(false);
 	const [noUpdate, setNoUpdate] = useState(false);
+	const [updateComplete, setUpdateComplete] = useState(false);
+
+	const quitAndUpdate = async () => {
+		await window.apiKey.request("quitAndRestart", {});
+	};
 
 	useEffect(() => {
 		let timeout;
 
 		window.apiKey.renderedOn("checking", payload => {
 			console.log("checking");
+			setUpdateComplete(false);
 			setShowData(true);
 			setChecking(true);
 		});
 
 		window.apiKey.renderedOn("updateAwailaible", payload => {
+			setUpdateComplete(false);
 			setShowData(true);
 			setChecking(false);
 			setNoUpdate(false);
@@ -25,6 +32,7 @@ function DownloadProgress() {
 		});
 
 		window.apiKey.renderedOn("updateProgress", payload => {
+			setUpdateComplete(false);
 			setShowData(true);
 			setChecking(false);
 			setNoUpdate(false);
@@ -32,6 +40,7 @@ function DownloadProgress() {
 		});
 
 		window.apiKey.renderedOn("updateNotAwailaible", payload => {
+			setUpdateComplete(false);
 			setShowData(true);
 			setChecking(false);
 			setProgressbar({ show: false, progress: 0 });
@@ -42,11 +51,20 @@ function DownloadProgress() {
 			}, 20000);
 		});
 
+		window.apiKey.renderedOn("updateDownloaded", payload => {
+			setShowData(true);
+			setChecking(false);
+			setProgressbar({ show: false, progress: 100 });
+			setNoUpdate(false);
+			setUpdateComplete(true);
+		});
+
 		return () => {
 			window.apiKey.rendereOff("updateProgress");
 			window.apiKey.rendereOff("Checking");
 			window.apiKey.rendereOff("updateAwailaible");
 			window.apiKey.rendereOff("updateNotAwailaible");
+            window.apiKey.rendereOff("updateDownloaded");
 			if (timeout) {
 				clearTimeout(timeout);
 			}
@@ -68,6 +86,20 @@ function DownloadProgress() {
 					<div> {progressBar.progress} %</div>
 				</div>
 				<ProgressBar className={styles.progressBar} animated now={progressBar.progress} variant="danger" />
+			</div>
+		);
+	}
+
+	if (updateComplete) {
+		return (
+			<div className={styles.container}>
+				<div className={styles.progressTitle}>
+					{" "}
+					<div> Update Downloaded please Restart.</div>
+				</div>
+				<button className={styles.restart} onClick={quitAndUpdate}>
+					Restart
+				</button>
 			</div>
 		);
 	}
