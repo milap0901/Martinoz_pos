@@ -5,12 +5,12 @@ import notify from "../Feature Components/notify";
 import { resetFinalOrder } from "../Redux/finalOrderSlice";
 import { modifyUIActive } from "../Redux/UIActiveSlice";
 import { executeBillPrint, executeKotPrint } from "./executePrint";
-import { convertOrder } from "./convertOrder";
+// import { convertOrder } from "./convertOrder";
 import { printModifiedKots } from "./printModifiedKots";
 import { useNavigate } from "react-router-dom";
 import { setSystem } from "../Redux/serverConfigSlice";
-import { renderToString } from "react-dom/server";
-import Invoice from "../Reciept Prints/Invoice";
+// import { renderToString } from "react-dom/server";
+// import Invoice from "../Reciept Prints/Invoice";
 
 //============================================for save order and modify existing order ===================================================================//
 export const useOrderMutation = (setShowKOTExistModal) => {
@@ -495,7 +495,7 @@ export const useIncludeKotAndCreateOrderMutation = (
     mutationKey: ["includeKOTsAndCreateOrder"],
     mutationFn: IncludeKotAndCreateOrder,
     onSuccess: (data) => {
-      const { orderNo, kotTokenNo, order } = data;
+      const { kotTokenNo, order } = data;
 
       if (shouldPrintOrder) {
         try {

@@ -3,7 +3,7 @@ import styles from "./ActiveTableCard.module.css";
 import MinTimer from "./MinTimer";
 import saveAndPrint from "../icons/save-print.png";
 import saveAndSettle from "../icons/save-settle.png";
-import { modifyUIActive, setActive } from "../Redux/UIActiveSlice";
+import { modifyUIActive } from "../Redux/UIActiveSlice";
 import { liveOrderToCart } from "../Redux/finalOrderSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import SettleOrderModal from "../Live View Components/SettleOrderModal";
-import { convertOrder } from "../Utils/convertOrder";
+// import { convertOrder } from "../Utils/convertOrder";
 import { executeBillPrint } from "../Utils/executePrint";
 
 function ActiveTableCard({ order, printers, defaultSettings }) {
@@ -135,6 +135,7 @@ function ActiveTableCard({ order, printers, defaultSettings }) {
       </div>
       <img
         className={styles.actionIcon}
+        alt=""
         src={getTableTheme(order.print_count).icon}
         onClick={handleClick}
       />

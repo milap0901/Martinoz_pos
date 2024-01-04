@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styles from "./EditPrinter.module.css";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import BackButton from "../Feature Components/BackButton";
 import { motion } from "framer-motion";
-import axios from "axios";
+// import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import SelectPrinter from "../Edit Printer Components/SelectPrinter";
 import AssignPrinterToBill from "../Edit Printer Components/AssignPrinterToBill";
@@ -82,7 +82,7 @@ function EditPrinter() {
     isLoading,
     isFetching,
     isError,
-    error,
+    // error,
   } = useQuery({
     queryKey: "printers",
     queryFn: getPrinters,

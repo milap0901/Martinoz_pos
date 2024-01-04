@@ -36,9 +36,7 @@ function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { systemType, IPAddress, biller } = useSelector(
-    (state) => state.serverConfig
-  );
+  const { IPAddress, biller } = useSelector((state) => state.serverConfig);
 
   const getServerData = async () => {
     let data = await window.apiKey.request("getServerData", {

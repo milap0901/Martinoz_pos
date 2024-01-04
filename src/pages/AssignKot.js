@@ -33,9 +33,9 @@ function AssignKot() {
   const {
     data: printers,
     isLoading,
-    isError,
-    isFetching,
-    error,
+    // isError,
+    // isFetching,
+    // error,
   } = useQuery({
     queryKey: "printers",
     queryFn: getPrinters,

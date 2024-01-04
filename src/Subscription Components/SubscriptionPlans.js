@@ -1,11 +1,7 @@
 import React from "react";
 import Style from "./SubscriptionPlans.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faCircleInfo,
-  faCrown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faCrown } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 
 const SubscriptionPlans = ({ theme }) => {

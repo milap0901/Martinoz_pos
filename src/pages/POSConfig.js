@@ -14,7 +14,13 @@ function POSConfig() {
     return data;
   };
 
-  const { data, mutate, isLoading, isError, error } = useMutation({
+  const {
+    // data,
+    mutate,
+    isLoading,
+    isError,
+    // error
+  } = useMutation({
     mutationKey: "syncDatabase",
     mutationFn: syncDatabase,
     onSuccess: (data) => {

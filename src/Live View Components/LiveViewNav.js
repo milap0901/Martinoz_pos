@@ -1,12 +1,6 @@
 import React from "react";
 import styles from "./LiveViewNav.module.css";
-import {
-  Link,
-  NavLink,
-  useLocation,
-  useNavigate,
-  useResolvedPath,
-} from "react-router-dom";
+import { Link, NavLink, useResolvedPath } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setActive } from "../Redux/UIActiveSlice";
 

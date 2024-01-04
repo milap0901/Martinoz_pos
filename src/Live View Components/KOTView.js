@@ -1,6 +1,5 @@
 import styles from "./KOTView.module.css";
-import { setKOT } from "../Redux/KOTSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import KOTCards from "./KOTCards";
 import { AnimatePresence, motion } from "framer-motion";
 import useSocket from "../Utils/useSocket";

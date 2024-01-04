@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import styles from "./OrdersSummary.module.css";
 import ReportFilters from "../OrderSummary Components/ReportFilters";
 import { getToday, getTomrrow } from "../Utils/getDate";
@@ -50,7 +50,7 @@ function OrdersSummary() {
 
   const fetchOrders = useCallback(() => {
     refetch();
-  }, []);
+  }, [refetch]);
 
   if (isLoading) {
     return (

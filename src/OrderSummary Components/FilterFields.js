@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import styles from "./FilterFields.module.css";
 import { AnimatePresence, motion } from "framer-motion";
 

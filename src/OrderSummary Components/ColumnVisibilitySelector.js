@@ -47,6 +47,7 @@ function ColumnVisibilitySelector({ table, setGlobalFilter }) {
           Select Columns{" "}
           <img
             src={arrowDown}
+            alt=""
             className={`${styles.arrow} ${
               showSelector ? styles.arrowLeft : null
             }`}
