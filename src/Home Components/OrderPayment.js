@@ -58,6 +58,7 @@ function OrderPayment() {
 
   let [searchParams, setSearchParams] = useSearchParams();
   const [shouldPrintOrder, setShouldPrintOrder] = useState(false);
+  const [shouldPrintKOT, setShouldPrintKOT] = useState(false);
   const [showOrderExistModal, setShowOrderExistModal] = useState(false);
   const [showKOTExistMOdal, setShowKOTExistModal] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
@@ -86,7 +87,8 @@ function OrderPayment() {
     printers,
     setShowOrderExistModal,
     setShowMultipay,
-    setMultipayControlType
+    setMultipayControlType,
+    setShouldPrintKOT
   );
 
   const { mutate: modifyKotMutate } = useModifyKotMutation(printers);
@@ -171,7 +173,25 @@ function OrderPayment() {
     }
   };
 
-  const createKOT = async (finalOrder, printers) => {
+  const createKOTPrint = async (finalOrder, printers) => {
+    const isValid = validateOrder(
+      finalOrder,
+      setSearchParams,
+      customerPhoneMandatory
+    );
+    if (!isValid) {
+      return;
+    }
+
+    if (finalOrder.cartAction === "modifyKot") {
+      modifyKotMutate({ ...finalOrder, printCount: finalOrder.printCount + 1 });
+      return;
+    }
+
+    kotMutate({ ...finalOrder, printCount: finalOrder.printCount + 1 });
+  };
+
+  const createKOT = async (finalOrder) => {
     const isValid = validateOrder(
       finalOrder,
       setSearchParams,
@@ -327,7 +347,7 @@ function OrderPayment() {
                 variant="secondary"
                 size="sm"
                 className="mx-1 py-1 px-2 fw-bold text-nowrap rounded-1"
-                onClick={() => createKOT(finalOrder, printers)}
+                onClick={() => createKOTPrint(finalOrder, printers)}
               >
                 KOT & Print
               </Button>
@@ -335,7 +355,7 @@ function OrderPayment() {
                 variant="secondary"
                 size="sm"
                 className="mx-1 py-1 px-2 fw-bold text-nowrap rounded-1"
-                onClick={() => {}}
+                onClick={() => createKOT(finalOrder, printers)}
               >
                 KOT
               </Button>
@@ -375,6 +395,8 @@ function OrderPayment() {
           hide={() => setShowOrderExistModal(false)}
           IPAddress={IPAddress}
           finalOrder={finalOrder}
+          shouldPrintKOT={shouldPrintKOT}
+          setShouldPrintKOT={setShouldPrintKOT}
           printers={printers}
           notify={notify}
         />
