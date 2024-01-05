@@ -410,7 +410,7 @@ const finalOrderSlice = createSlice({
           item.itemAddons
         );
 
-        let toppingsTotal = item.itemAddons.reduce(
+        let toppingsTotal = item?.itemAddons?.reduce(
           (total, topping) => (total += topping.quantity * topping.price),
           0
         );
@@ -434,7 +434,7 @@ const finalOrderSlice = createSlice({
           variantName: item.variation_name,
           variant_display_name: item.variation_name,
           basePrice: item.price - toppingsTotal,
-          toppings: item.itemAddons,
+          toppings: item.itemAddons || [],
           itemTotal: item.price,
           item_discount: item.item_discount,
           multiItemTotal: item.price * item.quantity,
@@ -442,7 +442,7 @@ const finalOrderSlice = createSlice({
           itemNotes: item.description,
           parent_tax: item.tax_id,
           itemIdentifier,
-          discount_detail: item.discount_detail,
+          discount_detail: item.discount_detail || [],
         };
       });
     },
