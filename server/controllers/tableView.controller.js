@@ -1,4 +1,5 @@
 const { getDb } = require("../common/getDb");
+const { getDefaultScreenData } = require("../settings/getDefaultScreenData");
 
 const db2 = getDb();
 
@@ -116,11 +117,14 @@ const getTable = (req, res) => {
     };
 
     areas.push(otherArea);
+    const defaultSettings = getDefaultScreenData();
+
+
 
     res.status(200).json({
       status: false,
       message: "get tables successfully ",
-      data: areas,
+      data: {areas,defaultSettings},
       error: false,
     });
   } catch (error) {

@@ -27,20 +27,20 @@ const getMenu = (req, res) => {
 			"SELECT id,attribute,addongroup_id,name,display_name,price FROM addongroupitems WHERE addongroup_id=? AND status=1 ORDER BY priority ASC"
 		);
 
-		const areaStmt = db2.prepare("SELECT id,restaurant_id,restaurant_price_id,area FROM areas");
+		// const areaStmt = db2.prepare("SELECT id,restaurant_id,restaurant_price_id,area FROM areas");
 
-		const dineInTablesStmt = db2.prepare("SELECT * FROM dine_in_tables WHERE restaurant_id= 1 AND area_id=?");
+		// const dineInTablesStmt = db2.prepare("SELECT * FROM dine_in_tables WHERE restaurant_id= 1 AND area_id=?");
 
 		const restaurantPricesStmt = db2.prepare("SELECT restaurant_price_id,price FROM item_restaurant_prices WHERE item_id=?");
 
-		const areas = areaStmt.all([]);
+		// const areas = areaStmt.all([]);
 
-		const areasWithTable = areas.map(area => {
-			const dineInTables = dineInTablesStmt.all([area.id]);
-			return { ...area, tables: dineInTables };
-		});
+		// const areasWithTable = areas.map(area => {
+		// 	const dineInTables = dineInTablesStmt.all([area.id]);
+		// 	return { ...area, tables: dineInTables };
+		// });
 
-		const defaultSettings = getDefaultScreenData();
+		// const defaultSettings = getDefaultScreenData();
 
 		const categories = categoryPrepare.all([]);
 
@@ -114,8 +114,8 @@ const getMenu = (req, res) => {
 		// return { categories: categoriesWithItems, areas: areasWithTable, defaultSettings };
 		const data = {
 			categories: categoriesWithItems,
-			areas: areasWithTable,
-			defaultSettings,
+			// areas: areasWithTable,
+			// defaultSettings,
 		};
 
 		res.status(200).json({ status: true, message: "Menu Data Success", data, error: false });
