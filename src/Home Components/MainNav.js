@@ -1,9 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
-import InputGroup from "react-bootstrap/InputGroup";
 import styles from "./MainNav.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -31,7 +29,7 @@ import useDeployHotkeys from "../Utils/useDeployHotkeys";
 import PendingOrderLink from "./PendingOrderLink";
 import { useGetMenuQuery2, useGetPrintersQuery } from "../Utils/customQueryHooks";
 import { useLogoutMutation } from "../Utils/customMutationHooks";
-// import useSocket from "../Utils/useSocket";
+
 import { executeBillPrint } from "../Utils/executePrint";
 import sortPrinters from "../Utils/shortPrinters";
 import useSocketPrint from "../Utils/useSocketPrint";
@@ -77,15 +75,15 @@ function MainNav() {
 
 	useHotkeys("ctrl+n", () => getNewOrderPage());
 
-	// const callBackPrint = useCallback(executeBillPrint, [printers, defaultSettings]);
 
-	useSocketPrint("printCaptainOrder", IPAddress, printers, defaultSettings, order => {
-		executeBillPrint(order, printers, defaultSettings);
+// socket for printing order that comes from captain app
+
+	useSocketPrint("printCaptainOrder", IPAddress, printers, defaultSettings,systemType, order => {
+		if (systemType === "server") {
+			executeBillPrint(order, printers, defaultSettings);
+		}
 	});
 
-	// useSocket("printCaptainOrder", order => {
-	// 	executeBillPrint(order, printers, defaultSettings);
-	// });
 
 	return (
 		<>

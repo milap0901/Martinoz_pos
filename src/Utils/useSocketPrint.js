@@ -3,12 +3,12 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 let socket = null;
-const useSocketPrint = (event,ipAddress,printers,defaultSettings,callBack) => {
+const useSocketPrint = (event,ipAddress,printers,defaultSettings,systemType,callBack) => {
 	
 
 	useEffect(() => {
 		try {
-			if (!socket && ipAddress) {
+			if (!socket && ipAddress&& systemType === "server") {
 				socket = io(`http://${ipAddress}:3001`);
 			}
 
