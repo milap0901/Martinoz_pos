@@ -186,7 +186,7 @@ const printKot = async (payload) => {
   ];
 
   const options = {
-    preview: true,
+    preview: false,
     margin: "0px 0px 0px 0px",
     silent: true,
     copies: 1,

@@ -106,7 +106,7 @@ function TableView() {
             className={styles.circle}
             style={{ backgroundColor: " rgba(0, 72, 167, 0.3)" }}
           ></div>
-          <div>Paid Table</div>
+          <div>Printed Table</div>
         </div>
       </div>
 

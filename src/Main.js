@@ -73,10 +73,23 @@ function Main() {
         return;
       }
 
+      // console.log("subscription", data.subscriptionStatus);
+
+      const currentDate = new Date().getTime();
+
+      const trialEndDate = new Date(
+        data.subscriptionStatus.trial_end_date
+      ).getTime();
+
+      const licenseEndDate = new Date(
+        data.subscriptionStatus.license_end_date
+      ).getTime();
+
       if (
         !data.subscriptionStatus ||
-        (data.subscriptionStatus.is_free_trial === 0 &&
-          data.subscriptionStatus.is_licence === 0)
+        (trialEndDate < currentDate && licenseEndDate < currentDate)
+        // (data.subscriptionStatus.is_free_trial === 0 &&
+        //   data.subscriptionStatus.is_licence === 0)
       ) {
         navigate("./subscription");
         return;
@@ -90,6 +103,7 @@ function Main() {
         dispatch(
           setSystem({ name: "subscription", value: data.subscriptionStatus })
         );
+        dispatch(modifyCartData({ biller_name: data.last_login_user }));
       }
 
       // if biller is logged out before closing app and last_login_user is null redirect to login page
