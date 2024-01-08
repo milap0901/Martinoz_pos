@@ -9,9 +9,13 @@ const getLiveOrders = () => {
       )
       .all([]);
 
-    const prepareItem = db2.prepare(
-      "SELECT id,item_id,item_name,price,final_price, item_discount,discount_detail,quantity,variation_name,variation_id,tax_id,item_addon_items,description FROM pos_order_items WHERE pos_order_id = ? AND status = 1"
-    );
+      // const prepareItem = db2.prepare(
+      //   "SELECT id,item_id,i.category_id,item_name,price,final_price, item_discount,discount_detail,quantity,variation_name,variation_id,tax_id,item_addon_items,description FROM pos_order_items JOIN items AS i ON i.id = item_id  WHERE pos_order_id = ? AND status = 1"
+      // );
+
+    const prepareItem = db2.prepare("SELECT poi.id, poi.item_id, i.category_id,poi.item_name, poi.price, poi.final_price, poi.item_discount, poi.discount_detail, poi.quantity, poi.variation_name, poi.variation_id, poi.tax_id, poi.item_addon_items, i.description FROM pos_order_items AS poi JOIN items AS i ON i.id = poi.item_id WHERE poi.pos_order_id = ? AND poi.status = 1"
+    )
+
 
     // const prepareToppings = db2.prepare("SELECT addongroupitem_id,name,price,quantity FROM order_item_addongroupitems WHERE order_item_id = ?");
     // const prepareTax = db2.prepare("SELECT tax_id,tax_amount FROM order_item_taxes WHERE order_item_id = ?");

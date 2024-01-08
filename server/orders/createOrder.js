@@ -27,9 +27,9 @@ const createOrder = (order) => {
         : lastOrderTime.getFullYear() + 1;
     const cutOffTime = new Date(`${cutOffYear}-03-31T23:59:59`);
 
-    console.log(cutOffTime, "cutoff");
-    console.log(currentOrderTime, "current");
-    console.log(lastOrderTime, "last");
+    // console.log(cutOffTime, "cutoff");
+    // console.log(currentOrderTime, "current");
+    // console.log(lastOrderTime, "last");
 
     let newBillNo = lastBillNo + 1;
 
@@ -72,6 +72,7 @@ const createOrder = (order) => {
     orderType,
     orderComment,
     cartTotal,
+	platform="pos",
     tax,
     subTotal,
     tableNumber,
@@ -145,7 +146,7 @@ const createOrder = (order) => {
   const orderTrans = db2.transaction((userId) => {
     const orderInfo = db2
       .prepare(
-        "INSERT INTO pos_orders (customer_id,bill_no,restaurant_id,customer_name,complete_address,phone_number,order_type,dine_in_table_no,item_total,description,total_discount,discount_percent,total_tax,delivery_charges,total,payment_type,order_status,print_count,promo_id,promo_code,promo_discount,bill_paid,extra_data,tax_details,biller_id,biller_name,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,datetime('now', 'localtime'),datetime('now', 'localtime'))"
+        "INSERT INTO pos_orders (customer_id,bill_no,restaurant_id,customer_name,complete_address,phone_number,order_type,dine_in_table_no,item_total,description,total_discount,discount_percent,total_tax,delivery_charges,total,payment_type,order_status,print_count,promo_id,promo_code,promo_discount,bill_paid,extra_data,tax_details,biller_id,biller_name,platform,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,datetime('now', 'localtime'),datetime('now', 'localtime'))"
       )
       .run([
         userId,
@@ -174,6 +175,7 @@ const createOrder = (order) => {
         tax_details,
         biller_id,
         biller_name,
+		platform
       ]);
 
     if (paymentMethod === "multipay") {

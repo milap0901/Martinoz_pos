@@ -81,8 +81,8 @@ function Invoice({ order, defaultSettings }) {
     (total, item) => (total += item.quantity),
     0
   );
-  console.log("online order id", order.online_order_id);
-  console.log("order", order);
+  // console.log("online order id", order.online_order_id);
+  // console.log("order", order);
 
   let itemDiscount = 0;
 

@@ -108,6 +108,7 @@ const initialFinalOrder = {
   biller_id: 1,
   biller_name: "biller",
   taxDetails: [],
+  platform : "POS",
   multipay: [
     { name: "upi_phonepe", amount: 0 },
     { name: "upi_gpay", amount: 0 },

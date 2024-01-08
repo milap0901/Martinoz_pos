@@ -36,7 +36,7 @@ function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { IPAddress, biller } = useSelector((state) => state.serverConfig);
+  const { IPAddress, biller} = useSelector((state) => state.serverConfig);
 
   const getServerData = async () => {
     let data = await window.apiKey.request("getServerData", {
@@ -161,6 +161,8 @@ function Main() {
     retry: false,
     enabled: !!IPAddress && !!biller,
   });
+
+
 
   // routing for the app
   return isLoading || serverDataLoading ? (
