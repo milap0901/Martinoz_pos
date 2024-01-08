@@ -5,6 +5,7 @@ import { modifyCartData } from "../Redux/finalOrderSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAutofocus } from "../Utils/useAutofocus";
 
+// component for person count
 function PersonCount({ showDetailType }) {
 	const dispatch = useDispatch();
 	const { personCount } = useSelector(state => state.finalOrder);

@@ -30,13 +30,19 @@ const orderDetailsMap = [
 ];
 
 function OrderTypeDetail({ type, cartAction, orderId, kotsDetail }) {
+
+  // state for order detail type (tableNumber , personCount, customerDetail, orderComment)
   const [showDetailType, setShowDetailType] = useState(null);
 
   let [searchParams, setSearchParams] = useSearchParams();
 
   const kots = kotsDetail.map((kot) => kot.token_no).join(",");
 
+
+  //for pick_up and delivery order there are only two detail type field (orderComment, customerDetail )
+  // so if other detailType (tableNumber or customerCount ) is open close the popup when changing order type to puch_up or delivery
   useEffect(() => {
+
     if (
       showDetailType &&
       showDetailType !== "orderComment" &&
@@ -48,7 +54,10 @@ function OrderTypeDetail({ type, cartAction, orderId, kotsDetail }) {
     }
   }, [type, setShowDetailType]);
 
-  useEffect(() => {
+
+// for opening tableNumber detail when searchPramas (in url) has  openTable = true
+//this is the case when user saves dine_in type order and forgot to add table number, in that case table_number detail type will open 
+  useEffect(() => { 
     if (searchParams.get("openTable") === "true") {
       setShowDetailType("tableNumber");
       return;
@@ -59,8 +68,12 @@ function OrderTypeDetail({ type, cartAction, orderId, kotsDetail }) {
     }
   }, [searchParams]);
 
+
+  // handle change for opening and closing detail types 
   const handleDetailChange = (detailName) => {
     setShowDetailType((prev) => (prev === detailName ? null : detailName));
+
+    // reset search params if search params exist on every time order type changes 
     if (
       searchParams.get("openTable") === "true" ||
       searchParams.get("openCustomerDetail") === "true"
@@ -69,6 +82,8 @@ function OrderTypeDetail({ type, cartAction, orderId, kotsDetail }) {
     }
   };
 
+
+  // filter detailtypes to show base on order type 
   const filteredDetails = orderDetailsMap.filter((detail) =>
     detail.displayInOrderType.includes(type)
   );
@@ -91,7 +106,8 @@ function OrderTypeDetail({ type, cartAction, orderId, kotsDetail }) {
             <FontAwesomeIcon icon={detail.icon} />
           </motion.div>
         ))}
-        {cartAction === "modifyOrder" && (
+        { // show order number on right while modifying order
+         cartAction === "modifyOrder" && ( 
           <motion.div
             layout
             initial={{ opacity: 0, scale: 0.9 }}
@@ -103,7 +119,8 @@ function OrderTypeDetail({ type, cartAction, orderId, kotsDetail }) {
             <div className={styles.number}>{orderId}</div>
           </motion.div>
         )}
-        {cartAction === "modifyKot" && (
+        { // show kot token no on right while modifying kots
+        cartAction === "modifyKot" && (
           <motion.div
             layout
             initial={{ opacity: 0, scale: 0.9 }}
@@ -116,6 +133,7 @@ function OrderTypeDetail({ type, cartAction, orderId, kotsDetail }) {
           </motion.div>
         )}
       </div>
+
       <TableNumber showDetailType={showDetailType} />
       <CustomerDetail showDetailType={showDetailType} />
       <PersonCount showDetailType={showDetailType} />

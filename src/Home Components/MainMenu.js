@@ -9,7 +9,8 @@ import Loading from "../Feature Components/Loading";
 
 function MainMenu() {
 	const dispatch = useDispatch();
-	// useGetPrintersQuery();
+
+	// custom get menu query to get initial data
 	const { isLoading, data: bigMenu } = useGetMenuQuery2();
 
 	const categories = bigMenu?.categories || [];
@@ -18,13 +19,15 @@ function MainMenu() {
 	const isCartActionDisable = useSelector(state => state.UIActive.isCartActionDisable);
 	const searchItemRef = useRef("");
 
+
+	// handle change function for item search 
 	const handleChange = () => {
 		let searchTerm = searchItemRef.current.value;
-
-
 		let searchItem = [];
 
+		// run this for min char length of 3
 		if (searchTerm.length >= 3) {
+			//get items from main menu that matches search string
 			categories.forEach(category => {
 				category.items.forEach(item => {
 					if (item.name.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -33,13 +36,14 @@ function MainMenu() {
 				});
 			});
 		}
-		// if seach term length is 0 or search box is empty reset menuItems to selected active id that was aquired from activeCategoryId
+		// if search term length is 0 or search box is empty reset menuItems to selected active id that was acquired from activeCategoryId
 
 		if (searchTerm.length === 0 && activeCategoryId) {
 			let { items } = categories.find(category => category.id === activeCategoryId);
 			dispatch(setMenuItems({ items, id: activeCategoryId }));
 			return;
 		}
+		
 		
 		dispatch(setMenuItems({ items: searchItem, id: activeCategoryId }));
 	};

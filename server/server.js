@@ -583,23 +583,3 @@ process.on("message", (message) => {
   }
 });
 
-// data: [
-// 	{
-// 		pos_order_id: 1, // pod order id,
-// 		web_order_id: 12, // new generated id,
-// 		updated_at: "date time", //will be same on pos and server,
-// 		order_items: [
-// 			{
-// 				pos_item_id: 2, // pos item id
-// 				web_item_id: 11, // new generated id,
-// 				updated_at: "date time",
-// 			},
-// 			{
-// 				pos_item_id: 2, // pos item id
-// 				web_item_id: 11, // new generated id,
-// 				updated_at: "date time",
-// 			}, //..... other items
-// 		],
-// 	},
-// 	//...other orders
-// ];

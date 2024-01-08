@@ -9,8 +9,8 @@ function CategoryItem({ cat }) {
   // const isCartActionDisable = useSelector(state => state.UIActive.isCartActionDisable);
   const id = useSelector((state) => state.menuItems.id);
 
-  // get items list from bigMenu redux state according to active category id and set menuItem redux state with aquired items
-
+  
+  // on click set all category items into menuItems slice
   const handleClick = (id, items) => {
     dispatch(setMenuItems({ items, id }));
   };

@@ -8,28 +8,42 @@ import { useQueryClient } from "react-query";
 import { useGetPendingOrdersQuery } from "../Utils/customQueryHooks";
 
 function PendingOrderLink() {
+
+  //pending order show/hide status.
   const [showPendingOrders, setShowPendingOrders] = useState(false);
+
+
   const queryClient = useQueryClient();
+
+   //get pending order (online order)  
   const { data: { data: pendingOrders } = { data: null }, isLoading } =
     useGetPendingOrdersQuery();
 
   const pendingOrderCount = pendingOrders?.length || 0;
 
+  // socket for updating pending order in real time
+
   useSocket("pendingOrders", (orders, isPending, customerNames) => {
     queryClient.setQueryData("pendingOrders", orders);
 
+    //if already not open , open pending order sidebar when new pending order added
     if (!showPendingOrders && isPending) {
       setShowPendingOrders(true);
     }
 
+    //in case new pending order
+    // to create os level notification send ipc message to electron
+    // electron will generate os level notification
+  
     if (isPending) {
       try {
         window.apiKey.request("newOnlineOrder", { customerNames });
       } catch (error) {
-        console.log("erroe");
+        console.log(error);
       }
     }
   });
+
   return (
     <>
       <div className={styles.Link} onClick={() => setShowPendingOrders(true)}>

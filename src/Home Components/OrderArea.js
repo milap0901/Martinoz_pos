@@ -4,6 +4,8 @@ import FinalOrder from "./FinalOrder";
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 
+
+//component for showing order items 
 function OrderArea() {
 	const orderItems = useSelector(state => state.finalOrder.orderCart);
 	const defaultPriceType = useSelector(state => state.bigMenu.defaultSettings.default_price_type);

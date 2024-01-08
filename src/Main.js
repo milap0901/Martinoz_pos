@@ -33,171 +33,190 @@ import Subscription from "./pages/Subscription.js";
 import CaptionConnect from "./pages/CaptionConnect.js";
 
 function Main() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
-  const { IPAddress, biller } = useSelector((state) => state.serverConfig);
+	const { IPAddress, biller } = useSelector(state => state.serverConfig);
 
-  const getServerData = async () => {
-    let data = await window.apiKey.request("getServerData", {
-      JWT_SECRET:
-        "29b927a793a5b4b9dbab2029984c8222ece99a3b1a5300ae988dc726071867c0",
-    });
-    return data;
-  };
+	/**
+ * Asynchronously retrieves server data using the provided API key.
+ *
+ * @async
+ * @function - 
+ * @returns {Promise<Object>} A promise that resolves to the server data.
+ */
 
-  const getServerStatus = async () => {
-    const { data } = await axios.get(
-      `http://${IPAddress}:3001/defaultScreenData`,
-      { timeout: 10000 }
-    );
-    return data;
-  };
+	const getServerData = async () => {
+		let data = await window.apiKey.request("getServerData", {
+			JWT_SECRET: "29b927a793a5b4b9dbab2029984c8222ece99a3b1a5300ae988dc726071867c0",
+		});
+		return data;
+	};
 
-  // when app starts it will try to get server data eg(systemType, IPAddress,biller) from local database via electron ipcRenderer ( getServerData call)
-  // local database for client and server both stores last connected serve IP, systemType, and last biller detail in startup_config table.
+	const getServerStatus = async () => {
+		const { data } = await axios.get(`http://${IPAddress}:3001/defaultScreenData`, { timeout: 10000 });
+		return data;
+	};
 
-  const { data: serverData, isLoading: serverDataLoading } = useQuery({
-    queryKey: ["serverData"],
-    queryFn: getServerData,
-    onSuccess: async (data) => {
-      //if sync code id not in database redirect to ./POSConfig to start new app setup
-      if (!data?.sync_code) {
-        navigate("./POSConfig");
-        return;
-      }
+	// when app starts it will try to get server data eg(systemType, IPAddress,biller) from local database via electron ipcRenderer ( getServerData call)
+	// local database for client and server both stores last connected serve IP, systemType, and last login biller detail, and JWT for app expiry and license/trial data in startup_config table .
 
-      // if server IPAddress is undefined redirect to ./serveConfig to start server or in case of client add server IPAdress
-      if (!data?.system_type || !data?.ip) {
-        navigate("./serverConfig");
-        return;
-      }
+	const { data: serverData, isLoading: serverDataLoading } = useQuery({
+		queryKey: ["serverData"],
+		queryFn: getServerData,
+		onSuccess: async data => {
+			//if sync code id not in database redirect to ./POSConfig to start new app setup
+			if (!data?.sync_code) {
+				navigate("./POSConfig");
+				return;
+			}
 
-      if (
-        !data.subscriptionStatus ||
-        (data.subscriptionStatus.is_free_trial === 0 &&
-          data.subscriptionStatus.is_licence === 0)
-      ) {
-        navigate("./subscription");
-        return;
-      }
+			// if server IPAddress is undefined redirect to ./serveConfig to start server or in case of client add server IPAdress
+			if (!data?.system_type || !data?.ip) {
+				navigate("./serverConfig");
+				return;
+			}
 
-      // if all both IPAddress and system type is there dispatch these value in redux server_config slice for future api calls
-      if (data?.ip) {
-        dispatch(setSystem({ name: "IPAddress", value: data.ip }));
-        dispatch(setSystem({ name: "systemType", value: data.system_type }));
-        dispatch(setSystem({ name: "biller", value: data["last_login_user"] }));
-        dispatch(
-          setSystem({ name: "subscription", value: data.subscriptionStatus })
-        );
-      }
+			// check for subscription status and if trial / licence is  expired navigatet ot subscription page
+			if (!data.subscriptionStatus || (data.subscriptionStatus.is_free_trial === 0 && data.subscriptionStatus.is_licence === 0)) {
+				navigate("./subscription");
+				return;
+			}
 
-      // if biller is logged out before closing app and last_login_user is null redirect to login page
-      if (data.last_login_user === null) {
-        navigate("./login");
-        return;
-      }
-    },
-    onError: () => {
-      //this is for browse as browser cant make requst to system it will return error, in final build handle error by navigating to appropreate page
-      // remove this in final build as it is omly for starting app in browser and handle error by redirecting to POSconfing page or serverConfig page
-      dispatch(setSystem({ name: "IPAddress", value: "192.168.1.64" }));
-      dispatch(setSystem({ name: "systemType", value: "client" }));
-      dispatch(setSystem({ name: "biller", value: "biller" }));
-      // navigate("./POSConfig");
-    },
-    staleTime: 5000000,
-    refetchOnWindowFocus: false,
-    refetchIntervalInBackground: false,
-    retry: false,
-  });
+			// if all both IPAddress and system type is there dispatch these value in redux server_config slice for future api calls
+			if (data?.ip) {
+				dispatch(setSystem({ name: "IPAddress", value: data.ip }));
+				dispatch(setSystem({ name: "systemType", value: data.system_type }));
+				dispatch(setSystem({ name: "biller", value: data["last_login_user"] }));
+				dispatch(setSystem({ name: "subscription", value: data.subscriptionStatus }));
+			}
 
-  //this query call get DefaultData and can only be made after IPAddress be awailaible (which will be after previos query call "serverData"), and setup default variables in redux slice
-  const { data, isLoading } = useQuery({
-    queryKey: ["defaultScreen"],
-    queryFn: getServerStatus,
-    onSuccess: async (data) => {
-      dispatch(
-        modifyCartData({
-          orderType: data.default_order_type || "delivery",
-          paymentMethod: data.default_payment_type || "cash",
-        })
-      );
-      dispatch(
-        setActive({
-          key: "restaurantPriceId",
-          name: +data.default_restaurant_price || null,
-        })
-      );
+			// if biller is logged out before closing app and last_login_user is null redirect to login page
+			if (data.last_login_user === null) {
+				navigate("./login");
+				return;
+			}
+		},
+		onError: () => {
+			//this is for browse as browser cant make request to system it will return error, in final build handle error by navigating to appropriate page
+			// remove this in final build as it is only for starting app in browser and handle error by redirecting to POSconfing page or serverConfig page
+			dispatch(setSystem({ name: "IPAddress", value: "192.168.1.64" }));
+			dispatch(setSystem({ name: "systemType", value: "client" }));
+			dispatch(setSystem({ name: "biller", value: "biller" }));
+			// navigate("./POSConfig");
+		},
+		staleTime: 5000000,
+		refetchOnWindowFocus: false,
+		refetchIntervalInBackground: false,
+		retry: false,
+	});
 
-      if (!biller) {
-        navigate("./login");
-        return;
-      }
+	//this query call get DefaultData and can only be made after IPAddress be available (which will be after previous query call "serverData"), and setup default variables in redux slice
+	const { data, isLoading } = useQuery({
+		queryKey: ["defaultScreen"],
+		queryFn: getServerStatus,
+		onSuccess: async data => {
 
-      data.default_view === "table_view"
-        ? navigate("./Home/tableView")
-        : navigate("./Home");
-    },
-    onError: () => {
-      navigate("./serverConfig");
-    },
-    refetchOnWindowFocus: false,
-    refetchIntervalInBackground: false,
-    retry: false,
-    enabled: !!IPAddress && !!biller,
-  });
+      // on success setup default app data eg order type / payment method in finalOrder slice ( this runs on every time app refresh / start to set default data) 
+			dispatch(
+				modifyCartData({
+					orderType: data.default_order_type || "delivery",
+					paymentMethod: data.default_payment_type || "cash",
+				})
+			);
 
-  // routing for the app
-  return isLoading || serverDataLoading ? (
-    <div className={styles.loadingContainer}>
-      <Loading />
-    </div>
-  ) : (
-    <div className={styles.main}>
-      <Routes>
-        <Route path="serverConfig" element={<ServerConfig />} />
-        <Route path="POSConfig" element={<POSConfig />} />
-        <Route path="login" element={<BillerLogin />} />
-        <Route path="subscription" element={<Subscription />} />
-        <Route path="Home" element={<MainNav />}>
-          <Route index element={<Home />} />
-          <Route path="LiveView" element={<LiveView />}>
-            <Route path="OrderView" element={<OrderView />} />
-            <Route path="KOTView" element={<KOTView />} />
-          </Route>
-          <Route path="tableView" element={<TableView />} />
-          <Route path="configuration">
-            <Route index element={<Configuration />} />
-            <Route path="captaion" element={<CaptionConnect />} />
-            <Route path="billingScreenConfig">
-              <Route index element={<BillingScreenConfig />} />
-              <Route path="editBillingScreen" element={<EditBillingScreen />} />
-            </Route>
-            <Route path="printerConfig">
-              <Route index element={<PrinterConfig />} />
-              <Route path="PrintersList">
-                <Route index element={<PrintersList />} />
-                <Route path=":printerId" element={<EditPrinter />} />
-                <Route path="printerAssign/:printerId">
-                  <Route index element={<PrinterAssign />} />
-                  <Route path="assignKot" element={<AssignKot />} />
-                  <Route path="assignBill" element={<AssignBill />} />
-                </Route>
-              </Route>
-            </Route>
-          </Route>
-          <Route path="reports">
-            <Route path="ordersSummary" element={<OrdersSummary />} />
-            <Route path="salesSummary" element={<SalesSummary />} />
-          </Route>
-        </Route>
 
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
-      </Routes>
-      <ToastContainer />
-    </div>
-  );
+      //setup default price type 
+			dispatch(
+				setActive({
+					key: "restaurantPriceId",
+					name: +data.default_restaurant_price || null,
+				})
+			);
+
+
+      // if biller is not set navigate to login page 
+			if (!biller) {
+				navigate("./login");
+				return;
+			}
+
+      // navigate to default initial landing page ( there are two main landing page table view and home(order view) navigate to )
+			data.default_view === "table_view" ? navigate("./Home/tableView") : navigate("./Home");
+		},
+		onError: () => {
+
+      //if api call not success that means server at that ip is not running so navigate to serverconfig page to re enter server ip address 
+			navigate("./serverConfig");
+		},
+		refetchOnWindowFocus: false,
+		refetchIntervalInBackground: false,
+		retry: false,
+		enabled: !!IPAddress && !!biller,
+	});
+
+	// routing for the app
+	return isLoading || serverDataLoading ? (
+		<div className={styles.loadingContainer}>
+			<Loading />
+		</div>
+	) : (
+		<div className={styles.main}>
+			<Routes>
+				<Route path="POSConfig" element={<POSConfig />} />
+				database
+				<Route path="serverConfig" element={<ServerConfig />} /> 
+				<Route path="login" element={<BillerLogin />} /> 
+				<Route path="subscription" element={<Subscription />} /> 
+				<Route path="Home" element={<MainNav />}>
+					{" "}
+				
+					<Route index element={<Home />} /> 
+					<Route path="LiveView" element={<LiveView />}>
+						{" "}
+						
+						<Route path="OrderView" element={<OrderView />} /> 
+						<Route path="KOTView" element={<KOTView />} /> 
+					</Route>
+          
+					<Route path="tableView" element={<TableView />} />
+          
+					<Route path="configuration">
+						<Route index element={<Configuration />} />
+           
+						<Route path="captaion" element={<CaptionConnect />} />
+            
+						<Route path="billingScreenConfig">
+							<Route index element={<BillingScreenConfig />} />
+							<Route path="editBillingScreen" element={<EditBillingScreen />} />
+						</Route>
+
+            
+						<Route path="printerConfig">
+              
+							<Route index element={<PrinterConfig />} />
+              
+							<Route path="PrintersList">
+								<Route index element={<PrintersList />} />
+								<Route path=":printerId" element={<EditPrinter />} />
+								<Route path="printerAssign/:printerId">
+									<Route index element={<PrinterAssign />} />
+									<Route path="assignKot" element={<AssignKot />} />
+									<Route path="assignBill" element={<AssignBill />} />
+								</Route>
+							</Route>
+						</Route>
+					</Route>
+					<Route path="reports">
+						<Route path="ordersSummary" element={<OrdersSummary />} />
+						<Route path="salesSummary" element={<SalesSummary />} />
+					</Route>
+				</Route>
+				{/* <Route path="*" element={<Navigate to="/" />} /> */}
+			</Routes>
+			<ToastContainer />
+		</div>
+	);
 }
 
 export default Main;

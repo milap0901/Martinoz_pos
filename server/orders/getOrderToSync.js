@@ -61,6 +61,8 @@ const getOrderToSync = () => {
       },
     };
 
+    
+
     const items = itemsStmt.all([order.id]);
 
     items.forEach((item) => {

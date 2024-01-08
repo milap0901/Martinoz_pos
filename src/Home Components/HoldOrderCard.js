@@ -8,12 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
 function HoldOrderCard({ order, setShowHoldOrders, idx }) {
+
   const holdOrder = order.holdOrder;
   const dispatch = useDispatch();
   const { IPAddress } = useSelector((state) => state.serverConfig);
   const navigate = useNavigate();
 
-  const deletHoldOrders = async (id) => {
+
+
+  const deleteHoldOrders = async (id) => {
     // let { data } = await axios.delete(`http://${IPAddress}:3001/holdOrder`, { params: { id } });
     let { data } = await axios.delete(
       `http://${IPAddress}:3001/api/v2/holdOrder`,
@@ -21,14 +24,24 @@ function HoldOrderCard({ order, setShowHoldOrders, idx }) {
     );
   };
 
+  //mutation for deleting hold order
   const holdOrderMutation = useMutation({
-    mutationFn: deletHoldOrders,
+    mutationFn: deleteHoldOrders,
   });
 
+  // onclick handler for hold order card
   const setAsFinalOrder = async (holdOrder) => {
+    // set hold orders into finalOrder slice 
+    //holdToFinalOrder function convert hold order to orders
     dispatch(holdToFinalOrder({ holdOrder }));
+
+    // delete that hold order from server database
     holdOrderMutation.mutate(order.id);
+
+    //close hold order sidebar
     await setShowHoldOrders(false);
+
+    // navigate to home screen in case not in home screen
     navigate("/Home");
   };
 

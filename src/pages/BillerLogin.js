@@ -7,11 +7,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 function BillerLogin() {
+
+  // refs for uncontrolled input for password and biller name inputs
   const nameRef = useRef();
   const passRef = useRef();
+
+// custom mutation hook for authentication of biller
+
   const { mutate: authMutate, isLoading } = useAuthenticateMutation();
 
+// onclick handler for login
   const handleLogin = () => {
+
+    // input field validation
     if (!nameRef.current.value) {
       notify("err", "Username Required ");
       return;
@@ -26,6 +34,8 @@ function BillerLogin() {
       name: nameRef.current.value.trim(),
       password: passRef.current.value.trim(),
     };
+
+    
     authMutate(billerDetail);
   };
 

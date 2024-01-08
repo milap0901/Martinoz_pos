@@ -5,6 +5,8 @@ import { modifyCartData } from "../Redux/finalOrderSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAutofocus } from "../Utils/useAutofocus";
 
+
+//order comment component
 function OrderComment({ showDetailType }) {
 	let { orderComment } = useSelector(state => state.finalOrder);
 	let dispatch = useDispatch();

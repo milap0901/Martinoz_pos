@@ -33,19 +33,38 @@ import { useGetMenuQuery2 } from "../Utils/customQueryHooks";
 import { useLogoutMutation } from "../Utils/customMutationHooks";
 
 function MainNav() {
+  // holdorder sidebar hide/show status
   const [showHoldOrders, setShowHoldOrders] = useState(false);
+  // config sidebar hide/show status
   const [showConfigSideBar, setShowConfigSideBar] = useState(false);
+
+  //mutation for logging out biller
   const { mutate: logoutMutate } = useLogoutMutation();
+
 
   const { isLoading, data: bigMenu } = useGetMenuQuery2();
   const defaultSettings = bigMenu?.defaultSettings || {};
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // custom hook to deploy shortcut keys
   useDeployHotkeys();
 
+
+  //function for resetting order cart or start taking new order
+  // onclick handler for "new order" button
   const getNewOrderPage = () => {
+
+    //reset order by dispatching to finalOrder slice
     dispatch(resetFinalOrder());
+
+    //reset activeUi slice 
+    // isCartActionDisable decides can you click on items as in some case it will be disabled
+    //restaurantPriceId decides area vise pricing of the items
+    //activeOrderBtns decides which action btns should be showing
+
+   
     dispatch(
       modifyUIActive({
         isCartActionDisable: false,
@@ -53,21 +72,29 @@ function MainNav() {
         activeOrderBtns: ["save", "kot", "hold"],
       })
     );
+
+
+    //reset finalOrder slice to defaults
     dispatch(
       modifyCartData({
         orderType: defaultSettings.default_order_type || "delivery",
         paymentMethod: defaultSettings.default_payment_type || "cash",
       })
     );
+
+    // navigate to default landing page
     defaultSettings.default_view === "table_view"
       ? navigate("/Home/tableView")
       : navigate("/Home");
   };
 
+  //logout biller
+  //todo : handle logout
   const handleLogout = () => {
     logoutMutate({ name: null, password: null });
   };
 
+  // deploy hotkey for new order
   useHotkeys("ctrl+n", () => getNewOrderPage());
 
   return (
@@ -80,6 +107,7 @@ function MainNav() {
               icon={faBars}
               onClick={() => setShowConfigSideBar(true)}
             />
+
             <Navbar.Brand className="fw-bolder text-danger fs-4 ps-1">
               Martino'z 0.3.46
             </Navbar.Brand>
@@ -92,12 +120,6 @@ function MainNav() {
             >
               New Order
             </Button>
-
-            {/* <Form className={`d-flex ${styles.billSearchInput}`}>
-							<InputGroup>
-								<Form.Control type="search" placeholder="&#xF002; Search Bill No" className={`me-2 ${styles.searchInput}`} aria-label="Search" />
-							</InputGroup>
-						</Form> */}
           </div>
 
           <div className="d-flex flex-nowrap align-items-center">
@@ -157,10 +179,13 @@ function MainNav() {
         </Container>
       </Navbar>
 
+ 
       <HoldOrders
         showHoldOrders={showHoldOrders}
         setShowHoldOrders={setShowHoldOrders}
       />
+
+
       <ConfigSideBar
         handleLogout={handleLogout}
         showConfigSideBar={showConfigSideBar}

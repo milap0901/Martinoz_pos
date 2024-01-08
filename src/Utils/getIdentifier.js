@@ -6,7 +6,7 @@ export const getIdentifier = (itemId, variation_id, toppings) => {
 		identifier.push(variation_id);
 	}
 
-	if (toppings.length) {
+	if (toppings && toppings.length) {
 		toppings
 			.slice()
 			.sort((a, b) => {

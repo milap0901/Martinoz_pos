@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { changePriceOnAreaChange, modifyCartData } from "../Redux/finalOrderSlice";
 import { modifyUIActive } from "../Redux/UIActiveSlice";
 import { useGetMenuQuery2 } from "../Utils/customQueryHooks";
-import { useSearchParams } from "react-router-dom";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { useAutofocus } from "../Utils/useAutofocus";
 
@@ -12,6 +12,7 @@ function TableNumber({ showDetailType }) {
 	const orderCart = useSelector(state => state.finalOrder.orderCart);
 	const tableNumber = useSelector(state => state.finalOrder.tableNumber);
 
+	// custom hook for autofocus the tableNumber input field
 	const autoFocusRef = useAutofocus(showDetailType, "tableNumber");
 
 	const { data: bigMenu } = useGetMenuQuery2();
@@ -20,15 +21,21 @@ function TableNumber({ showDetailType }) {
 
 	const dispatch = useDispatch();
 
+
+	//handle change table number
+	// while changing table number also change area and restaurant price base on table number
 	const hanndleChange = e => {
 		let tableNo = e.target.value;
-		let area = bigMenu.areas.find(area => area.tables.some(table => table.table_no === tableNo));
+		let area = bigMenu.areas.find(area => area.tables.some(table => table.table_no === tableNo)); 
 		let areaName = area?.area || "Other";
 		let updatedRestaurantPriceId = area?.restaurant_price_id || +bigMenu.defaultSettings.default_restaurant_price || null;
 		dispatch(modifyUIActive({ restaurantPriceId: updatedRestaurantPriceId }));
 		dispatch(modifyCartData({ tableNumber: tableNo, tableArea: areaName }));
 	};
 
+
+// this useEffect runs when restaurantPriceId changes and changes cart item prices base on restaurantPriceId
+// todo : this works fine but change this implementation as useEffect is unpredictable and may causes errors that is difficult to debug
 	useEffect(() => {
 		let timeOut = setTimeout(() => {
 			console.log("table changed");
@@ -79,6 +86,7 @@ function TableNumber({ showDetailType }) {
 
 		return () => clearTimeout(timeOut);
 	}, [restaurantPriceId, bigMenu]);
+
 
 	return (
 		<AnimatePresence initial={true}>
