@@ -550,7 +550,7 @@ httpServer.listen(3001, async (err) => {
   if (err) {
     console.log(err);
   } else {
-    process.send({ status: "started" });
+    process.send({ status: "started",data:{} });
     const { isUpdated, customerNames } = await setPendingOrders();
     if (isUpdated) {
       const pendingOrders = getPendingOrders();

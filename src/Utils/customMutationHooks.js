@@ -246,7 +246,8 @@ export const useKotMutation = (
   printers,
   setShowOrderExistModal,
   setShowMultipay,
-  setMultipayControlType
+  setMultipayControlType,
+  setShouldPrintKOT
 ) => {
   const dispatch = useDispatch();
   const { IPAddress } = useSelector((state) => state.serverConfig);
@@ -274,7 +275,9 @@ export const useKotMutation = (
         };
 
         try {
-          await executeKotPrint(finalOrder, printers);
+          if (finalOrder.printCount !== 0) {
+            await executeKotPrint(finalOrder, printers);
+          }
         } catch (error) {
           console.log(error);
         }
@@ -290,6 +293,9 @@ export const useKotMutation = (
           setMultipayControlType("kot");
           setShowMultipay(true);
           return;
+        }
+        if (finalOrder.printCount !== 0) {
+          setShouldPrintKOT(true);
         }
         setShowOrderExistModal(true);
         return;
@@ -520,7 +526,9 @@ export const useIncludeKotAndCreateOrderMutation = (
 export const useUpdateOrderAndCreateKOTMutation = (
   printers,
   hide,
-  finalOrder
+  finalOrder,
+  shouldPrintKOT,
+  setShouldPrintKOT
 ) => {
   const { IPAddress } = useSelector((state) => state.serverConfig);
   const dispatch = useDispatch();
@@ -538,7 +546,11 @@ export const useUpdateOrderAndCreateKOTMutation = (
     mutationFn: handleConfirm,
     onSuccess: (data) => {
       hide();
-      executeKotPrint({ ...finalOrder, kotTokenNo: data }, printers);
+
+      if (shouldPrintKOT) {
+        executeKotPrint({ ...finalOrder, kotTokenNo: data }, printers);
+      }
+      setShouldPrintKOT(false);
       dispatch(resetFinalOrder());
       notify("success", "Orders and KOT updated");
     },

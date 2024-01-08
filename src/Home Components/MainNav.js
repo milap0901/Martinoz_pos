@@ -1,36 +1,38 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
-import InputGroup from "react-bootstrap/InputGroup";
 import styles from "./MainNav.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faStore,
-  faBowlFood,
-  faUsersViewfinder,
-  faTruck,
-  faCirclePause,
-  faBellConcierge,
-  faBell,
-  faUser,
-  faPowerOff,
-  faPhone,
-  faGlobe,
+	faStore,
+	faBowlFood,
+	faUsersViewfinder,
+	faTruck,
+	faCirclePause,
+	faBellConcierge,
+	faBell,
+	faUser,
+	faPowerOff,
+	faPhone,
+	faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { modifyCartData, resetFinalOrder } from "../Redux/finalOrderSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ConfigSideBar from "./ConfigSideBar";
 import HoldOrders from "./HoldOrders";
 import { modifyUIActive } from "../Redux/UIActiveSlice";
 import { useHotkeys } from "react-hotkeys-hook";
 import useDeployHotkeys from "../Utils/useDeployHotkeys";
 import PendingOrderLink from "./PendingOrderLink";
-import { useGetMenuQuery2 } from "../Utils/customQueryHooks";
+import { useGetMenuQuery2, useGetPrintersQuery } from "../Utils/customQueryHooks";
 import { useLogoutMutation } from "../Utils/customMutationHooks";
+
+import { executeBillPrint } from "../Utils/executePrint";
+import sortPrinters from "../Utils/shortPrinters";
+import useSocketPrint from "../Utils/useSocketPrint";
 
 function MainNav() {
   // holdorder sidebar hide/show status
@@ -42,8 +44,8 @@ function MainNav() {
   const { mutate: logoutMutate } = useLogoutMutation();
 
 
-  const { isLoading, data: bigMenu } = useGetMenuQuery2();
-  const defaultSettings = bigMenu?.defaultSettings || {};
+	const { isLoading, data: bigMenu } = useGetMenuQuery2();
+	const defaultSettings = bigMenu?.defaultSettings || {};
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -122,20 +124,14 @@ function MainNav() {
             </Button>
           </div>
 
-          <div className="d-flex flex-nowrap align-items-center">
-            <Link
-              className={`d-flex align-items-center ${styles.contact} flex-nowrap py-0 px-1 me-3 rounded-1`}
-            >
-              <FontAwesomeIcon className="mx-2" icon={faPhone} />
-              <div
-                className={`d-flex flex-column ${styles.contactText} flex-nowrap`}
-              >
-                <div className="d-flex text-nowrap my-0 py-0 me-1">
-                  call for support
-                </div>
-                <div className="d-flex text-nowrap my-0 py-0">8236855222</div>
-              </div>
-            </Link>
+					<div className="d-flex flex-nowrap align-items-center">
+						<Link className={`d-flex align-items-center ${styles.contact} flex-nowrap py-0 px-1 me-3 rounded-1`}>
+							<FontAwesomeIcon className="mx-2" icon={faPhone} />
+							<div className={`d-flex flex-column ${styles.contactText} flex-nowrap`}>
+								<div className="d-flex text-nowrap my-0 py-0 me-1">call for support</div>
+								<div className="d-flex text-nowrap my-0 py-0">8236855222</div>
+							</div>
+						</Link>
 
             <Link className={styles.Link} to="/serverConfig">
               <FontAwesomeIcon className={styles.LinkIcon} icon={faStore} />

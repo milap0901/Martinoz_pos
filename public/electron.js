@@ -89,6 +89,7 @@ function createWindow() {
 
   if (startupConfig?.system_type === "server") {
     serverProcess?.on("message", (message) => {
+      console.log(message)
       if (message.status === "started") {
         mainWindow.loadURL(appURL);
       }
@@ -231,6 +232,7 @@ ipcMain.handle("setup", async (event, payload) => {
     return { status: "started" };
   }
 });
+
 
 ipcMain.handle("updateLoginUser", async (event, payload) => {
   const { name } = payload;
@@ -375,6 +377,8 @@ ipcMain.handle("kotPrint", async (event, payload) => {
 
 ipcMain.handle("InvoicePrint", async (event, payload) => {
   try {
+
+    console.log(payload)
     await InvoicePrint(payload);
   } catch (error) {
     console.log(err);

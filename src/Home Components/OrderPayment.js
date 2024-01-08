@@ -51,13 +51,14 @@ function OrderPayment() {
 	const printers = printerArr?.length ? sortPrinters(printerArr) : [];
 	// const defaultSettings = bigMenu?.defaultSettings || {};
 
-	let [searchParams, setSearchParams] = useSearchParams();
-	const [shouldPrintOrder, setShouldPrintOrder] = useState(false);
-	const [showOrderExistModal, setShowOrderExistModal] = useState(false);
-	const [showKOTExistMOdal, setShowKOTExistModal] = useState(false);
-	const [showCancelModal, setShowCancelModal] = useState(false);
-	const [showMultipay, setShowMultipay] = useState(false);
-	const [multipayControlType, setMultipayControlType] = useState("order");
+  let [searchParams, setSearchParams] = useSearchParams();
+  const [shouldPrintOrder, setShouldPrintOrder] = useState(false);
+  const [shouldPrintKOT, setShouldPrintKOT] = useState(false);
+  const [showOrderExistModal, setShowOrderExistModal] = useState(false);
+  const [showKOTExistMOdal, setShowKOTExistModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showMultipay, setShowMultipay] = useState(false);
+  const [multipayControlType, setMultipayControlType] = useState("order");
 
 	const { IPAddress } = useSelector(state => state.serverConfig);
 	const dispatch = useDispatch();
@@ -77,7 +78,13 @@ function OrderPayment() {
 
 	const { mutate: kotToOrderMutate } = useKotToOrderMutation();
 
-	const { mutate: kotMutate } = useKotMutation(printers, setShowOrderExistModal, setShowMultipay, setMultipayControlType);
+  const { mutate: kotMutate } = useKotMutation(
+    printers,
+    setShowOrderExistModal,
+    setShowMultipay,
+    setMultipayControlType,
+    setShouldPrintKOT
+  );
 
 	const { mutate: modifyKotMutate } = useModifyKotMutation(printers);
 
@@ -142,11 +149,33 @@ function OrderPayment() {
 		}
 	};
 
-	const createKOT = async (finalOrder, printers) => {
-		const isValid = validateOrder(finalOrder, setSearchParams, customerPhoneMandatory);
-		if (!isValid) {
-			return;
-		}
+  const createKOTPrint = async (finalOrder, printers) => {
+    const isValid = validateOrder(
+      finalOrder,
+      setSearchParams,
+      customerPhoneMandatory
+    );
+    if (!isValid) {
+      return;
+    }
+
+    if (finalOrder.cartAction === "modifyKot") {
+      modifyKotMutate({ ...finalOrder, printCount: finalOrder.printCount + 1 });
+      return;
+    }
+
+    kotMutate({ ...finalOrder, printCount: finalOrder.printCount + 1 });
+  };
+
+  const createKOT = async (finalOrder) => {
+    const isValid = validateOrder(
+      finalOrder,
+      setSearchParams,
+      customerPhoneMandatory
+    );
+    if (!isValid) {
+      return;
+    }
 
 		if (finalOrder.cartAction === "modifyKot") {
 			modifyKotMutate(finalOrder);
@@ -265,26 +294,28 @@ function OrderPayment() {
 						</>
 					) : null}
 
-					{/* <Button variant="danger" size="sm" className="mx-1 py-1 fw-light px-2 fw-normal text-nowrap rounded-1"> Save & eBill </Button> */}
-					{/* <Button variant="secondary" size="sm" className="mx-1 py-1 fw-light px-2 fw-normal text-nowrap rounded-1"> KOT </Button> */}
-					{activeOrderBtns.includes("kot") ? (
-						<>
-							<Button
-								variant="secondary"
-								size="sm"
-								className="mx-1 py-1 px-2 fw-bold text-nowrap rounded-1"
-								onClick={() => createKOT(finalOrder, printers)}>
-								KOT & Print
-							</Button>
-							<Button
-								variant="secondary"
-								size="sm"
-								className="mx-1 py-1 px-2 fw-bold text-nowrap rounded-1"
-								onClick={() => {}}>
-								KOT
-							</Button>
-						</>
-					) : null}
+          {/* <Button variant="danger" size="sm" className="mx-1 py-1 fw-light px-2 fw-normal text-nowrap rounded-1"> Save & eBill </Button> */}
+          {/* <Button variant="secondary" size="sm" className="mx-1 py-1 fw-light px-2 fw-normal text-nowrap rounded-1"> KOT </Button> */}
+          {activeOrderBtns.includes("kot") ? (
+            <>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="mx-1 py-1 px-2 fw-bold text-nowrap rounded-1"
+                onClick={() => createKOTPrint(finalOrder, printers)}
+              >
+                KOT & Print
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="mx-1 py-1 px-2 fw-bold text-nowrap rounded-1"
+                onClick={() => createKOT(finalOrder, printers)}
+              >
+                KOT
+              </Button>
+            </>
+          ) : null}
 
 					{activeOrderBtns.includes("hold") ? (
 						<>
@@ -298,64 +329,73 @@ function OrderPayment() {
 						</>
 					) : null}
 
-					{activeOrderBtns.includes("cancel") ? (
-						<>
-							<Button
-								variant="white"
-								size="sm"
-								className="mx-1 pe-auto py-1 px-3 fw-bold border-1 border border-dark text-nowrap rounded-1"
-								onClick={handleCancel}>
-								Cancel
-							</Button>
-						</>
-					) : null}
-				</>
-			</div>
-			{showOrderExistModal && (
-				<OrderExistAlertModal
-					show={showOrderExistModal}
-					hide={() => setShowOrderExistModal(false)}
-					IPAddress={IPAddress}
-					finalOrder={finalOrder}
-					printers={printers}
-					notify={notify}
-				/>
-			)}
-			{showKOTExistMOdal && (
-				<KOTExistAlertModal
-					show={showKOTExistMOdal}
-					hide={() => {
-						setShowKOTExistModal(false);
-					}}
-					shouldPrintOrder={shouldPrintOrder}
-					setShouldPrintOrder={setShouldPrintOrder}
-					printers={printers}
-					defaultSettings={defaultSettings}
-					IPAddress={IPAddress}
-					finalOrder={finalOrder}
-					notify={notify}
-				/>
-			)}
-			{showCancelModal && <OrderCancelAlertModal show={showCancelModal} hide={() => setShowCancelModal(false)} finalOrder={finalOrder} />}
-			{showMultipay && (
-				<MultipayModal
-					show={showMultipay}
-					hide={() => setShowMultipay(false)}
-					kotToOrderMutate={kotToOrderMutate}
-					kotToPrintOrderMutate={kotToPrintOrderMutate}
-					orderMutate={orderMutate}
-					printOrderMutate={printOrderMutate}
-					finalOrder={finalOrder}
-					printers={printers}
-					defaultSettings={defaultSettings}
-					shouldPrintOrder={shouldPrintOrder}
-					setShouldPrintOrder={setShouldPrintOrder}
-					multipayControlType={multipayControlType}
-					setMultipayControlType={setMultipayControlType}
-				/>
-			)}
-		</div>
-	);
+          {activeOrderBtns.includes("cancel") ? (
+            <>
+              <Button
+                variant="white"
+                size="sm"
+                className="mx-1 pe-auto py-1 px-3 fw-bold border-1 border border-dark text-nowrap rounded-1"
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
+            </>
+          ) : null}
+        </>
+      </div>
+      {showOrderExistModal && (
+        <OrderExistAlertModal
+          show={showOrderExistModal}
+          hide={() => setShowOrderExistModal(false)}
+          IPAddress={IPAddress}
+          finalOrder={finalOrder}
+          shouldPrintKOT={shouldPrintKOT}
+          setShouldPrintKOT={setShouldPrintKOT}
+          printers={printers}
+          notify={notify}
+        />
+      )}
+      {showKOTExistMOdal && (
+        <KOTExistAlertModal
+          show={showKOTExistMOdal}
+          hide={() => {
+            setShowKOTExistModal(false);
+          }}
+          shouldPrintOrder={shouldPrintOrder}
+          setShouldPrintOrder={setShouldPrintOrder}
+          printers={printers}
+          defaultSettings={defaultSettings}
+          IPAddress={IPAddress}
+          finalOrder={finalOrder}
+          notify={notify}
+        />
+      )}
+      {showCancelModal && (
+        <OrderCancelAlertModal
+          show={showCancelModal}
+          hide={() => setShowCancelModal(false)}
+          finalOrder={finalOrder}
+        />
+      )}
+      {showMultipay && (
+        <MultipayModal
+          show={showMultipay}
+          hide={() => setShowMultipay(false)}
+          kotToOrderMutate={kotToOrderMutate}
+          kotToPrintOrderMutate={kotToPrintOrderMutate}
+          orderMutate={orderMutate}
+          printOrderMutate={printOrderMutate}
+          finalOrder={finalOrder}
+          printers={printers}
+          defaultSettings={defaultSettings}
+          shouldPrintOrder={shouldPrintOrder}
+          setShouldPrintOrder={setShouldPrintOrder}
+          multipayControlType={multipayControlType}
+          setMultipayControlType={setMultipayControlType}
+        />
+      )}
+    </div>
+  );
 }
 
 export default OrderPayment;

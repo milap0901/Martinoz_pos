@@ -13,9 +13,9 @@ const createOrder = order => {
 		const cutOffYear = lastOrderMonth < 4 ? lastOrderTime.getFullYear() : lastOrderTime.getFullYear() + 1;
 		const cutOffTime = new Date(`${cutOffYear}-03-31T23:59:59`);
 
-		console.log(cutOffTime, "cutoff");
-		console.log(currentOrderTime, "current");
-		console.log(lastOrderTime, "last");
+    // console.log(cutOffTime, "cutoff");
+    // console.log(currentOrderTime, "current");
+    // console.log(lastOrderTime, "last");
 
 		let newBillNo = lastBillNo + 1;
 
@@ -40,37 +40,38 @@ const createOrder = order => {
 	let restaurantId = 1;
 	let orderId;
 
-	const {
-		customerName = "",
-		customerContact = "",
-		customerAdd = "",
-		customerLocality = "",
-		deliveryCharge = 0,
-		packagingCharge = 0,
-		discount,
-		paymentMethod,
-		orderType,
-		orderComment,
-		cartTotal,
-		tax,
-		subTotal,
-		tableNumber,
-		orderCart,
-		printCount,
-		order_status,
-		online_order_id = null,
-		discount_type,
-		discount_percent,
-		promo_id = null,
-		promo_discount = 0,
-		promo_code = null,
-		billPaid = 0,
-		multipay = [],
-		pending_order_id = null,
-		taxDetails = [],
-		biller_id = 1,
-		biller_name = "biller",
-	} = order;
+  const {
+    customerName = "",
+    customerContact = "",
+    customerAdd = "",
+    customerLocality = "",
+    deliveryCharge = 0,
+    packagingCharge = 0,
+    discount,
+    paymentMethod,
+    orderType,
+    orderComment,
+    cartTotal,
+	platform="pos",
+    tax,
+    subTotal,
+    tableNumber,
+    orderCart,
+    printCount,
+    order_status,
+    online_order_id = null,
+    discount_type,
+    discount_percent,
+    promo_id = null,
+    promo_discount = 0,
+    promo_code = null,
+    billPaid = 0,
+    multipay = [],
+    pending_order_id = null,
+    taxDetails = [],
+    biller_id = 1,
+    biller_name = "biller",
+  } = order;
 
 	const extra_data_string = JSON.stringify({
 		online_order_id,
@@ -101,47 +102,57 @@ const createOrder = order => {
 		} else {
 			userId = existingUserInfo.id;
 
-			if (customerAdd.trim() !== "") {
-				db2.prepare(
-					"INSERT INTO customer_addresses (customer_id, complete_address,landmark,created_at,updated_at) SELECT ?, ?, ?, datetime('now', 'localtime'), datetime('now', 'localtime') WHERE NOT EXISTS (SELECT 1 FROM customer_addresses WHERE customer_id= ? AND complete_address=? AND landmark=?)"
-				).run([userId, customerAdd?.trim(), customerLocality?.trim(), userId, customerAdd?.trim(), customerLocality?.trim()]);
-			}
-		}
-	}
+      if (customerAdd.trim() !== "") {
+        db2
+          .prepare(
+            "INSERT INTO customer_addresses (customer_id, complete_address,landmark,created_at,updated_at) SELECT ?, ?, ?, datetime('now', 'localtime'), datetime('now', 'localtime') WHERE NOT EXISTS (SELECT 1 FROM customer_addresses WHERE customer_id= ? AND complete_address=? AND landmark=?)"
+          )
+          .run([
+            userId,
+            customerAdd?.trim(),
+            customerLocality?.trim(),
+            userId,
+            customerAdd?.trim(),
+            customerLocality?.trim(),
+          ]);
+      }
+    }
+  }
 
-	const orderTrans = db2.transaction(userId => {
-		const orderInfo = db2
-			.prepare(
-				"INSERT INTO pos_orders (customer_id,bill_no,restaurant_id,customer_name,complete_address,phone_number,order_type,dine_in_table_no,item_total,description,total_discount,discount_percent,total_tax,delivery_charges,total,payment_type,order_status,print_count,promo_id,promo_code,promo_discount,bill_paid,extra_data,tax_details,biller_id,biller_name,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,datetime('now', 'localtime'), datetime('now', 'localtime'))"
-			)
-			.run([
-				userId,
-				orderNo,
-				restaurantId,
-				customerName,
-				customerAdd,
-				customerContact,
-				orderType,
-				tableNumber,
-				subTotal,
-				orderComment,
-				discount,
-				discount_percent,
-				tax,
-				deliveryCharge,
-				cartTotal,
-				paymentMethod,
-				order_status,
-				printCount,
-				promo_id,
-				promo_code,
-				promo_discount,
-				Number(billPaid),
-				extra_data_string,
-				tax_details,
-				biller_id,
-				biller_name,
-			]);
+  const orderTrans = db2.transaction((userId) => {
+    const orderInfo = db2
+      .prepare(
+        "INSERT INTO pos_orders (customer_id,bill_no,restaurant_id,customer_name,complete_address,phone_number,order_type,dine_in_table_no,item_total,description,total_discount,discount_percent,total_tax,delivery_charges,total,payment_type,order_status,print_count,promo_id,promo_code,promo_discount,bill_paid,extra_data,tax_details,biller_id,biller_name,platform,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,datetime('now', 'localtime'),datetime('now', 'localtime'))"
+      )
+      .run([
+        userId,
+        orderNo,
+        restaurantId,
+        customerName,
+        customerAdd,
+        customerContact,
+        orderType,
+        tableNumber,
+        subTotal,
+        orderComment,
+        discount,
+        discount_percent,
+        tax,
+        deliveryCharge,
+        cartTotal,
+        paymentMethod,
+        order_status,
+        printCount,
+        promo_id,
+        promo_code,
+        promo_discount,
+        Number(billPaid),
+        extra_data_string,
+        tax_details,
+        biller_id,
+        biller_name,
+		platform
+      ]);
 
 		if (paymentMethod === "multipay") {
 			const mutipayPrepare = db2.prepare("INSERT INTO multipays (pos_order_id,payment_type,amount) VALUES (?,?,?)");
